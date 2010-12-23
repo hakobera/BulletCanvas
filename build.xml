@@ -1,4 +1,4 @@
-<project name="danmaku" default="gen-controller" basedir=".">
+<project name="bulletcanvas" default="gen-controller" basedir=".">
     <property file="build.properties" />
 
     <path id="classpath">
