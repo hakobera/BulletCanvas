@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<title>Bullet Canvas - Share your DANMAKU!!</title>
+	<link rel="apple-touch-icon" type="image/png" href="/images/home_icon.png">
+	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
+	<link href="css/top.css" rel="stylesheet" type="text/css"/>
+	<script src="js/lib/jquery/jquery-1.4.4.js"></script>
+	<script src="js/lib/jquery/jquery.cookie.js"></script>
+</head>
+<body>
+	<header>
+		<img class="logo" src="images/bullet_bill.png" alt="Logo"/>
+		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas <span class="version">BETA</span></h1>
+	</header>
+	<nav>
+		<ul>
+			<li><a id="login" href="/login/twitter/auth">Log in</a></li>
+			<li><a id="logout" href="/logout" style="display: none;">Log Out</a></li>
+		</ul>
+	</nav>
+	<h2>New</h2>
+	<section>
+		<article>
+			<h3><a href="#">大結界「博麗弾幕結界」</a></h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+				簡単な説明文をここにかけるよ
+			</p>
+		</article>
+		<article>
+			<h3>恋符「ノンディレクショナルレーザー」</h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+				１２３４５６７８９０
+				一二三四五六七八九〇
+				1234567890
+			</p>
+		</article>
+		<article>
+			<h3>月眼「月兎遠隔催眠術」</h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+			</p>
+		</article>
+		<article>
+			<h3>難題「仏の御石の鉢　-砕けぬ意思-」</h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+			</p>
+		</article>
+		<article>
+			<h3>野符「GHQクライシス」</h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+			</p>
+		</article>
+	</section>
+	<h2>Hot</h2>
+	<section>
+		<article>
+			<h3><a href="#">大結界「博麗弾幕結界」</a></h3>
+			<p class="thumbnail">
+			</p>
+			<p class="description">
+				簡単な説明文をここにかけるよ
+			</p>
+		</article>
+	</section>
+	<footer>
+		<span>&copy;2011 hakobera</span>
+	</footer>
+<script>
+$(function() {
+	if ($.cookie('account')) {
+		$('#login').hide();
+		$('#logout').show();
+	} else {
+		$('#login').show();
+		$('#logout').hide();
+	};
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+@CHARSET "utf-8";
+@IMPORT url("common.css");
+
+#content {
+	width: 100%;
+}
+
+#content h2 {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: inline-block;
+	width: 100px;
+	padding: 10px 0;
+	border-bottom-left-radius: 15px;
+	color: #fff;
+	background-color: #000;
+	font-size: 16px;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: top;
+}
+
+#mainBox {
+	width: 100%;
+	display: -webkit-box;
+	border-bottom: 1px solid #000; 
+}
+
+#canvasBox {
+	position: relative;
+	background-color: #fff;
+	-webkit-box-flex: 1;
+}
+
+#canvasBox .screenBox {
+	display: inline-block;
+	width: 420px;
+	padding: 3px;
+}
+
+#canvasBox #screen {
+	display: inline-block;
+	width: 400px;
+	height: 560px;
+}
+
+#canvasBox .infoTable {
+	display: inline-block;
+	width: 100px;
+}
+
+#canvasBox .infoTable td.label {
+	padding-right: 3px;
+	text-align: right;
+}
+
+#codeBox {
+	position: relative;
+	width: 430px;
+	padding-top: 35px;
+	border-left: 1px solid #000; 
+}
+
+#codeBox .editorBox {
+	margin: 10px 0 0 0;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background-color: #eee;
+}
+
+#codeBox textarea {
+	width: 410px;
+	height: 480px;
+	margin: 5px 0 0 5px;
+	padding: 5px;
+	color: #000;
+	font-size: 12px;
+}
+
+#codeBox .controlBox {
+	text-align: right;
+}
+
+#codeBox .controlBox {
+	padding: 5px;
+	vertical-align: bottom;
+}
+
+#codeBox .controlBox a.button {
+	display: inline-block;
+	padding: 10px 20px;
+	border-radius: 10px;
+	color: #fff;
+	background-color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#000));
+	font-size: 16px;
+	text-decoration: none;
+}
+
+#codeBox .controlBox a.button:hover {
+	color: #000;
+	background-color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#999));
+}
+
+#logBox {
+	position: relative;
+	width: 100%;
+	background-color: #eee;
+	line-height: 1.2em;
+	font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
+@media only screen and (max-height: 768px) {
+	#logBox {
+		display: none;
+	}
+}
+
+#logBox ul {
+	height: 200px;
+	margin: 5px 0 5px 10px;
+	overflow: auto;
+}
+
+.dialog {
+	width: 50%;
+	margin: 0 auto;
+	background-color: #000;
+	opacity: 0.6;
+}

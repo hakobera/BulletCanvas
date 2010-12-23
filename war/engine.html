@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Bullet Canvas</title>
+		<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
+		<link href="css/engine.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<script data-main="main" src="js/require.js"></script>
+		<script src="js/lib/codemirror/codemirror.js"></script> 
+	</head>
+	<body>
+		<header>
+			<img class="logo" src="images/bullet_bill.png" alt="Logo"/>
+			<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas</h1>
+			<span class="version">ver 2010.12.24</span>
+		</header>
+		<div id="content">
+			<div id="mainBox">
+				<div id="canvasBox">
+					<h2>Screen</h2>
+					<div class="screenBox">
+						<canvas id="screen"></canvas>
+					</div>
+					<table class="infoTable">
+						<tr>
+							<td class="label">FPS:</td>
+							<td><span id="fps"></span></td>
+						</tr>
+						<tr>
+							<td class="label">Bullet:</td>
+							<td><span id="bulletNum">0</span></td>
+						</tr>
+					</table>
+				</div>
+				<div id="codeBox">
+					<h2>BulletML</h2>
+					<div class="editorBox">
+						<textarea id="code">
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/bulletml.dtd">
+<bulletml type="vertical"
+          xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+<action label="top">
+<fire>
+<bulletRef label="roll"/>
+</fire>
+</action>
+
+<bullet label="roll">
+<action>
+<wait>40+$rand*20</wait>
+<changeDirection>
+ <direction type="relative">-90</direction>
+ <term>4</term>
+</changeDirection>
+<changeSpeed>
+ <speed>3</speed>
+ <term>4</term>
+</changeSpeed>
+<wait>4</wait>
+<changeDirection>
+ <direction type="sequence">15</direction>
+ <term>9999</term>
+</changeDirection>
+<wait>80+$rand*40</wait>
+<vanish/>
+</action>
+</bullet>
+
+</bulletml>
+						</textarea>
+					</div>
+					<div class="controlBox">
+						<a class="button" href="javascript:void(0)">Run</a>
+					</div>
+				</div>
+			</div>
+			<div id="logBox">
+				<h2>Log</h2>
+				<ul id="log">
+				</ul>
+			</div>
+		</div>
+		<footer>
+			<span>&copy;2011 hakobera</span>
+		</footer>
+	</body>
+</html>

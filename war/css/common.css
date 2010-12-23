@@ -1,0 +1,69 @@
+@CHARSET "utf-8";
+@IMPORT url("reset.css");
+
+body {
+	min-width: 960px;
+	background-color: #fff;
+	font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	font-size: 12px;
+}
+
+nav {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px 10px;
+	color: #fff;
+	text-align: right;
+}
+
+nav a {
+	color: #fff;
+}
+
+header {
+	padding: 5px 0 5px 0;
+	background: #000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#000));
+}
+
+header .logo {
+	margin-left: 10px;
+}
+
+header h1 {
+	display: inline;
+	margin-left: 10px;
+	color: #fff;
+	font-family: 'Orbitron', arial, serif;
+	font-size: 30px;
+	text-shadow: #999 2px 2px 5px;
+}
+
+header .version {
+	margin-left: 2px;
+	color: #999;
+	font-family: 'Orbitron', arial, serif;
+	font-size: 10px;
+}
+
+header h1 .impact {
+	color: #f00;
+}
+
+header ul {
+	color: #fff;
+	display: inline;
+}
+
+header ul li {
+	display: inline-block;
+}
+
+footer {
+	width: 100%;
+	padding: 5px 0;
+	color: #fff;
+	background: #000;
+	text-align: center;
+}
