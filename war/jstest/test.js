@@ -8,5 +8,6 @@ require([
 	use('test-DanmakuObject'),
 	use('test-Expression'),
 	use('test-BulletMLParser'),
-	use('test-messageFormat')
+	use('test-messageFormat'),
+	use('test-scat')
 ]);

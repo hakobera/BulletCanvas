@@ -1,7 +1,5 @@
 package net.bulletcanvas.controller.login;
 
-import net.bulletcanvas.controller.SessionKey;
-
 import org.slim3.controller.Navigation;
 
 /**
@@ -9,15 +7,14 @@ import org.slim3.controller.Navigation;
  */
 public class IndexController extends LoginControllerBase {
 
-	private static final String PARAM_REDIRECT = "redirect";
-	
 	/**
 	 * ログイン画面に遷移させます。
 	 */
 	@Override
 	public Navigation run() throws Exception {
+		logout();
 		String redirectUrl = param(PARAM_REDIRECT);
-		sessionScope(SessionKey.REDIRECT, redirectUrl);
+		sessionScope(PARAM_REDIRECT, redirectUrl);
 		return forward("index.jsp");
 	}
 

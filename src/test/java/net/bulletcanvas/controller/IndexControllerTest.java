@@ -16,11 +16,9 @@ import org.slim3.tester.ControllerTester;
 public class IndexControllerTest {
 
 	@Test
-	public void test() throws NullPointerException, IllegalArgumentException,
-			IOException, ServletException {
+	public void test() throws NullPointerException, IllegalArgumentException, IOException, ServletException {
 		tester.start("/");
-		assertThat(tester.response.getStatus(),
-				is(equalTo(HttpServletResponse.SC_OK)));
+		assertThat(tester.response.getStatus(), is(equalTo(HttpServletResponse.SC_OK)));
 	}
 
 	ControllerTester tester;

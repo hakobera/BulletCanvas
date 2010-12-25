@@ -7,12 +7,14 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class AuthControllerTest extends ControllerTestCase {
 
-    @Test
-    public void run() throws Exception {
-        tester.start("/login/google/");
-        AuthController controller = tester.getController();
-        assertThat(controller, is(notNullValue()));
-        assertThat(tester.isRedirect(), is(false));
-        assertThat(tester.getDestinationPath(), is(nullValue()));
-    }
+	@Test
+	public void run() throws Exception {
+		tester.start("/login/google/auth");
+		AuthController controller = tester.getController();
+		assertThat(controller, is(notNullValue()));
+		assertThat(tester.isRedirect(), is(true));
+		assertThat(
+			tester.getDestinationPath(),
+			is("/_ah/login?continue=http%3A%2F%2Flocalhost%2Flogin%2Fgoogle%2Fcallback"));
+	}
 }

@@ -15,104 +15,104 @@ import com.google.appengine.api.datastore.Link;
 @Model(schemaVersion = 1)
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Attribute(primaryKey = true, json = @Json(ignore = true))
-    private Key key;
+	@Attribute(primaryKey = true, json = @Json(ignore = true))
+	private Key key;
 
-    @Attribute(version = true, json = @Json(ignore = true))
-    private Long version;
-    
-    /**
-     * 画面に表示する名前。
-     */
-    private String screenName;
+	@Attribute(version = true, json = @Json(ignore = true))
+	private Long version;
 
-    /**
-     * 画面に表示するイメージの URL。
-     */
-    @Attribute(unindexed = true)
-    private Link screenImageUrl;
+	/**
+	 * 画面に表示する名前。
+	 */
+	private String screenName;
 
-    /**
-     * 作成日時
-     */
-    @Attribute(listener = CreationDate.class)
-    private Date createdAt;
-    
-    /**
-     * 更新日時
-     */
-    @Attribute(listener = ModificationDate.class)
-    private Date updatedAt;
-    
-    /**
-     * Returns the key.
-     *
-     * @return the key
-     */
-    public Key getKey() {
-        return key;
-    }
+	/**
+	 * 画面に表示するイメージの URL。
+	 */
+	@Attribute(unindexed = true)
+	private Link screenImageUrl;
 
-    /**
-     * Sets the key.
-     *
-     * @param key
-     *            the key
-     */
-    public void setKey(Key key) {
-        this.key = key;
-    }
+	/**
+	 * 作成日時
+	 */
+	@Attribute(listener = CreationDate.class)
+	private Date createdAt;
 
-    /**
-     * Returns the version.
-     *
-     * @return the version
-     */
-    public Long getVersion() {
-        return version;
-    }
+	/**
+	 * 更新日時
+	 */
+	@Attribute(listener = ModificationDate.class)
+	private Date updatedAt;
 
-    /**
-     * Sets the version.
-     *
-     * @param version
-     *            the version
-     */
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+	/**
+	 * Returns the key.
+	 * 
+	 * @return the key
+	 */
+	public Key getKey() {
+		return key;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
+	/**
+	 * Sets the key.
+	 * 
+	 * @param key
+	 *            the key
+	 */
+	public void setKey(Key key) {
+		this.key = key;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Account other = (Account) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return true;
-    }
+	/**
+	 * Returns the version.
+	 * 
+	 * @return the version
+	 */
+	public Long getVersion() {
+		return version;
+	}
+
+	/**
+	 * Sets the version.
+	 * 
+	 * @param version
+	 *            the version
+	 */
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Account other = (Account) obj;
+		if (key == null) {
+			if (other.key != null) {
+				return false;
+			}
+		} else if (!key.equals(other.key)) {
+			return false;
+		}
+		return true;
+	}
 
 	public void setScreenName(String screenName) {
 		this.screenName = screenName;
@@ -131,7 +131,7 @@ public class Account implements Serializable {
 	public void setScreenImageUrl(Link screenImageUrl) {
 		this.screenImageUrl = screenImageUrl;
 	}
-	
+
 	public Link getScreenImageUrl() {
 		return screenImageUrl;
 	}
@@ -151,5 +151,5 @@ public class Account implements Serializable {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	
+
 }

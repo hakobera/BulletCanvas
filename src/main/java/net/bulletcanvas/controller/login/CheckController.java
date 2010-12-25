@@ -22,7 +22,7 @@ public class CheckController extends LoginControllerBase {
 				return null;
 			}
 		}
-		
+
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
 		PrintWriter writer = response.getWriter();
@@ -31,8 +31,8 @@ public class CheckController extends LoginControllerBase {
 		String accountInfo = AccountMeta.get().modelToJson(account, 1);
 		writer.write(accountInfo);
 		writer.flush();
-		
+
 		return null;
 	}
-	
+
 }

@@ -27,20 +27,20 @@ public class CallbackController extends LoginControllerBase {
 		}
 		return redirect("/"); // 次画面へリダイレクト
 	}
-	
+
 	private void validate() throws AuthException {
 		UserService userService = UserServiceFactory.getUserService();
 		if (!userService.isUserLoggedIn()) {
 			throw new AuthException("Login failed");
 		}
-		
+
 		User user = userService.getCurrentUser();
 		String accountId = AuthType.Google.createUniqueAccountId(user.getUserId());
 		String screenName = user.getNickname();
-		String profileImageUrl = null; 
-		
+		String profileImageUrl = null;
+
 		Account account = AccountService.auth(accountId, screenName, profileImageUrl);
-		
+
 		login(account);
 	}
 

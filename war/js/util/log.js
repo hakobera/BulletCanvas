@@ -1,4 +1,7 @@
-define(function() {
+define([
+	'util/messageFormat'
+],
+function(fmt) {
 	var logger = document.getElementById('log');
 	
 	var zeroPad = function(n, size) {
@@ -11,9 +14,10 @@ define(function() {
 	
 	var time = function() {
 		var d = new Date();
-		return d.getFullYear() + '/' + zeroPad((d.getMonth()+1), 2) + '/' + zeroPad(d.getDate(), 2)
-						+ ' ' + zeroPad(d.getHours(), 2) + ':' + zeroPad(d.getMinutes(), 2) + ':' + zeroPad(d.getSeconds(), 2)
-						+ '.' + zeroPad(d.getMilliseconds(), 3);
+		return fmt.format('%1/%2/%3 %4:%5:%6.%7', 
+											d.getFullYear(), zeroPad((d.getMonth()+1), 2), zeroPad(d.getDate(), 2),
+											zeroPad(d.getHours(), 2), zeroPad(d.getMinutes(), 2), zeroPad(d.getSeconds(), 2),
+											zeroPad(d.getMilliseconds(), 3));
 	} 
 	
 	var log = function(type, messages) {

@@ -7,10 +7,10 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class SpellCardTest extends AppEngineTestCase {
 
-    private SpellCard model = new SpellCard();
+	private SpellCard model = new SpellCard();
 
-    @Test
-    public void test() throws Exception {
-        assertThat(model, is(notNullValue()));
-    }
+	@Test
+	public void test() throws Exception {
+		assertThat(model, is(notNullValue()));
+	}
 }

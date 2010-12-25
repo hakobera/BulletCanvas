@@ -9,10 +9,10 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class AccountTest extends AppEngineTestCase {
 
-    private Account model = new Account();
+	private Account model = new Account();
 
-    @Test
-    public void test() throws Exception {
-        assertThat(model, is(notNullValue()));
-    }
+	@Test
+	public void test() throws Exception {
+		assertThat(model, is(notNullValue()));
+	}
 }

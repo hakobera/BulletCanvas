@@ -20,8 +20,9 @@
 	<nav>
 		<ul>
 			<li><a id="account"></a></li>
+			<li><a id="newSpell" href="/spell/new" style="display: none;">スペカ作成</a></li>
 			<li><a id="login" href="/login/">Log in</a></li>
-			<li><a id="logout" href="/logout">Log Out</a></li>
+			<li><a id="logout" href="/logout" style="display: none;">Log Out</a></li>
 		</ul>
 	</nav>
 	<h2>New</h2>
@@ -84,6 +85,9 @@
 $(function() {
 	$.get('/login/check', function(data) {
 		$('#account').html(data.screenName);
+		$('#login').remove();
+		$('#logout').show();
+		$('#newSpell').show();
 	});
 });
 </script>

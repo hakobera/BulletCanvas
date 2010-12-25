@@ -4,35 +4,32 @@ import javax.servlet.http.Cookie;
 
 import net.bulletcanvas.auth.Auth;
 import net.bulletcanvas.controller.ControllerBase;
-import net.bulletcanvas.controller.SessionKey;
 import net.bulletcanvas.model.Account;
 import net.bulletcanvas.service.AccountService;
 
 import org.slim3.datastore.Datastore;
 import org.slim3.datastore.EntityNotFoundRuntimeException;
 
-
+/**
+ * Login　コントローラの共通メソッドをまとめたクラスです。 ログインに関連するコントローラはこのクラスを継承して作成します。
+ */
 public abstract class LoginControllerBase extends ControllerBase {
-	
+
 	protected void login(Account account) {
 		Cookie cookie = new Cookie(Auth.AUTH_COOKIE_NAME, Datastore.keyToString(account.getKey()));
 		cookie.setPath("/");
 		cookie.setMaxAge(Auth.AUTH_COOKIE_MAX_AGE);
 		response.addCookie(cookie);
-		sessionScope(SessionKey.ACCOUNT, account);
+		sessionScope(SESSION_ACCOUNT, account);
 	}
 
 	protected void logout() {
-    	removeSessionScope(SessionKey.ACCOUNT);
-    	Cookie cookie = new Cookie(Auth.AUTH_COOKIE_NAME, "");
-    	cookie.setMaxAge(0);
-    	response.addCookie(cookie);
+		removeSessionScope(SESSION_ACCOUNT);
+		Cookie cookie = new Cookie(Auth.AUTH_COOKIE_NAME, "");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
 	}
-	
-	protected boolean isLogin() {
-		return sessionScope(SessionKey.ACCOUNT) != null;
-	}
-	
+
 	protected boolean autoLogin() {
 		Cookie authCookie = null;
 		Cookie[] cookies = request.getCookies();
@@ -44,7 +41,7 @@ public abstract class LoginControllerBase extends ControllerBase {
 				}
 			}
 		}
-		
+
 		if (authCookie != null) {
 			// TODO: 書き換えられていないかチェック
 			String accountKey = authCookie.getValue();
@@ -56,7 +53,7 @@ public abstract class LoginControllerBase extends ControllerBase {
 				// ignore
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -68,5 +65,5 @@ public abstract class LoginControllerBase extends ControllerBase {
 		url.append("callback");
 		return url.toString();
 	}
-	
+
 }
