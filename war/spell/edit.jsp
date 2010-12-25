@@ -13,7 +13,7 @@
 <body>
 <div id="editorBox">
 	<div id="codeBox">
-		<textarea id="code"></textarea>
+		<textarea id="code">${spellCard.definition}</textarea>
 	</div>
 </div>
 <div id="previewBox">

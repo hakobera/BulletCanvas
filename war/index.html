@@ -15,14 +15,14 @@
 <body>
 	<header>
 		<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
-		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas <span class="version">BETA</span></h1>
+		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas<span class="version">BETA</span></h1>
 	</header>
 	<nav>
 		<ul>
-			<li><a id="account"></a></li>
-			<li><a id="newSpell" href="/spell/new" style="display: none;">スペカ作成</a></li>
-			<li><a id="login" href="/login/">Log in</a></li>
-			<li><a id="logout" href="/logout" style="display: none;">Log Out</a></li>
+			<li id="account" style="display: none;"></li>
+			<li id="newSpell" style="display: none;">| <a href="/spell/new">スペカ作成</a></li>
+			<li id="login">| <a href="/login/">ログイン</a></li>
+			<li id="logout" style="display: none;">| <a  href="/logout">ログアウト</a></li>
 		</ul>
 	</nav>
 	<h2>New</h2>
@@ -84,7 +84,7 @@
 <script>
 $(function() {
 	$.get('/login/check', function(data) {
-		$('#account').html(data.screenName);
+		$('#account').show().html(data.screenName);
 		$('#login').remove();
 		$('#logout').show();
 		$('#newSpell').show();

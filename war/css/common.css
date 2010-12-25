@@ -33,11 +33,17 @@ nav ul li a {
 header {
 	padding: 5px 0 5px 0;
 	background: #000;
-	background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#000));
+	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#999));
+	background: -moz-linear-gradient(#000, #707070);
+}
+
+header a {
+	text-decoration: none;
 }
 
 header .logo {
 	margin-left: 10px;
+	vertical-align: middle;
 }
 
 header h1 {
@@ -47,6 +53,7 @@ header h1 {
 	font-family: 'Orbitron', arial, serif;
 	font-size: 30px;
 	text-shadow: #999 2px 2px 5px;
+	vertical-align: middle;
 }
 
 header .version {
@@ -54,6 +61,7 @@ header .version {
 	color: #999;
 	font-family: 'Orbitron', arial, serif;
 	font-size: 10px;
+	vertical-align: text-top;
 }
 
 header h1 .impact {

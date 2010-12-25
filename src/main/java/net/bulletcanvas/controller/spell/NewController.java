@@ -17,6 +17,11 @@ public class NewController extends ControllerBase {
 
 		Account account = getLoginAccount();
 		SpellCard spellCard = SpellCardService.newAndPut(account);
+		
+		String template = loadFromLoacalFile("/bulletml/template.xml");
+		spellCard.setDefinition(template);
+		SpellCardService.put(account, spellCard);
+		
 		return redirect(String.format("/%s/%s/edit", account.getScreenName(), spellCard.getCode()));
 	}
 

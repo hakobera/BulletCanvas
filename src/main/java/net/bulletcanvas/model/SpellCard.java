@@ -36,6 +36,9 @@ public class SpellCard implements Serializable {
 
 	/** スペル・コード。各画面の URL に使用します。 */
 	private String code;
+	
+	/** スペルの内容 */
+	private String definition;
 
 	/** 作成日時 */
 	@Attribute(listener = CreationDate.class)
@@ -159,5 +162,13 @@ public class SpellCard implements Serializable {
 
 	public Date getUpdatedAt() {
 		return updatedAt;
+	}
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
+	}
+
+	public String getDefinition() {
+		return definition;
 	}
 }

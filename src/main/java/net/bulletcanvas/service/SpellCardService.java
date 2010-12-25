@@ -40,14 +40,13 @@ public abstract class SpellCardService {
 	/**
 	 * スペルカードを新規作成し、データストアに格納します。
 	 * 
-	 * @param accountId
+	 * @param account
 	 *            スペル所有アカウント
 	 * @param spellCard
 	 *            格納するスペルカード情報
 	 * @return スペルカード情報のインスタンス
 	 */
-	public static SpellCard put(String accountId, SpellCard spellCard) {
-		Account account = AccountService.findByAccountId(accountId);
+	public static SpellCard put(Account account, SpellCard spellCard) {
 		spellCard.setAccountKey(account.getKey());
 		Key key = Datastore.put(spellCard);
 		spellCard.setKey(key);
