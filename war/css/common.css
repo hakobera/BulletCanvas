@@ -17,7 +17,16 @@ nav {
 	text-align: right;
 }
 
-nav a {
+nav ul {
+	display: inline;
+	list-style: none;
+}
+
+nav ul li {
+	display: inline;
+}
+
+nav ul li a {
 	color: #fff;
 }
 

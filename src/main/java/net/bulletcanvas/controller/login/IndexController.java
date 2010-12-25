@@ -1,23 +1,24 @@
 package net.bulletcanvas.controller.login;
 
-import org.slim3.controller.Controller;
+import net.bulletcanvas.controller.SessionKey;
+
 import org.slim3.controller.Navigation;
 
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-
 /**
- * ログイン処理をおこなうコントローラです。
+ * ログイン画面へ遷移させるコントローラです。
  */
-public class IndexController extends Controller {
+public class IndexController extends LoginControllerBase {
 
+	private static final String PARAM_REDIRECT = "redirect";
+	
 	/**
-	 * ログインします。
+	 * ログイン画面に遷移させます。
 	 */
-    @Override
-    public Navigation run() throws Exception {
-        UserService userService = UserServiceFactory.getUserService();
-       	return redirect(userService.createLoginURL(request.getRequestURI()));
-    }
-    
+	@Override
+	public Navigation run() throws Exception {
+		String redirectUrl = param(PARAM_REDIRECT);
+		sessionScope(SessionKey.REDIRECT, redirectUrl);
+		return forward("index.jsp");
+	}
+
 }

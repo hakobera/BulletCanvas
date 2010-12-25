@@ -7,19 +7,21 @@
 	<title>Bullet Canvas - Share your DANMAKU!!</title>
 	<link rel="apple-touch-icon" type="image/png" href="/images/home_icon.png">
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
-	<link href="css/top.css" rel="stylesheet" type="text/css"/>
-	<script src="js/lib/jquery/jquery-1.4.4.js"></script>
-	<script src="js/lib/jquery/jquery.cookie.js"></script>
+	<link href="/css/common.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/top.css" rel="stylesheet" type="text/css"/>
+	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
+	<script src="/js/lib/jquery/jquery.cookie.js"></script>
 </head>
 <body>
 	<header>
-		<img class="logo" src="images/bullet_bill.png" alt="Logo"/>
+		<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
 		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas <span class="version">BETA</span></h1>
 	</header>
 	<nav>
 		<ul>
-			<li><a id="login" href="/login/twitter/auth">Log in</a></li>
-			<li><a id="logout" href="/logout" style="display: none;">Log Out</a></li>
+			<li><a id="account"></a></li>
+			<li><a id="login" href="/login/">Log in</a></li>
+			<li><a id="logout" href="/logout">Log Out</a></li>
 		</ul>
 	</nav>
 	<h2>New</h2>
@@ -80,13 +82,9 @@
 	</footer>
 <script>
 $(function() {
-	if ($.cookie('account')) {
-		$('#login').hide();
-		$('#logout').show();
-	} else {
-		$('#login').show();
-		$('#logout').hide();
-	};
+	$.get('/login/check', function(data) {
+		$('#account').html(data.screenName);
+	});
 });
 </script>
 </body>

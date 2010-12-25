@@ -1,20 +1,15 @@
 package net.bulletcanvas.controller;
 
-import javax.servlet.http.Cookie;
+import net.bulletcanvas.controller.login.LoginControllerBase;
 
-import net.bulletcanvas.controller.login.twitter.Const;
-
-import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
 
-public class LogoutController extends Controller {
+public class LogoutController extends LoginControllerBase {
 
     @Override
     public Navigation run() throws Exception {
-    	Cookie cookie = new Cookie(Const.ACCOUNT, "");
-    	cookie.setMaxAge(0);
-    	response.addCookie(cookie);
+    	logout();
     	return redirect("/");
     }
     

@@ -1,7 +1,7 @@
-package net.bulletcanvas.model;
+package net.bulletcanvas.auth;
 
-public enum AccountType {
-	Twitter;
+public enum AuthType {
+	Twitter, Google;
 	
 	public String getAccoutTypeName() {
 		return name().toLowerCase();

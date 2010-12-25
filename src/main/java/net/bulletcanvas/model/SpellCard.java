@@ -3,46 +3,45 @@ package net.bulletcanvas.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.appengine.api.datastore.Key;
+
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModificationDate;
-import org.slim3.datastore.json.Json;
 
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Link;
-
+/**
+ * 弾幕定義情報です。
+ */
 @Model(schemaVersion = 1)
-public class Account implements Serializable {
+public class SpellCard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Attribute(primaryKey = true, json = @Json(ignore = true))
+    @Attribute(primaryKey = true)
     private Key key;
 
-    @Attribute(version = true, json = @Json(ignore = true))
+    @Attribute(version = true)
     private Long version;
     
-    /**
-     * 画面に表示する名前。
-     */
-    private String screenName;
+    /** スペル所有アカウント */
+    @Attribute(primaryKey = false)
+    private Key accountKey;
 
-    /**
-     * 画面に表示するイメージの URL。
-     */
-    @Attribute(unindexed = true)
-    private Link screenImageUrl;
-
-    /**
-     * 作成日時
-     */
+    /** スペル名 */
+    private String name;
+    
+    /** 説明 */
+    private String description;
+    
+    /** スペル・コード。各画面の URL に使用します。 */
+    private String code;
+    
+    /** 作成日時 */
     @Attribute(listener = CreationDate.class)
     private Date createdAt;
     
-    /**
-     * 更新日時
-     */
+    /** 更新日時 */
     @Attribute(listener = ModificationDate.class)
     private Date updatedAt;
     
@@ -103,7 +102,7 @@ public class Account implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Account other = (Account) obj;
+        SpellCard other = (SpellCard) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -114,26 +113,36 @@ public class Account implements Serializable {
         return true;
     }
 
-	public void setScreenName(String screenName) {
-		this.screenName = screenName;
+	public void setAccountKey(Key accountKey) {
+		this.accountKey = accountKey;
 	}
 
-	public String getScreenName() {
-		return screenName;
+	public Key getAccountKey() {
+		return accountKey;
 	}
 
-	public void setScreenImageUrl(String screenImageUrl) {
-		if (screenImageUrl != null) {
-			this.screenImageUrl = new Link(screenImageUrl);
-		}
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setScreenImageUrl(Link screenImageUrl) {
-		this.screenImageUrl = screenImageUrl;
+	public String getName() {
+		return name;
 	}
-	
-	public Link getScreenImageUrl() {
-		return screenImageUrl;
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getCode() {
+		return code;
 	}
 
 	public void setCreatedAt(Date createdAt) {
@@ -151,5 +160,4 @@ public class Account implements Serializable {
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	
 }
