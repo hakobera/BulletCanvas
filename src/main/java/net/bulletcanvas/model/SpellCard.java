@@ -180,4 +180,9 @@ public class SpellCard implements Serializable {
 	public Text getDefinition() {
 		return definition;
 	}
+
+	public String getDefinitionAsString() {
+		return definition.getValue();
+	}
+
 }
