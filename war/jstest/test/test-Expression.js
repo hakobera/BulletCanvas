@@ -21,4 +21,8 @@ function(Expression) {
 		notStrictEqual(Expression.evalExpression('1+9+$rand'), 10);
 	});
 
+	test('$1, $2 形式のパラメータ', function() {
+		same(Expression.evalExpression('$1+1*$2+$1', [10, 5]), 25);
+	});
+
 });

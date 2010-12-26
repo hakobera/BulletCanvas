@@ -14,8 +14,8 @@
 <body>
 	<header>
 		<a href="/">
-		<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
-		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas<span class="version">BETA</span></h1>
+			<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
+			<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas<span class="version">BETA</span></h1>
 		</a>
 	</header>
 	<section id="loginServiceBox">

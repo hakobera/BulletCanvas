@@ -7,6 +7,8 @@ import net.bulletcanvas.service.SpellCardService;
 
 import org.slim3.controller.Navigation;
 
+import com.google.appengine.api.datastore.Text;
+
 public class NewController extends ControllerBase {
 
 	@Override

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
@@ -37,8 +38,8 @@ public class SpellCard implements Serializable {
 	/** スペル・コード。各画面の URL に使用します。 */
 	private String code;
 	
-	/** スペルの内容 */
-	private String definition;
+	/** スペル定義 */
+	private Text definition;
 
 	/** 作成日時 */
 	@Attribute(listener = CreationDate.class)
@@ -164,11 +165,19 @@ public class SpellCard implements Serializable {
 		return updatedAt;
 	}
 
-	public void setDefinition(String definition) {
+	public void setDefinition(Text definition) {
 		this.definition = definition;
 	}
 
-	public String getDefinition() {
+	public void setDefinition(String definition) {
+		if (definition != null) {
+			this.definition = new Text(definition); 
+		} else {
+			this.definition = null;
+		}
+	}
+
+	public Text getDefinition() {
 		return definition;
 	}
 }

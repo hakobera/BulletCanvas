@@ -8,20 +8,22 @@
 	<link rel="apple-touch-icon" type="image/png" href="/images/home_icon.png">
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
 	<link href="/css/common.css" rel="stylesheet" type="text/css"/>
-	<link href="/css/top.css" rel="stylesheet" type="text/css"/>
-	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
-	<script src="/js/lib/jquery/jquery.cookie.js"></script>
+	<link href="/css/index.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script data-main="index" src="/js/require.js"></script>
 </head>
 <body>
 	<header>
-		<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
-		<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas<span class="version">BETA</span></h1>
+		<a href="/">
+			<img class="logo" src="/images/bullet_bill.png" alt="Logo"/>
+			<h1><span class="impact">B</span>ullet <span class="impact">C</span>anvas<span class="version">BETA</span></h1>
+		</a>
 	</header>
 	<nav>
 		<ul>
 			<li id="account" style="display: none;"></li>
 			<li id="newSpell" style="display: none;">| <a href="/spell/new">スペカ作成</a></li>
-			<li id="login">| <a href="/login/">ログイン</a></li>
+			<li id="login" style="display: none;">| <a href="/login/">ログイン</a></li>
 			<li id="logout" style="display: none;">| <a  href="/logout">ログアウト</a></li>
 		</ul>
 	</nav>
@@ -81,15 +83,5 @@
 	<footer>
 		<span>&copy;2011 hakobera</span>
 	</footer>
-<script>
-$(function() {
-	$.get('/login/check', function(data) {
-		$('#account').show().html(data.screenName);
-		$('#login').remove();
-		$('#logout').show();
-		$('#newSpell').show();
-	});
-});
-</script>
 </body>
 </html>
