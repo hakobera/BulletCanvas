@@ -38,10 +38,6 @@ function(
         return text.replace(/^\s+/, '').replace(/\s+$/, '');
     };
 
-    var number = function(text) {
-        return parseFloat(strip(text));
-    };
-
     var attr = function(node, attrName, defaultValue) {
         return node.attributes[attrName] ? node.attributes[attrName].value : defaultValue;
     };
@@ -111,58 +107,55 @@ function(
             var commands = [];
             var childNodes = node.childNodes;
             var len = childNodes.length;
-            var command;
-            
+
             for (var i = 0; i < len; ++i) {
                 var tag = childNodes[i];
                 if (tag.nodeType === 1/*element*/) {
                     var tagName = tag.tagName;
                     switch (tagName) {
                     case 'repeat':
-                        command = this.parseRepeat(tag);
+                        commands.push(this.parseRepeat(tag));
                         break;
 
                     case 'fire':
-                        command = this.parseFireDef(tag);
+                        commands.push(this.parseFireDef(tag));
                         break;
 
                     case 'fireRef':
-                        command = this.parseFireRef(tag);
+                        commands.push(this.parseFireRef(tag));
                         break;
 
                     case 'changeSpeed':
-                        command = this.parseChangeSpeed(tag);
+                        commands.push(this.parseChangeSpeed(tag));
                         break;
 
                     case 'changeDirection':
-                        command = this.parseChangeDirection(tag);
+                        commands.push(this.parseChangeDirection(tag));
                         break;
 
                     case 'accel':
-                        command = this.parseAccel(tag);
+                        commands.push(this.parseAccel(tag));
                         break;
 
                     case 'wait':
-                        command = this.parseWait(tag);
+                        commands.push(this.parseWait(tag));
                         break;
 
                     case 'vanish':
-                        command = this.parseVanish(tag);
+                        commands.push(this.parseVanish(tag));
                         break;
 
                     case 'action':
-                        command = this.parseActionDef(tag);
+                        commands.push(this.parseActionDef(tag));
                         break;
 
                     case 'actionRef':
-                        command = this.parseActionRef(tag);
+                        commands.push(this.parseActionRef(tag));
                         break;
 
                     default:
                         throw new Error(fmt.format('<%1> is invalid', tagName));
                     }
-
-                    commands.push(command);
                 }
             }
 
@@ -179,7 +172,6 @@ function(
             }
 
             var params = [];
-            var p;
             var childNodes = node.childNodes;
             var len = childNodes.length;
 
@@ -189,8 +181,7 @@ function(
                     var tagName = tag.tagName;
                     switch (tagName) {
                     case 'param':
-                        p = this.parseParam(tag);
-                        params.push(p);
+                        params.push(this.parseParam(tag));
                         break;
                     }
                 }
@@ -217,19 +208,19 @@ function(
                     var tagName = tag.tagName;
                     switch (tagName) {
                     case 'speed':
-                        speed = parseSpeed(tag);
+                        speed = this.parseSpeed(tag);
                         break;
 
                     case 'direction':
-                        direction = parseSpeed(tag);
+                        direction = this.parseSpeed(tag);
                         break;
 
                     case 'action':
-                        actions.push(parseActionDef(tag));
+                        actions.push(this.parseActionDef(tag));
                         break;
 
                     case 'actionRef':
-                        actions.push(parseActionRef(tag));
+                        actions.push(this.parseActionRef(tag));
                         break;
                     }
                 }
@@ -273,8 +264,8 @@ function(
             });
         },
 
-        parseDirection: function(node) {
-            var direction = this.defalutDirection();
+        parseChangeDirection: function(node) {
+            var direction = defaultDirection();
             var term;
             var childNodes = node.childNodes;
             var len = childNodes.length;
@@ -284,8 +275,8 @@ function(
                 if (tag.nodeType === 1/*element*/) {
                     var tagName = tag.tagName;
                     switch (tagName) {
-                    case 'speed':
-                        speed = this.parseSpeed(tag);
+                    case 'direction':
+                        direction = this.parseDirection(tag);
                         break;
 
                     case 'term':
@@ -348,7 +339,7 @@ function(
 
         parseDirection: function(node) {
             var type = attr(node, 'type', 'aim');
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return direction({
                 type: type,
                 value: value
@@ -417,7 +408,7 @@ function(
         
         parseHorizontal: function(node) {
             var type = attr(node, 'label', 'absolute');
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return horizontal({
                 type: type,
                 value: value
@@ -425,8 +416,10 @@ function(
         },
 
         parseParam: function(node) {
-            var value = number(node.textContent);
-			return param(value);
+            var value = strip(node.textContent);
+			return param({
+                value: value
+            });
         },
         
         parseRepeat: function(node) {
@@ -472,7 +465,7 @@ function(
 
         parseSpeed: function(node) {
             var type = attr(node, 'type', 'absolute');
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return speed({
                 type: type,
                 value: value
@@ -480,14 +473,14 @@ function(
         },
 
         parseTerm: function(node) {
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return term({
                 value: value
             });
         },
 
         parseTimes: function(node) {
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return times({
                 value: value
             });
@@ -499,7 +492,7 @@ function(
         
         parseVertical: function(node) {
 			var type = attr(node, 'type', 'absolute');
-			var value = number(node.textContent);
+			var value = strip(node.textContent);
 			return vertical({
                 type: type,
                 value: value
@@ -507,7 +500,7 @@ function(
         },
 
         parseWait: function(node) {
-            var value = number(node.textContent);
+            var value = strip(node.textContent);
             return wait({
                 value: value
             });

@@ -2,13 +2,13 @@
  * Waits.
  * Specifies the number of times.
  */
-define(['util/messageFormat'], function(fmt) {
+define(['util/format'], function(format) {
 	var wait = function(spec) {
         var that = {};
         that.value = spec.value;
 
         that.toString = function() {
-            return fmt.format('[Wait] value=%1', that.value);
+            return format('<Wait value=%1>', that.value);
         };
 
         return that;

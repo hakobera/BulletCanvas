@@ -23,10 +23,10 @@ function(parser) {
 		});
 	});
 	
-	test('test002.xml', function() {
+	test('test006.xml', function() {
 		stop();
 		$.ajax({
-			url: '/bulletml/test002.xml',
+			url: '/bulletml/test006.xml',
 			cache: false,
 			success: function(data) {
 				start();

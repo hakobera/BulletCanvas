@@ -14,7 +14,7 @@ function(taskFactory) {
     test('サポートしていない type を指定すると例外が発生することを確認', function() {
         try {
             taskFactory.createTask('unspoortedType');
-            ok(false, 'fail');
+            raise(false, 'fail');
         } catch (e) {
             ok(true, 'ok');
         }

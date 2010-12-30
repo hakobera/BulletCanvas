@@ -1,34 +1,26 @@
 <?xml version="1.0" ?>
 <!DOCTYPE bulletml SYSTEM "bulletml.dtd">
-<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+<bulletml>
 
-	<action label="top">
-		<fire>
-			<bullet />
-		</fire>
+	<action label="action1">
+        <fireRef label="fire1"/>
+        <vanish/>
 	</action>
 
-	<action label="top2">
-		<changeSpeed>
-			<speed>0</speed>
-			<term>60</term>
-		</changeSpeed>
-		<wait>60</wait>
-		<fire>
-			<bullet />
-		</fire>
-		<fire>
-			<direction type="absolute">330+$rand*25</direction>
-			<bulletRef label="downAccel" />
-		</fire>
-		<vanish />
-		<action/>
-	</action>
+	<bullet label="bullet1">
+        <action>
+            <wait>20+$rand*50</wait>
+            <changeDirection>
+                <direction type="absolute">180</direction>
+                <term>10</term>
+            </changeDirection>
+        </action>
+	</bullet>
 	
-	<fire label="topfire1">
-		<direction type="absolute">1</direction>
-		<speed>1</speed>
-		<bullet></bullet>
+	<fire label="fire1">
+		<direction type="absolute">2</direction>
+		<speed type="sequence">3</speed>
+		<bulletRef label="bullet1"/>
 	</fire>
 
 </bulletml>

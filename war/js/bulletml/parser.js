@@ -4,10 +4,9 @@
 define([
   'bulletml/parseHelper',
   'bulletml/task/taskFactory',
-  'util/messageFormat',
   'lib/debug'
 ],
-function(parseHelper, taskFactory, fmt, debug) {
+function(parseHelper, taskFactory, debug) {
 
     /**
      * @constructor
@@ -20,37 +19,37 @@ function(parseHelper, taskFactory, fmt, debug) {
          * Top action list.
          * @private
          */
-        context.actions = [];
+        var actions = [];
 
         /**
          * Mapping information of top action label to action instance.
          * @private 
          */
-        context.labelToAction = {};
+        var labelToAction = {};
 
         /**
          * Top bullet list.
          * @private
          */
-        context.bullets = [];
+        var bullets = [];
 
         /**
          * Mapping information of top bullet label to action instance.
          * @private
          */
-        context.labelToBullet = {};
+        var labelToBullet = {};
 
         /**
          * Top fire list.
          * @private
          */
-        context.fires = [];
+        var fires = [];
 
         /**
          * Mapping information of top fire label to action instance.
          * @private
          */
-        context.labelToFire = {};
+        var labelToFire = {};
 8
         /**
          * Parse top action elements.
@@ -61,8 +60,8 @@ function(parseHelper, taskFactory, fmt, debug) {
             for (var i = 0; i < topActions.length; ++i) {
                 var action = parseHelper.parseActionDef(topActions[i]);
                 debug(action);
-                context.labelToAction[action.label] = action;
-                context.actions.push(action);
+                labelToAction[action.label] = action;
+                actions.push(action);
             }
         };
 
@@ -76,8 +75,8 @@ function(parseHelper, taskFactory, fmt, debug) {
             for (var i = 0; i < len; ++i) {
                 var bullet = parseHelper.parseBulletDef(topBullets[i]);
                 debug(bullet);
-                context.labelToBullet[bullet.label] = bullet;
-                context.bullets.push(bullet);
+                labelToBullet[bullet.label] = bullet;
+                bullets.push(bullet);
             }
         };
 
@@ -91,8 +90,8 @@ function(parseHelper, taskFactory, fmt, debug) {
             for (var i = 0; i < len; ++i) {
                 var fire = parseHelper.parseFireDef(topFires[i]);
                 debug(fire);
-                context.labelToFire[fire.label] = fire;
-                context.fires.push(fire);
+                labelToFire[fire.label] = fire;
+                fires.push(fire);
             }
         };
         
@@ -118,7 +117,24 @@ function(parseHelper, taskFactory, fmt, debug) {
         that.parse = function(bulletML) {
             var root = bulletML.getElementsByTagName('bulletml')[0];
             parse(root);
-            return that;
+
+            return {
+                getActions: function() {
+                    return actions;   
+                },
+
+                getAction: function(label) {
+                    return labelToAction[label];
+                },
+
+                getBullet: function(label) {
+                    return labelToBullet[label];
+                },
+
+                getFire: function(label) {
+                    return labelToFire[label];
+                }
+            };
         };
 
         return that;

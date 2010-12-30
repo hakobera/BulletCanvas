@@ -2,7 +2,7 @@
  * Accelerates a bullet	
  * 弾を水平方向に<horizontal>、垂直方向に<vertical>、 <term>フレームかけて加速します。
  */
-define(['util/messageFormat'], function(fmt) {
+define(['util/format'], function(format) {
 	var accel = function(spec) {
         var that = {};
 		that.horizontal = spec.horizontal;
@@ -10,8 +10,8 @@ define(['util/messageFormat'], function(fmt) {
 		that.term = spec.term;
 
         that.toString = function() {
-            return fmt.format(
-                    '[Accel] horizontal=%1, vertical=%2, term=%3',
+            return format(
+                    '<Accel horizontal=(%1), vertical=(%2), term=(%3)>',
                     that.horizontal, that.vertical, that.term);
         };
         

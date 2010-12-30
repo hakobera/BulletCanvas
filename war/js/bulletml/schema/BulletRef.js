@@ -6,14 +6,14 @@
  * <param>要素に指定された数値に置き換えられます。
  *  （最初に出現したparam要素が$1に、次に出現したparam要素が$2に、...）
  */
-define(['util/messageFormat'], function(fmt) {
+define(['util/format'], function(format) {
 	var bulletRef = function(spec) {
         var that = {};
         that.label = spec.label;
         that.params = spce.params;
 
         that.toString = function() {
-            return fmt.format('[BulletRef] bulletDef=%1, params=%2', this.bulletDef, this.params);
+            return format('<BulletRef label=%1, params=%2>', that.label, that.params);
         };
 
         return that;

@@ -4,19 +4,21 @@
  * ラベル属性でラベル名をつけることができます。
  * ラベル付けされたbullet要素は、bulletRef要素によって参照されます。
  */
-define(['util/messageFormat'], function(fmt) {
+define(['util/format'], function(format) {
     var bulletDef = function(spec) {
         var that = {};
         that.label = spec.label;
         that.direction = spec.direction;
         that.speed = spec.speed;
+        that.actions = spec.actions;
 
         that.toString = function() {
-            return fmt.format(
-                    '[BulletDef] label=%1, direction=%2, speed=%3',
+            return format(
+                    '<BulletDef label=%1, direction=%2, speed=%3, actions=%4>',
                     that.label,
                     that.direction,
-                    that.speed);
+                    that.speed,
+                    that.actions);
         };
 
         return that;

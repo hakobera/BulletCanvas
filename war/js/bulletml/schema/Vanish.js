@@ -2,12 +2,12 @@
  * Vanishes a bullet.
  * 弾を消します。
  */
-define(['util/messageFormat'], function(fmt) {
+define(['util/format'], function(format) {
 	var vanish = function(spec) {
         var that = {};
 
         that.toString = function() {
-            return fmt.format('[Vanish]');
+            return format('<Vanish>');
         };
 
         return that;

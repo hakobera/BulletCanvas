@@ -1,96 +1,58 @@
 <?xml version="1.0" ?>
 <!DOCTYPE bulletml SYSTEM "bulletml.dtd">
-<bulletml xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+<bulletml>
 
-	<action label="top">
-		<repeat>
-			<times>3</times>
-			<action>
-				<fire>
-					<direction type="absolute">180</direction>
-					<speed>4</speed>
-					<bulletRef label="seed" />
-				</fire>
-				<wait>500</wait>
-			</action>
-		</repeat>
-		<wait>100</wait>
+	<action label="action1">
+        <repeat>
+            <times>2</times>
+            <actionRef label="action2">
+                <param>1</param>
+            </actionRef>
+        </repeat>
+        <wait>10</wait>
+        <fire>
+            <direction type="absolute">20</direction>
+            <speed type="relative">10</speed>
+            <bullet>
+                <action>
+                    <vanish/>
+                </action>
+            </bullet>
+        </fire>
+        <fire>
+            <bulletRef label="bullet1"/>            
+        </fire>
+        <fireRef label="fire1"/>
+        <vanish/>
+        <changeDirection>
+            <direction>20+$rand</direction>
+            <term>1</term>
+        </changeDirection>
+        <changeSpeed>
+            <speed>10</speed>
+            <term>5</term>
+        </changeSpeed>
+        <vanish/>
 	</action>
 
-	<bullet label="seed">
-		<action>
-			<wait>9</wait>
-			<fire>
-				<direction type="relative">0</direction>
-				<bulletRef label="seed2" />
-			</fire>
-			<fire>
-				<direction type="relative">180</direction>
-				<bulletRef label="seed2" />
-			</fire>
-			<vanish />
-		</action>
-	</bullet>
+    <action label="action2">
+        <vanish/>    
+    </action>
 
-	<bullet label="seed2">
-		<speed>18</speed>
-		<action>
-			<wait>1</wait>
-			<fire>
-				<direction type="relative">90</direction>
-				<bulletRef label="seed3" />
-			</fire>
-			<vanish />
-		</action>
+	<bullet label="bullet1">
+        <action>
+            <wait>20+$rand*50</wait>
+            <changeDirection>
+                <direction type="absolute">180</direction>
+                <term>10</term>
+            </changeDirection>
+        </action>
 	</bullet>
-
-	<bullet label="seed3">
-		<speed>0.8</speed>
-		<action>
-			<changeDirection>
-				<direction type="sequence">1.2</direction>
-				<term>9999</term>
-			</changeDirection>
-			<repeat>
-				<times>100+200*$rank</times>
-				<action>
-					<fire>
-						<direction type="sequence">180-12</direction>
-						<bullet />
-					</fire>
-					<fire>
-						<direction type="sequence">180</direction>
-						<bullet />
-					</fire>
-					<wait>3-$rank*2*$rand</wait>
-				</action>
-			</repeat>
-		</action>
-		<action>
-			<repeat>
-				<times>6</times>
-				<action>
-					<fire>
-						<bullet>
-							<direction>-8</direction>
-						</bullet>
-					</fire>
-					<repeat>
-						<times>4</times>
-						<action>
-							<fire>
-								<bullet>
-									<direction type="sequence">4</direction>
-									<action />
-								</bullet>
-							</fire>
-						</action>
-					</repeat>
-					<wait>80</wait>
-				</action>
-			</repeat>
-			<vanish />
-		</action>
-	</bullet>
+	
+	<fire label="fire1">
+		<direction type="absolute">2</direction>
+		<speed type="sequence">3</speed>
+		<bulletRef label="bullet1"/>
+	</fire>
 
 </bulletml>
