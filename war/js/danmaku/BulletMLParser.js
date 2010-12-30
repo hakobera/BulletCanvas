@@ -46,30 +46,30 @@ function(fmt, ActionDef, BulletDef, FireDef) {
 		return children;
 	};
 	
-	var parseTopActions = function(root) {
+	var parseTopActions = function(root, parser) {
 		var topActions = getChildNodesByTagName(root, 'action');
 		for (var i = 0; i < topActions.length; ++i) {
-			var action = ActionDef.create(topActions[i], this);
+			var action = ActionDef.create(topActions[i], parser);
 			labelToAction[action.label] = action; 
 			actions.push(action);
 		}
 	};
 
-	var parseTopBullets = function(root) {
+	var parseTopBullets = function(root, parser) {
 		var topBullets = getChildNodesByTagName(root, 'bullet');
 		var len = topBullets.length;
 		for (var i = 0; i < len; ++i) {
-			var bullet = BulletDef.create(topBullets[i], this);
+			var bullet = BulletDef.create(topBullets[i], parser);
 			labelToBullet[bullet.label] = bullet; 
 			bullets.push(bullet);
 		}
 	};
 
-	var parseTopFires = function(root) {
+	var parseTopFires = function(root, parser) {
 		var topFires = getChildNodesByTagName(root, 'fire');
 		var len = topFires.length;
 		for (var i = 0; i < len; ++i) {
-			var fire = FireDef.create(topFires[i], this);
+			var fire = FireDef.create(topFires[i], parser);
 			labelToFire[fire.label] = fire; 
 			fires.push(fire);
 		}
@@ -86,13 +86,18 @@ function(fmt, ActionDef, BulletDef, FireDef) {
 		labelToFire = {};
 	};
 	
+	var parse = function(root, parser) {
+		parseTopActions(root, parser);
+		parseTopFires(root, parser);
+		parseTopBullets(root, parser);
+		build();
+	};
+	
 return {
 	parse: function(bulletML) {
 		reset();
 		var root = bulletML.getElementsByTagName('bulletml')[0];
-		parseTopBullets(root);
-		parseTopFires(root);
-		parseTopActions(root);
+		parse(root, this);
 	},
 	
 	getActions: function() {

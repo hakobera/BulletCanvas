@@ -26,7 +26,7 @@ function(fmt, ActionDef) {
 				throw new Error('[actionRef] "label" attribute is required');
 			}
 			
-			var actionDef = parser.getActionDef(lable.value);
+			var actionDef = parser.getActionDef(label.value);
 			if (!actionDef) {
 				throw new Error('[actionRef] actionDef not found for ' + label.value);;
 			}

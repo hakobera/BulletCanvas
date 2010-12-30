@@ -28,7 +28,7 @@ function(fmt, BulletDef) {
 				throw new Error('[bulletRef] "label" attribute is required');
 			}
 			
-			var bulletDef = parser.getBulletDef(lable.value);
+			var bulletDef = parser.getBulletDef(label.value);
 			if (!bulletDef) {
 				throw new Error('[bulletRef] bulletDef not found for ' + label.value);;
 			}

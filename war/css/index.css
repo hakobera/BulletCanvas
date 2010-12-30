@@ -17,19 +17,21 @@ section {
 }
 
 article {
+	position: relative;
 	display: inline-block;
 	width: 175px;
 	height: 280px;
 	margin: 15px 18px;
 	padding: 2px 5px;
 	border: 10px solid #000;
-	border-radius: 10px;
 	-moz-border-radius: 10px;
+	border-radius: 10px;
 	background: left top no-repeat url(../images/scbg.jpg);
-	-webkit-box-shadow: 10px 10px 5px #999;
-	-moz-box-shadow: 10px 10px 5px #999;
 	vertical-align: top;
 	font-size: 14px;
+	-webkit-box-shadow: 10px 10px 5px #999;
+	-moz-box-shadow: 10px 10px 5px #999;
+	box-shadow: 10px 10px 5px #999;
 }
 
 article h3 {

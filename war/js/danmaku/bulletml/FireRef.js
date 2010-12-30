@@ -26,7 +26,7 @@ function(fmt, FireDef) {
 				throw new Error('[fireRef] "label" attribute is required');
 			}
 			
-			var fireDef = parser.getFireDef(lable.value);
+			var fireDef = parser.getFireDef(label.value);
 			if (!fireDef) {
 				throw new Error('[fireRef] fireDef not found for ' + label.value);;
 			}

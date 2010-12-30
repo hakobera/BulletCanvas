@@ -44,6 +44,29 @@ function(parser) {
 				same(parser.getFires().length, 0);
 			}
 		});
-	});
 
+		test('test003.xml', function() {
+			stop();
+			$.ajax({
+				url: '/bulletml/test003.xml',
+				cache: false,
+				success: function(data) {
+					start();
+					console.log(data);
+					parser.parse(data);
+					
+					var actions = parser.getActions();
+					same(actions.length, 1);
+					same(actions[0].label, 'top');
+
+					var bullets = parser.getBullets();
+					console.log(bullets);
+					same(bullets.length, 3);
+
+					same(parser.getFires().length, 0);
+				}
+			});
+		});
+	
+	});
 });
