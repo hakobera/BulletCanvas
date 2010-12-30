@@ -17,7 +17,7 @@ function(drawContext) {
 	});
 
 	test('Canvas のコンテキストが取得できることを確認', function() {
-		same(context.getContext(), canvas.getContext('2d'), 'getContext() === canvas.getContext("2d")');
+		same(context.getContext(), canvas.getContext('2d'), 'getContext() === graphics.getContext("2d")');
 	});
 }
 );

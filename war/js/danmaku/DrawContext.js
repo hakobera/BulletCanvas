@@ -5,13 +5,13 @@
 define(function() {
 // private properties
 /**
- * HTML5 canvas
+ * HTML5 graphics
  * @private 
  */
 var canvas;
 	
 /**
- * 2D context of HTML5 canvas
+ * 2D context of HTML5 graphics
  * @private 
  */
 var context;

@@ -6,7 +6,8 @@ define({
 				return msg;
 		}
 		for (var i = 1; i < len; i += 1) {
-			msg = msg.replace('%' + i, arguments[i].toString());
+            var arg = arguments[i];
+			msg = msg.replace('%' + i, arg ? arg.toString() : '');
 		}
 		return msg;
 	}

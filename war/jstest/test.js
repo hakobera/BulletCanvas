@@ -1,13 +1,14 @@
 var testBase = '../jstest/test/';
-function use(scriptName) {
+function run(scriptName) {
 	return testBase + scriptName;
 };
 
 require([
-	use('test-DrawContext'),
-	use('test-DanmakuObject'),
-	use('test-Expression'),
-	use('test-BulletMLParser'),
-	use('test-messageFormat'),
-	use('test-scat')
+	run('test-DrawContext'),
+	run('test-DanmakuObject'),
+	run('test-Expression'),
+	run('test-BulletMLParser'),
+	run('test-messageFormat'),
+	run('test-scat')
+        //   run('test-taskSystem')  
 ]);
