@@ -1,0 +1,51 @@
+#login {
+    position: relative;
+}
+
+#loginServiceBox {
+    display: none;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 330px;
+    border: 5px solid #aaa;
+    background-color: #fff;
+    text-align: left;
+    line-height: 1.5em;
+    z-index: 10;
+}
+
+#loginServiceBox ul {
+    display: inline-block;
+	list-style: none;
+}
+
+#loginServiceBox ul li {
+    display: block;
+	margin: 10px;
+}
+
+#loginServiceBox ul li a {
+	display: inline-block;
+	width: 285px;
+	padding: 10px;
+	color: #000;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	text-decoration: none;
+}
+
+#loginServiceBox ul li a:hover {
+	color: #fff;
+	background: #000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#000));
+}
+
+#loginServiceBox ul li a img {
+	vertical-align: middle;
+}
+
+#loginServiceBox ul li a span {
+	display: inline-block;
+	margin-left: 10px;
+}

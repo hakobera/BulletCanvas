@@ -10,6 +10,10 @@ require([],
 					$('#newSpell').show();
 				},
 				error: function() {
+                    $('#login').click(function(e) {
+                        e.preventDefault();
+                        $('#loginServiceBox').toggle();
+                    });
 					$('#login').show();
 				}
 			});

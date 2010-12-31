@@ -9,6 +9,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
 	<link href="/css/common.css" rel="stylesheet" type="text/css"/>
 	<link href="/css/index.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/loginBox.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script data-main="index" src="/js/require.js"></script>
 </head>
@@ -23,8 +24,26 @@
 		<ul>
 			<li id="account" style="display: none;"></li>
 			<li id="newSpell" style="display: none;">| <a href="/spell/new">スペカ作成</a></li>
-			<li id="login" style="display: none;">| <a href="/login/">ログイン</a></li>
 			<li id="logout" style="display: none;">| <a  href="/logout">ログアウト</a></li>
+            <li id="login" style="display: none;">
+                <a href="#login">ログイン</a>
+                <section id="loginServiceBox">
+                    <ul>
+                        <li>
+                            <a href="/login/twitter/auth">
+                                <img alt="Twitter" src="/images/login/twitter.png"/>
+                                <span>Twitter ID でログイン</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/login/google/auth">
+                                <img alt="Google" src="/images/login/google.png"/>
+                                <span>Google アカウントでログイン</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </li>
 		</ul>
 	</nav>
 	<h2>New</h2>
