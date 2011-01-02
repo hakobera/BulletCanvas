@@ -50,6 +50,17 @@ function(canvas) {
         };
 
         /**
+         * Return point(x,y) is in screen or not.
+         * @param x {integer} x coordinate
+         * @param y {integer} y coordinate
+         * @return {boolean} point(x,y) is in screen or not.
+         */
+        that.isInScreen = function(x, y) {
+            var d = 20;
+            return (x > -d) && (x < (width+d)) && (y > -d) && (y < (height+d));
+        };
+
+        /**
          * Draw fill rectangle.
          * @param x x coordinate (px)
          * @param y y coordinate (px)

@@ -43,7 +43,7 @@ function(debug) {
          * Update all managed tasks.
          *
          * @public
-         * @param updateContext {Object} Context for update object.
+         * @param updateContext {Object} Context for updating task.
          */
         that.update = function(updateContext) {
             var k, list, i, size;
@@ -71,6 +71,7 @@ function(debug) {
          * Update all managed tasks.
          *
          * @public
+         * @param drawContext {Object} Context for drawing task.
          */
         that.draw = function(drawContext) {
             var k, list, i, size;
@@ -81,6 +82,16 @@ function(debug) {
                     list[i].draw(drawContext);
                 }
             }
+        };
+
+        /**
+         * Return specified typed task list.
+         * @public
+         * @param taskType {String} Type name of a task
+         * @return {Array} specified typed task list
+         */
+        that.getTasks = function(taskType) {
+            return managedTasks[taskType];
         };
 
         return that;

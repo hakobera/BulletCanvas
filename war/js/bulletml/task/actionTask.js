@@ -70,9 +70,7 @@ function(task, CommandFactory, debug) {
          */
         that.update = function(updateContext) {
             while(currentIndex < commandLength) {
-                var command = commands[currentIndex];
-                var doNext = command.execute(that, updateContext);
-                if (!doNext) {
+                if (!commands[currentIndex].execute(that, updateContext)) {
                     break;
                 }
                 ++currentIndex;

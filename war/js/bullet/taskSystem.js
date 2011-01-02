@@ -14,6 +14,10 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
     var SCREEN_WIDTH = 320;
     var SCREEN_HEIGHT = 320;
 
+    var TASK_PLAYER = 'player';
+    var TASK_ACTION = 'action';
+    var TASK_BULLET = 'bullet';
+
     /**
      * @constructor
      * @param bulletML {XMLDocument} BulletML document.
@@ -27,6 +31,10 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          */
         var taskManager;
 
+        /**
+         * Player task.
+         * @private
+         */
         var player;
 
         /**
@@ -76,7 +84,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @param repeatTime {integer} Repeat count
          */
         var addAction = function(actionDef, repeatTimes) {
-            var action = TaskFactory.createTask('action', {
+            var action = TaskFactory.createTask(TASK_ACTION, {
                                                     updateContext: updateContext,
                                                     actionDef: actionDef,
                                                     repeatTimes: repeatTimes
@@ -84,6 +92,67 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
             addEvent(function() {
                 taskManager.addTask(action);
             });
+        };
+
+        var updateContext = {
+            /**
+             * Return controller.
+             * @public
+             * @return controller
+             */
+            getInput: function() {
+                return controller.input();
+            },
+
+            /**
+             * Get aim degree to player task.
+             * @public
+             * @param {integer} x
+             * @param {integer} y
+             * @return {float} Degree to player task.
+             */
+            getAimAngle: function(x, y) {
+                var dx = player.getX() - x;
+                var dy = player.getY() - y;
+                return Math.atan2(dx, dy);
+            },
+
+            /**
+             * Add action.
+             * @param actionDef {Object} Action definition
+             * @param repeatTime {integer} Repeat count
+             */
+            addAction: addAction,
+
+            /**
+             * Add bullet.
+             * @param bulletDef {Object} Bullet definition
+             */
+            addBullet: function(bulletDef) {
+                var bullet = TaskFactory.createTask(TASK_BULLET, { bullet: bulletDef, updateContext: updateContext });
+                addEvent(function() {
+                    taskManager.addTask(bullet);
+                });
+            },
+
+            /**
+             * Kill specified task.
+             * @param task task to kill
+             */
+            killTask: function(task) {
+                addEvent(function() {
+                    task.kill();
+                });
+            },
+
+            /**
+             * Evaluate expression.
+             * @param expr {String} Expression string.
+             * @return {flaoat} Calculated value.
+             */
+            evalExpression: function(expr, params) {
+                return expression.eval(expr, params);
+            }
         };
 
         /**
@@ -124,67 +193,26 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
             }
             eventQueue = [];
         };
+        
 
-        var updateContext = {
-            /**
-             * Return controller.
-             * @public
-             * @return controller
-             */
-            getInput: function() {
-                return controller.input();
-            },
-
-            /**
-             * Get aim degree to player task.
-             * @public
-             * @param {integer} x
-             * @param {integer} y
-             * @return {float} Degree to player task.
-             */
-            getAimAngle: function(x, y) {
-                var dx = player.getX() - x;
-                var dy = player.getY() - y;
-                return Math.atan2(dx, dy);
-            },
-
-            /**
-             * Add action.
-             * @param actionDef {Object} Action definition
-             * @param repeatTime {integer} Repeat count
-             */
-            addAction: addAction,
-
-            /**
-             * Add bullet.
-             * @param bulletDef {Object} Bullet definition
-             */
-            addBullet: function(bulletDef) {
-                var bullet = TaskFactory.createTask('bullet', { bullet: bulletDef, updateContext: updateContext });
-                addEvent(function() {
-                    taskManager.addTask(bullet);
-                });
-            },
-
-            /**
-             * Kill specified task.
-             * @param task task to kill
-             */
-            killTask: function(task) {
-                addEvent(function() {
-                    task.kill();
-                });
-            },
-
-            /**
-             * Evaluate expression.
-             * @param expr {String} Expression string.
-             * @return {flaoat} Calculated value.
-             */
-            evalExpression: function(expr, params) {
-                return expression.eval(expr, params);
+        /**
+         * Remove outscreen bullets.
+         * @private
+         */
+        var removeOutScreenBullets = function() {
+            var bulletTasks = taskManager.getTasks(TASK_BULLET);
+            if (bulletTasks) {
+                var size = bulletTasks.length;
+                for (var i = 0; i < size; ++i) {
+                    var bulletTask = bulletTasks[i];
+                    var x = bulletTask.getX();
+                    var y = bulletTask.getY();
+                    if (!drawContext.isInScreen(x, y)) {
+                        bulletTask.kill();
+                    }
+                }
             }
-        };
+        };       
 
         /**
          * Main loop of this system.
@@ -192,6 +220,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          */
         var mainLoop = function() {
             processEvents();
+            removeOutScreenBullets();
 
             taskManager.update(updateContext);
 
@@ -223,7 +252,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
             });
 
             taskManager = createTaskManager(bulletML, that);
-            player = TaskFactory.createTask('player', { x: SCREEN_WIDTH/2, y: SCREEN_HEIGHT - 50 });
+            player = TaskFactory.createTask(TASK_PLAYER, { x: SCREEN_WIDTH/2, y: SCREEN_HEIGHT - 50 });
             taskManager.addTask(player);
         };
 
