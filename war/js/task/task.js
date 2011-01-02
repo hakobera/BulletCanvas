@@ -1,7 +1,7 @@
 /**
  * task.js - Module for task managed by taskSystem.
  */
-define(['lib/uuid'], function(uuid) {
+define(['lib/uuid', 'lib/debug'], function(uuid, debug) {
     /**
      * Constructor for task.
      *
@@ -11,6 +11,9 @@ define(['lib/uuid'], function(uuid) {
     var task = function(spec) {
         var that = {};
         var taskId = uuid.generate();
+        var taskManager;
+        var active = true;
+        var parent = (spec && spec.parent) ? spec.parent : null;
 
         /**
          * Return UUID of this task.
@@ -30,18 +33,68 @@ define(['lib/uuid'], function(uuid) {
         };
 
         /**
-         * Update task properties, status, etc.
-         * Default implimentation do nothing.
-         *
+         * Return taskManager managed by this system.
+         * @public
+         * @return {Object} taskManager
+         */
+        that.getTaskManager = function() {
+            return taskManager; 
+        };
+
+        /**
+         * Set taskManager managed by this system.
+         * @public
+         * @param manager {Object} taskManager
+         */
+        that.setTaskManager = function(manager) {
+            return taskManager = manager;
+        };
+
+        /**
+         * Return parent task.
+         * If task has not parent, return null.
+         * @public
+         * @return {Object} parent task.
+         */
+        that.getParent = function() {
+            return parent; 
+        };
+
+        /**
+         * Return task is active or not.
+         * @public
+         * @return {boolean} true if task if active.
+         */
+        that.isActive = function() {
+            if (parent) {
+                return parent.isActive() && active;
+            } else {
+                return active;
+            }
+        };
+
+        /**
+         * Kill this task.
          * @public
          */
-        that.update = function() {};
+        that.kill = function() {
+            active = false;
+            debug('Killed ' + this.type() + ':' + this.id());
+        };
+
+        /**
+         * Update task properties, status, etc.
+         * Default implementation do nothing.
+         * @public
+         * @param updateContext {Object} Context for update object.
+         */
+        that.update = function(updateContext) {};
 
         /**
          * Draw an object related this task.
          * Default implimentation do nothing.
          * @public
-         * @param drawContext Context for drawing object.
+         * @param drawContext {Object} Context for drawing object.
          */
         that.draw = function(drawContext) {};
 

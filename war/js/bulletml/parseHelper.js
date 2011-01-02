@@ -365,6 +365,14 @@ function(
                     case 'speed':
                         speed = this.parseSpeed(tag);
                         break;
+
+                    case 'bullet':
+                        bullet = this.parseBulletDef(tag);
+                        break;
+
+                    case 'bulletRef':
+                        bullet = this.parseBulletRef(tag);
+                        break;
                     }
                 }
             }
@@ -372,7 +380,8 @@ function(
             return fireDef({
                 label: label,
                 direction: direction,
-                speed: speed
+                speed: speed,
+                bullet: bullet
             });
         },
         
@@ -393,7 +402,7 @@ function(
                     var tagName = tag.tagName;
                     switch (tagName) {
                     case 'param':
-                        p = this.parseParam(paramNodes[i]);
+                        p = this.parseParam(tag);
                         params.push(p);
                         break;
                     }

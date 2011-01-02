@@ -9,6 +9,14 @@ define(['util/format'], function(format) {
 		that.vertical = spec.vertical;
 		that.term = spec.term;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'accel';    
+        };
+
         that.toString = function() {
             return format(
                     '<Accel horizontal=(%1), vertical=(%2), term=(%3)>',

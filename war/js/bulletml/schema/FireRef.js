@@ -10,6 +10,14 @@ define(['util/format'], function(format) {
         that.label = spec.label;
         that.params = spec.params;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'fireRef';
+        };
+
         that.toString = function() {
             return format('<FireRef label=%1, params=%2>', that.label, that.params);
         };

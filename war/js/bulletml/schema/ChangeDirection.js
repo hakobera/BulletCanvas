@@ -9,6 +9,14 @@ define(['util/format'], function(format) {
         that.direction = spec.direction;
         that.term = spec.term;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'changeDirection';
+        };
+
         that.toString = function() {
             return format(
                     '<ChangeDirection direction=%1, term=%2>',

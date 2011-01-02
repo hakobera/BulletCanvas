@@ -1,10 +1,14 @@
 define(
 [
-    'bulletml/task/actionTask'
+    'bulletml/task/playerTask',
+    'bulletml/task/actionTask',
+    'bulletml/task/bulletTask'
 ],
-function(actionTask) {
+function(playerTask, actionTask, bulletTask) {
     var constructors = {
-        'action': actionTask    
+        'player': playerTask,
+        'action': actionTask,
+        'bullet': bulletTask
     };
 
     return {

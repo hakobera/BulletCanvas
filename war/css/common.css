@@ -31,10 +31,11 @@ nav ul li a {
 }
 
 header {
+    margin-bottom: 5px;
 	padding: 5px 0 5px 0;
 	background: #000;
-	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#999));
-	background: -moz-linear-gradient(#000, #707070);
+	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#888));
+	background: -moz-linear-gradient(#000, #ccc);
 }
 
 header a {
@@ -58,9 +59,9 @@ header h1 {
 
 header .version {
 	margin-left: 2px;
-	color: #999;
+	color: #c0c0c0;
 	font-family: 'Orbitron', arial, serif;
-	font-size: 10px;
+	font-size: 12px;
 	vertical-align: text-top;
 }
 

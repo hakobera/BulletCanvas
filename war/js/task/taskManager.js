@@ -7,21 +7,18 @@ define(
 ],
 function(debug) {
     /**
-     * Task list managed by this taskSystem.
-     * @private
-     * @type hash[String, Array]
+     * @constructor
      */
-    var managedTasks = {};
+    var taskManager = function() {
+        var that = {};
+        
+        /**
+         * Task list managed by this taskSystem.
+         * @private
+         * @type hash[String, Array]
+         */
+        var managedTasks = {};
 
-    /**
-     * Draw context for this taskSystem.
-     *
-     * @private
-     * @type {Object}
-     */
-    var drawContext;
-
-    return {
         /**
          * Create and add task to taskSystem.
          *
@@ -30,7 +27,7 @@ function(debug) {
          * @param spec {Object} Spec of a task
          * @return {Object] (this) taskManager.
          */
-        addTask: function(task) {
+        that.addTask = function(task) {
             var taskType = task.type();
             var tasks = managedTasks[taskType];
             if (!tasks) {
@@ -38,31 +35,44 @@ function(debug) {
                 managedTasks[taskType] = tasks;
             }
             tasks.push(task);
-            return this;
-        },
+            task.setTaskManager(that);
+            return that;
+        };
 
         /**
          * Update all managed tasks.
          *
          * @public
+         * @param updateContext {Object} Context for update object.
          */
-        update: function() {
+        that.update = function(updateContext) {
             var k, list, i, size;
             for (k in managedTasks) {
                 list = managedTasks[k];
+                var newList = []
                 size = list.length;
                 for (i = 0; i < size; ++i) {
-                    list[i].update();
+                    if (list[i].isActive()) {
+                        newList.push(list[i]);
+                    } else {
+                        list[i] = null;
+                    }
                 }
+
+                size = newList.length;
+                for (i = 0; i < size; ++i) {
+                    newList[i].update(updateContext);
+                }
+                managedTasks[k] = newList;
             }
-        },
+        };
 
         /**
          * Update all managed tasks.
          *
          * @public
          */
-        draw: function() {
+        that.draw = function(drawContext) {
             var k, list, i, size;
             for (k in managedTasks) {
                 list = managedTasks[k];
@@ -71,16 +81,10 @@ function(debug) {
                     list[i].draw(drawContext);
                 }
             }
-        },
+        };
 
-        /**
-         * Set drawContext.
-         *
-         * @public
-         * @param {Object} drawContext
-         */
-        setDrawContext: function(context) {
-            drawContext = context;
-        }
+        return that;
     };
+
+    return taskManager;
 });

@@ -8,6 +8,14 @@ define(['util/format'], function(format) {
         that.speed = spec.speed;
         that.term = spec.term;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'changeSpeed';
+        };
+
         that.toString = function() {
             return format(
                     '<ChangeSpeed speed=%1, term=%2>',

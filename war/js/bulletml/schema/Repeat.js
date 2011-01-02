@@ -8,6 +8,14 @@ define(['util/format'], function(format) {
 		that.times = spec.times;
 		that.action = spec.action;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'repeat';
+        };
+
         that.toString = function() {
             return format('<[Repeat times=%1, action=%2>', that.times, that.action);
         };

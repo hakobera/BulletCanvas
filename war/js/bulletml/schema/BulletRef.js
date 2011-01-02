@@ -12,6 +12,14 @@ define(['util/format'], function(format) {
         that.label = spec.label;
         that.params = spce.params;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.type = function() {
+            return 'bulletRef';
+        };
+
         that.toString = function() {
             return format('<BulletRef label=%1, params=%2>', that.label, that.params);
         };

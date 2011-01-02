@@ -8,13 +8,23 @@ define(['util/format'], function(format) {
         that.label = spec.label;
         that.direction = spec.direction;
         that.speed = spec.speed;
+        that.bullet = spec.bullet;
+
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'fireDef';
+        };
 
         that.toString = function() {
             return format(
-                    '<FireDef label=%1, direction=%2, speed=%3>',
+                    '<FireDef label=%1, direction=%2, speed=%3, bullet=%4>',
                     that.label,
                     that.direction,
-                    that.speed);
+                    that.speed,
+                    that.bullet);
         };
 
         return that;

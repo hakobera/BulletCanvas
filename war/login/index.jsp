@@ -19,7 +19,6 @@
 		</a>
 	</header>
 	<section id="loginServiceBox">
-		<h2>Login</h2>
 		<ul>
 			<li>
 				<a href="/login/twitter/auth">

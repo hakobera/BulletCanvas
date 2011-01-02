@@ -1,9 +1,45 @@
 /**
- * task.js - Module for task managed by taskSystem.
+ * actionTask.js - Task for action.
  */
-define(['task/task', 'lib/debug'], function(task, debug) {
+define(
+[
+    'task/task',
+    'bulletml/command/commandFactory',
+    'lib/debug'
+],
+function(task, CommandFactory, debug) {
+
+    /**
+     * @constructor
+     * @param spec
+     */
     var actionTask = function(spec) {
         var that = task(spec);
+
+        /**
+         * Current command index.
+         * @private
+         */
+        var currentIndex = 0;
+
+        /**
+         * Repeat count.
+         * @private
+         */
+        var repeatTimes = spec.repeatTimes || 1;
+
+        debug(repeatTimes);
+        console.log(repeatTimes);
+        
+        var taskSystem = spec.taskSystem;
+        var actionDef = spec.actionDef;
+        var commands = [];
+        var commandLength = actionDef.commands.length;
+        
+        for (var i = 0; i < commandLength; ++i) {
+            commands.push(CommandFactory.createCommand(actionDef.commands[i], taskSystem));
+        }
+        debug(commands);
 
         /**
          * Return type of this task.
@@ -13,25 +49,34 @@ define(['task/task', 'lib/debug'], function(task, debug) {
             return 'action';
         };
 
-        /**
+       /**
          * Update task properties, status, etc.
-         * Default implimentation do nothing.
-         *
+         * Default implementation do nothing.
          * @public
+         * @param updateContext {Object} Context for update object.
          */
-        that.update = function() {
-            debug('[update]' + this);
+        that.update = function(updateContext) {
+            while(currentIndex < commandLength) {
+                var command = commands[currentIndex];
+                var doNext = command.execute({
+                    task: that,
+                    taskSystem: updateContext.taskSystem
+                });
+                if (!doNext) {
+                    break;
+                }
+                ++currentIndex;
+            }
+
+            if (currentIndex === commandLength ) {
+                --repeatTimes;
+                if (repeatTimes > 0) {
+                    currentIndex = 0;
+                }
+            }
         };
 
-        /**
-         * Draw an object related this task.
-         * Default implimentation do nothing.
-         * @public
-         * @param drawContext Context for drawing object.
-         */
-        that.draw = function(drawContext) {
-            debug('[draw]' + this);
-        };
+        debug('Create ' + that.type() + ':' + that.id());
 
         return that;
     };

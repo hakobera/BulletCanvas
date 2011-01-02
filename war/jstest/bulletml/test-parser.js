@@ -6,7 +6,7 @@ define(
 function(parser, debug) {
     module('parser');
 
-    test('template.xml', function() {
+    asyncTest('template.xml', function() {
         stop();
   		$.ajax({
 			url: '/bulletml/template.xml',
@@ -27,12 +27,12 @@ function(parser, debug) {
                 same(commands.length, 1, 'topAction.commands.length === 1');
 
                 var fire = commands[0];
-                same(commands.toString(), '<FireDef label=, direction=<Direction type=aim, value=1>, speed=<Speed type=absolute, value=1>>');
+                same(commands.toString(), '<FireDef label=, direction=<Direction type=aim, value=0>, speed=<Speed type=absolute, value=1>, bullet=<BulletDef label=, direction=<Direction type=aim, value=0>, speed=<Speed type=absolute, value=1>, actions=[]>>');
             }
 		});
     });
 
-    test('top action, fire, bullet 1つずつ', function() {
+    asyncTest('top action, fire, bullet 1つずつ', function() {
         stop();
   		$.ajax({
 			url: '/bulletml/test001.xml',
@@ -61,7 +61,7 @@ function(parser, debug) {
 		});
     });
 
-    test('action に全ての子要素を付与したパターン', function() {
+    asyncTest('action に全ての子要素を付与したパターン', function() {
         stop();
   		$.ajax({
 			url: '/bulletml/test002.xml',

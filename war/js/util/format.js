@@ -10,6 +10,8 @@ define(function() {
             var s, i;
             if (arg instanceof Array) {
                 s = '[' + arg.toString() + ']';
+            } else if (isFinite(parseFloat(arg))) {
+                s = arg;
             } else {
                 s = arg ? arg.toString() : '';
             }

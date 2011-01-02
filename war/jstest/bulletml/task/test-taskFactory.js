@@ -1,12 +1,14 @@
 define(
 [
-    'bulletml/task/taskFactory'
+    'bulletml/task/taskFactory',
+    'bulletml/schema/ActionDef'
 ],
-function(taskFactory) {
+function(taskFactory, ActionDef) {
     module('taskFactory');
 
     test('actionTask が作成できることを確認', function() {
-        var task1 = taskFactory.createTask('action');
+        var actionDef = ActionDef();
+        var task1 = taskFactory.createTask('action', { actionDef: actionDef });
 
         same(task1.type(), 'action');
     });

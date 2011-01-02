@@ -1,11 +1,7 @@
-var testBase = '../jstest/task/';
-function run(scriptName) {
-	return testBase + scriptName;
-};
-
-require(
+require(['../jstest/testRunner'], function(testRunner) {
+    testRunner.run('../jstest/task/',
     [
-        run('test-task'),
-        run('test-taskManager')
-    ]
-);
+        'test-task',
+        'test-taskManager'
+    ]);
+});

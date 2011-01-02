@@ -1,7 +1,7 @@
 define(
 ['util/format'],
 function(format) {
-	module('MessageFormat');
+	module('format');
 
 	test('パラメータなし', function() {
 		same(format('message'), 'message');

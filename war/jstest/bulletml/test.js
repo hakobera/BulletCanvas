@@ -1,12 +1,9 @@
-var testBase = '../jstest/bulletml/';
-function run(scriptName) {
-	return testBase + scriptName;
-};
-
-require(
+require(['../jstest/testRunner'], function(testRunner) {
+    testRunner.run('../jstest/bulletml/',
     [
-        run('task/test-taskFactory'),
-        run('task/test-actionTask'),
-        run('test-parser')
-    ]
-);
+        'task/test-taskFactory',
+        'task/test-actionTask',
+        'test-parser',
+        'test-expression'
+    ]);
+});

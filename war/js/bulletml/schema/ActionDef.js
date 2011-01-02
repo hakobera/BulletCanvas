@@ -6,8 +6,8 @@
 define(['util/format'], function(format) {
 	var actionDef = function(spec) {
         var that = {};
-        that.label = spec.label;
-        that.commands = spec.commands;
+        that.label = (spec && spec.label) ? spec.label : null;
+        that.commands = (spec && spec.commands) ? spec.commands : [];
 
         that.toString = function() {
             return format(

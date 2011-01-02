@@ -6,11 +6,12 @@ define(
 function(task, taskManager) {
     module('taskManager');
 
-    test('taskSystem が null でないことを確認', function() {
+    test('taskManager が null でないことを確認', function() {
         same(!!taskManager, true);
     });
 
     test('update が 全管理タスクの update の呼び出しが成功することを確認', function() {
+        var manager = taskManager();
         var count = 0;
         var stubTask = function(spec) {
             var that = task(spec);
@@ -23,15 +24,16 @@ function(task, taskManager) {
             return that;
         };
 
-        taskManager.addTask(stubTask());
-        taskManager.addTask(stubTask());
+        manager.addTask(stubTask());
+        manager.addTask(stubTask());
 
-        taskManager.update();
+        manager.update();
 
         same(2, count);
     });
 
     test('draw が 全管理タスクの draw の呼び出しが成功することを確認', function() {
+        var manager = taskManager();
         var count = 0;
         var stubTask = function(spec) {
             var that = task(spec);
@@ -44,10 +46,11 @@ function(task, taskManager) {
             return that;
         };
 
-        taskManager.addTask(stubTask());
-        taskManager.addTask(stubTask());
+        manager.addTask(stubTask());
+        manager.addTask(stubTask());
 
-        taskManager.draw();
+        var drawContext = {} // dummy
+        manager.draw(drawContext);
 
         same(2, count);
     });

@@ -1,10 +1,7 @@
-var testBase = '../jstest/util/';
-function run(scriptName) {
-	return testBase + scriptName;
-};
-
-require(
+require(['../jstest/testRunner'], function(testRunner) {
+    testRunner.run('../jstest/util/',
     [
-        run('test-format')
-    ]
-);
+        'test-format',
+        'test-fmath'
+    ]);
+});

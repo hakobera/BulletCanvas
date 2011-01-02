@@ -7,6 +7,14 @@ define(['util/format'], function(format) {
         var that = {};
         that.value = spec.value;
 
+        /**
+         * Return tag type.
+         * @public
+         */
+        that.commandType = function() {
+            return 'param';
+        };
+
         that.toString = function() {
             return format('<Param value=%1>', that.value);
         };
