@@ -1,21 +1,19 @@
 define(['bulletml/command/command'], function(command) {
     /**
      * @constructor
-     * @param spec
-     */   
-    var vanishCommand = function(spec) {
-        var that = command(spec);
+     * @param vanish {Object} Vanish command definition.
+     */
+    var vanishCommand = function(vanihs) {
+        var that = command();
 
         /**
          * Execute command.
-         * Default implementation do nothing.
-         * @param {Object} commandContext
+         * @param {Object} task Call action task
+         * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(commandContext) {
-            var task = commandContext.task;
-            var taskSystem = commandContext.taskSystem;
-            taskSystem.killTask(task);
+        that.execute = function(task, updateContext) {
+            updateContext.killTask(task);
             return false;
         };
 

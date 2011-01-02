@@ -22,14 +22,13 @@ function(
     };
 
     return {
-        createCommand: function(commandDef, taskSystem) {
+        createCommand: function(commandDef) {
             var type = commandDef.commandType();
-            var spec = { taskSystem: taskSystem, commandDef: commandDef };
             var constructor = constructors[type];
             if (!constructor) {
                 throw Error('[commandFactory] constructor not found fot type = ' + type);
             }
-            return constructor(spec);
+            return constructor(commandDef);
         }
     };
 });

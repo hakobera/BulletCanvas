@@ -14,19 +14,6 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
     var SCREEN_WIDTH = 320;
     var SCREEN_HEIGHT = 320;
 
-    var createTaskManager = function(bulletML, taskSystem) {
-        var taskManager = TaskManager();
-        var parser = Parser();
-        var bulletMLDocument = parser.parse(bulletML);
-        var actionDefinitions = bulletMLDocument.getActions();
-        var size = actionDefinitions.length;
-        for (var i = 0; i < size; ++i) {
-            taskSystem.addAction(actionDefinitions[i]);
-        }
-
-        return taskManager;
-    };
-
     /**
      * @constructor
      * @param bulletML {XMLDocument} BulletML document.
@@ -77,12 +64,49 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @private
          */
         var controller = {
+            input: function() { return { x:0, y:0 } },
             getX: function() { return 0; },
             getY: function() { return 0; }
         };
 
         /**
+         * Add action.
+         * @private
+         * @param actionDef {Object} Action definition
+         * @param repeatTime {integer} Repeat count
+         */
+        var addAction = function(actionDef, repeatTimes) {
+            var action = TaskFactory.createTask('action', {
+                                                    updateContext: updateContext,
+                                                    actionDef: actionDef,
+                                                    repeatTimes: repeatTimes
+                                                });
+            addEvent(function() {
+                taskManager.addTask(action);
+            });
+        };
+
+        /**
+         * Create TaskManager instance.
+         * @private
+         * @param actionDef {Object} Action definition
+         * @param repeatTime {integer} Repeat count
+         */
+        var createTaskManager = function(bulletML) {
+            var taskManager = TaskManager();
+            var parser = Parser();
+            var bulletMLDocument = parser.parse(bulletML);
+            var actionDefinitions = bulletMLDocument.getActions();
+            var size = actionDefinitions.length;
+            for (var i = 0; i < size; ++i) {
+                addAction(actionDefinitions[i], 1);
+            }
+            return taskManager;
+        };
+
+        /**
          * Add event to event queue.
+         * @private
          */
         var addEvent = function(func) {
             eventQueue.push(func);
@@ -101,11 +125,72 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
             eventQueue = [];
         };
 
+        var updateContext = {
+            /**
+             * Return controller.
+             * @public
+             * @return controller
+             */
+            getInput: function() {
+                return controller.input();
+            },
+
+            /**
+             * Get aim degree to player task.
+             * @public
+             * @param {integer} x
+             * @param {integer} y
+             * @return {float} Degree to player task.
+             */
+            getAimAngle: function(x, y) {
+                var dx = player.getX() - x;
+                var dy = player.getY() - y;
+                return Math.atan2(dx, dy);
+            },
+
+            /**
+             * Add action.
+             * @param actionDef {Object} Action definition
+             * @param repeatTime {integer} Repeat count
+             */
+            addAction: addAction,
+
+            /**
+             * Add bullet.
+             * @param bulletDef {Object} Bullet definition
+             */
+            addBullet: function(bulletDef) {
+                var bullet = TaskFactory.createTask('bullet', { bullet: bulletDef, updateContext: updateContext });
+                addEvent(function() {
+                    taskManager.addTask(bullet);
+                });
+            },
+
+            /**
+             * Kill specified task.
+             * @param task task to kill
+             */
+            killTask: function(task) {
+                addEvent(function() {
+                    task.kill();
+                });
+            },
+
+            /**
+             * Evaluate expression.
+             * @param expr {String} Expression string.
+             * @return {flaoat} Calculated value.
+             */
+            evalExpression: function(expr, params) {
+                return expression.eval(expr, params);
+            }
+        };
+
         /**
          * Main loop of this system.
          * @private
          */
-        var mainLoop = function(updateContext) {
+        var mainLoop = function() {
             processEvents();
 
             taskManager.update(updateContext);
@@ -134,8 +219,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
 
             fpsTimer = FpsTimer({
                 fps: 30,
-                callback: mainLoop,
-                callbackData: { taskSystem: that }
+                callback: mainLoop 
             });
 
             taskManager = createTaskManager(bulletML, that);
@@ -214,74 +298,6 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          */
         that.setController = function(ctrl) {
             controller = ctrl;
-        };
-
-        /**
-         * Return controller.
-         * @public
-         * @return controller
-         */
-        that.getController = function() {
-            return controller;
-        };
-
-        /**
-         * Get aim degree to player task.
-         * @public
-         * @param {integer} x
-         * @param {integer} y
-         * @return {float} Degree to player task.
-         */
-        that.getAimAngle = function(x, y) {
-            var dx = player.getX() - x;
-            var dy = player.getY() - y;
-            return Math.atan2(dx, dy);
-        };
-
-        /**
-         * Add action.
-         * @param actionDef {Object} Action definition
-         * @param repeatTime {integer} Repeat count
-         */
-        that.addAction = function(actionDef, repeatTimes) {
-            var action = TaskFactory.createTask('action', {
-                                                    taskSystem: that,
-                                                    actionDef: actionDef,
-                                                    repeatTimes: repeatTimes || 1
-                                                });
-            addEvent(function() {
-                taskManager.addTask(action);
-            });
-        };
-
-        /**
-         * Add bullet.
-         * @param bulletDef {Object} Bullet definition
-         */
-        that.addBullet = function(bulletDef) {
-            var bullet = TaskFactory.createTask('bullet', { taskSystem: that, bullet: bulletDef });
-            addEvent(function() {
-                taskManager.addTask(bullet);
-            });
-        };
-
-        /**
-         * Kill specified task.
-         * @param task task to kill
-         */
-        that.killTask = function(task) {
-            addEvent(function() {
-                task.kill();
-            });
-        };
-
-        /**
-         * Evaluate expression.
-         * @param expr {String} Expression string.
-         * @return {flaoat} Calculated value.
-         */
-        that.evalExpression = function(expr, params) {
-            return expression.eval(expr, params);
         };
 
         return that;

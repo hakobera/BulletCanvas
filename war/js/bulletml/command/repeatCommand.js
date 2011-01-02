@@ -1,24 +1,20 @@
 define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
     /**
      * @constructor
-     * @param spec
+     * @param repeat {Object} Repeat command definition
      */
-    var repeatCommand = function(spec) {
-        var that = command(spec);
-        var taskSystem = spec.taskSystem;
-        var repeat = spec.commandDef;
-        var repeatTimes = taskSystem.evalExpression(repeat.times.value) | 0;
-        debug(repeatTimes);
+    var repeatCommand = function(repeat) {
+        var that = command();
 
         /**
          * Execute command.
-         * Default implementation do nothing.
-         * @param {Object} commandContext
+         * @param {Object} task Call action task
+         * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(commandContext) {
-            var taskSystem = commandContext.taskSystem;
-            taskSystem.addAction(repeat.action, repeatTimes);
+        that.execute = function(task, updateContext) {
+            var repeatTimes = updateContext.evalExpression(repeat.times.value) | 0;
+            updateContext.addAction(repeat.action, repeatTimes);
             return true;
         };
 

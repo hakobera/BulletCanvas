@@ -12,7 +12,8 @@ require(['bullet/taskSystem'], function(TaskSystem) {
                 var fpsTimer = taskSystem.getFpsTimer();
                 $('#fps').text(fpsTimer.getAverageFps());
                 setInterval(function() {
-                    $('#fps').text(fpsTimer.getAverageFps());
+                    var v = Math.floor(fpsTimer.getAverageFps() * 10) / 10;
+                    $('#fps').text(v);
                 }, 1000);
 			}
 		});

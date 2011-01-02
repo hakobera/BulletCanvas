@@ -18,29 +18,42 @@ function(task, CommandFactory, debug) {
 
         /**
          * Current command index.
-         * @private
+         * @private {integer}
          */
         var currentIndex = 0;
 
         /**
          * Repeat count.
-         * @private
+         * @private {integer}
          */
         var repeatTimes = spec.repeatTimes || 1;
 
-        debug(repeatTimes);
-        console.log(repeatTimes);
-        
-        var taskSystem = spec.taskSystem;
-        var actionDef = spec.actionDef;
-        var commands = [];
-        var commandLength = actionDef.commands.length;
-        
-        for (var i = 0; i < commandLength; ++i) {
-            commands.push(CommandFactory.createCommand(actionDef.commands[i], taskSystem));
-        }
-        debug(commands);
+        /**
+         * Last fire direction.
+         * @private {float}
+         */
+        var prevFireDirection = 0;
 
+        /**
+         * Last fire direction.
+         * @private {float}
+         */
+        var prevFireSpeed = 1;
+
+        /**
+         * Action command list.
+         * @private {Array}
+         */
+        var commands = [];
+
+// init
+        var actionDef = spec.actionDef;
+        var commandLength = actionDef.commands.length;
+        for (var i = 0; i < commandLength; ++i) {
+            commands.push(CommandFactory.createCommand(actionDef.commands[i]));
+        }
+
+// public methods
         /**
          * Return type of this task.
          * @return {String} 'action'
@@ -58,10 +71,7 @@ function(task, CommandFactory, debug) {
         that.update = function(updateContext) {
             while(currentIndex < commandLength) {
                 var command = commands[currentIndex];
-                var doNext = command.execute({
-                    task: that,
-                    taskSystem: updateContext.taskSystem
-                });
+                var doNext = command.execute(that, updateContext);
                 if (!doNext) {
                     break;
                 }
@@ -72,8 +82,19 @@ function(task, CommandFactory, debug) {
                 --repeatTimes;
                 if (repeatTimes > 0) {
                     currentIndex = 0;
+                } else {
+                    updateContext.killTask(that);
                 }
             }
+        };
+
+        /**
+         * Save last fire direction.
+         * @public
+         * @param direction {integer} last fire direction(degree)
+         */
+        that.setLastFireDirection = function(direction) {
+            lastFireDirection = direction;
         };
 
         debug('Create ' + that.type() + ':' + that.id());

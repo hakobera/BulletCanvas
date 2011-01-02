@@ -193,10 +193,10 @@ function(
             });
         },
 
-        parseBulletDef: function(node) {
+        parseBulletDef: function(node, parentDirection, parentSpeed) {
             var label = attr(node, 'label', null);
-            var direction = defaultDirection();
-            var speed = defaultSpeed();
+            var direction = parentDirection;
+            var speed = parentSpeed;
             var actions = [];
             var childNodes = node.childNodes;
             var len = childNodes.length;
@@ -239,7 +239,6 @@ function(
             if (!label) {
                 throw new Error('[bulletRef] "label" attribute is required');
             }
-
 
             var params = [];
             var childNodes = node.childNodes;
@@ -367,11 +366,11 @@ function(
                         break;
 
                     case 'bullet':
-                        bullet = this.parseBulletDef(tag);
+                        bullet = this.parseBulletDef(tag, direction, speed);
                         break;
 
                     case 'bulletRef':
-                        bullet = this.parseBulletRef(tag);
+                        bullet = this.parseBulletRef(tag, direction, speed);
                         break;
                     }
                 }

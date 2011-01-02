@@ -3,7 +3,7 @@
 <bulletml>
 	<action label="top">
         <repeat>
-            <times>1000</times>
+            <times>100</times>
             <action>
                 <fire>
                     <direction type="sequence">23</direction>

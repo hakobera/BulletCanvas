@@ -20,11 +20,10 @@ define(['bulletml/task/displayObjectTask', 'lib/debug'], function(displayObjectT
          * @param updateContext {Object} Context for update object.
          */
         that.update = function(updateContext) {
-            var taskSystem = updateContext.taskSystem;
-            var controller = taskSystem.getController();
+            var input = updateContext.getInput();
             var SCALE = 3;
-            var nx = this.getX() + controller.getX() * SCALE | 0;
-            var ny = this.getY() - controller.getY() * SCALE | 0;
+            var nx = this.getX() + input.x * SCALE | 0;
+            var ny = this.getY() - input.y * SCALE | 0;
             this.setX(nx);
             this.setY(ny);
         };

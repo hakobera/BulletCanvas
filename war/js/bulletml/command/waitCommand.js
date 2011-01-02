@@ -1,21 +1,22 @@
 define(['bulletml/command/command'], function(command) {
     /**
      * @constructor
-     * @param spec
+     * @param wait {Object} Wait command definition
      */
-    var waitCommand = function(spec) {
-        var that = command(spec);
-        var taskSystem = spec.taskSystem;
-        var wait = spec.commandDef;
-        var waitFrames = taskSystem.evalExpression(wait.value) | 0;
-
+    var waitCommand = function(wait) {
+        var that = command();
+        var waitFrames = null;
+        
         /**
          * Execute command.
-         * Default implementation do nothing.
-         * @param {Object} commandContext
+         * @param {Object} task Call action task
+         * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(commandContext) {
+        that.execute = function(task, updateContext) {
+            if (waitFrames === null) {
+                waitFrames = updateContext.evalExpression(wait.value) | 0;
+            }
             return --waitFrames < 0;
         };
 

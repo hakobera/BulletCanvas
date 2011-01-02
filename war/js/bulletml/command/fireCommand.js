@@ -1,22 +1,35 @@
 define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
     /**
      * @constructor
-     * @param spec
+     * @param fireDef {Object} Fire command definition.
      */
-    var fireCommand = function(spec) {
-        var that = command(spec);
-        var fireDef = spec.commandDef;
-        debug(fireDef);
+    var fireCommand = function(fireDef) {
+        var that = command();
+        var direction = fireDef.direction;
+        var speed = fireDef.speed;
+
+        var calcDirection = function() {
+            switch (direction.type) {
+            case 'aim':
+                break;
+
+            case 'absolute':
+                break;
+
+            case 'sequence':
+                break;
+            }
+        };
 
         /**
          * Execute command.
-         * Default implementation do nothing.
-         * @param {Object} commandContext
+         * @param {Object} task Call action task
+         * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(commandContext) {
-            var taskSystem = commandContext.taskSystem;
-            taskSystem.addBullet(fireDef.bullet);
+        that.execute = function(task, updateContext) {
+            var bulletDef = fireDef.bullet;
+            var bullet = updateContext.addBullet(bulletDef);
             return true;
         };
 

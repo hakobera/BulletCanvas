@@ -31,7 +31,6 @@ define(function() {
          * Callback function for each update.
          */
         var callback = spec.callback;
-        var callbackData = spec.callbackData;
 
         var totalTime = 0;
         var prevTick = 0;
@@ -58,8 +57,7 @@ define(function() {
 			    fpsTime -= 1000;
 			    fpsFrameCount = 0;
 		    }
-            callbackData.delta = delta;
-            callback(callbackData);
+            callback();
         };
 
         /**

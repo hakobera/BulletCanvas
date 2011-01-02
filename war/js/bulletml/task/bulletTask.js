@@ -12,9 +12,9 @@ function(displayObjectTask, expression, debug) {
         var that = displayObjectTask(spec);
 
         var bulletDef = spec.bullet;
-        var taskSystem = spec.taskSystem;
         var speed = bulletDef.speed;
         var direction = bulletDef.direction;
+        var updateContext = spec.updateContext;
 
         /**
          * previous frame X coordinate.
@@ -32,8 +32,8 @@ function(displayObjectTask, expression, debug) {
          * Calculate speed
          * @private
          */
-        var calcSpeed = function(taskSystem, speed) {
-            var s = taskSystem.evalExpression(speed.value);
+        var calcSpeed = function(speed) {
+            var s = updateContext.evalExpression(speed.value);
             return s;
         }
 
@@ -41,8 +41,8 @@ function(displayObjectTask, expression, debug) {
          * Calculate direction
          * @private
          */
-        var calcDirection = function(taskSystem, direction) {
-            var d = taskSystem.evalExpression(direction.value) * Math.PI / 180;
+        var calcDirection = function(direction) {
+            var d = updateContext.evalExpression(direction.value) * Math.PI / 180;
             var angle = 0;
             switch (direction.type) {
                 case 'aim':
@@ -64,8 +64,8 @@ function(displayObjectTask, expression, debug) {
             return angle;           
         }
 
-        var currentSpeed = calcSpeed(taskSystem, speed);
-        var currentDirection = calcDirection(taskSystem, direction);
+        var currentSpeed = calcSpeed(speed);
+        var currentDirection = calcDirection(direction);
 
         /**
          * Return type of this task.
@@ -98,7 +98,7 @@ function(displayObjectTask, expression, debug) {
          */
         that.draw = function(drawContext) {
             //drawContext.drawLine(that.getX(), that.getY(), prevX, prevY, 2, '#0xaaffaa');
-            drawContext.drawCircle(that.getX(), that.getY(), 5, '#aaffaa');
+            drawContext.drawCircle(that.getX(), that.getY(), 2, '#aaffaa');
         };
 
         //debug('Create ' + that.type() + ':' + that.id());
