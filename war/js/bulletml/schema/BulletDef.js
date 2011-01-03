@@ -12,13 +12,9 @@ define(['util/format'], function(format) {
         that.speed = spec.speed;
         that.actions = spec.actions;
 
-        /**
-         * Return tag type.
-         * @public
-         */
-        that.type = function() {
+        that.bulletType = function() {
             return 'bulletDef';
-        };
+        }
 
         that.toString = function() {
             return format(

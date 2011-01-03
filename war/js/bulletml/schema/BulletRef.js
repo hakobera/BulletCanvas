@@ -6,19 +6,15 @@
  * <param>要素に指定された数値に置き換えられます。
  *  （最初に出現したparam要素が$1に、次に出現したparam要素が$2に、...）
  */
-define(['util/format'], function(format) {
+define(['util/format', 'bulletml/schema/BulletDef'], function(format, BulletDef) {
 	var bulletRef = function(spec) {
         var that = {};
         that.label = spec.label;
-        that.params = spce.params;
+        that.params = spec.params;
 
-        /**
-         * Return tag type.
-         * @public
-         */
-        that.type = function() {
+        that.bulletType = function() {
             return 'bulletRef';
-        };
+        }
 
         that.toString = function() {
             return format('<BulletRef label=%1, params=%2>', that.label, that.params);

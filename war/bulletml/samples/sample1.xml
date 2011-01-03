@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml type="vertical">
+	<action label="top">
+        <fire>
+            <bullet/>
+         </fire>
+     </action>
+</bulletml>

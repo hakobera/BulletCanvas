@@ -9,9 +9,34 @@
     <script data-main="bulletEngine" src="/js/require.js"></script>
 </head>
 <body>
-    <div>FPS: <span id="fps">0</span>, Bullet: <span id="bulletCount">0</span></div>
-    <div id="canvasBox"></div>
-    <div id="analogpad" style="width: 300px; padding-left: 105px;"></div>
+    <div style="float: left; width: 320px;">
+        <div id="canvasBox"></div>
+        <div id="analogpad" style="width: 300px; padding-left: 105px;"></div>
+    </div>
+    <div style="float: left;">
+        <div style="text-align: left;">FPS: <span id="fps">0</span>, Bullet: <span id="bulletCount">0</span></div>
+        <div>
+            <button id="play">PLAY</button>
+            <button id="pause">PAUSE</button>
+        </div>
+        <div>
+            <select id="samples">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div>
+            <textarea id="xml" cols="60" rows="30"></textarea>
+        </div>
+    </div>
+    <div style="clear: both"/>        
 </body>
 </html>
 

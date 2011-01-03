@@ -1,17 +1,28 @@
 require(['taskSystem'], function(TaskSystem) {
     require.ready(function() {
         var pad = $('#analogpad').analogpad();
+        var taskSystem = TaskSystem();
+        taskSystem.setController(pad);
+
+        var url = '/bulletml/samples/sample1.xml';
+        $.ajax({
+            url: url,
+            dataType: 'text',
+            success: function(data) {
+                $('#xml').val(data);
+            }
+        });
+
 		$.ajax({
-			url: '/bulletml/sample.xml',
+			url: url,
             cache: false,
 			success: function(data) {
-                var taskSystem = TaskSystem({
+                taskSystem.init({
                     bulletML: data,
                     targetId: 'canvasBox',
                     rank: 1
                 });
-                taskSystem.setController(pad);
-                taskSystem.start();
+                taskSystem.play();
 
                 var fpsTimer = taskSystem.getFpsTimer();
                 $('#fps').text(fpsTimer.getAverageFps());
@@ -20,6 +31,37 @@ require(['taskSystem'], function(TaskSystem) {
                     $('#fps').text(v);
                     $('#bulletCount').text(taskSystem.getBulletCount());
                 }, 1000);
+
+                $('#play').click(function() {
+                   taskSystem.play(); 
+                });
+
+                $('#pause').click(function() {
+                    taskSystem.pause();
+                });
+
+                $('#samples').change(function() {
+                    var url = '/bulletml/samples/sample' + $(this).val() + '.xml'; 
+                    $.ajax({
+                        url: url,
+                        dataType: 'text',
+                        success: function(data) {
+                            console.log(data);
+                            $('#xml').val(data);
+                        }
+                    });
+                    $.ajax({
+                        url: url,
+                        cache: false,
+                        success: function(data) {
+                            taskSystem.reInit({
+                                bulletML: data,
+                                rank: 1
+                            });
+                            taskSystem.play();
+                        }
+                    });
+                });
 			}
 		});
     });

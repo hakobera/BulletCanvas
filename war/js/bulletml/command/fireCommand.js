@@ -12,11 +12,11 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
             
             switch (direction.type) {
             case 'aim':
-                angle += updateContext.getAimAngle();
+                angle = updateContext.getAimAngle(task.getX(), task.getY());
                 break;
 
             case 'absolute':
-                // Do nothing.
+                angle += Math.PI; // Because up direction is zero.
                 break;
 
             case 'sequence':
@@ -39,7 +39,9 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
-            var bulletDef = fireDef.bullet;
+            var bulletDef = updateContext.findBulletDef(fireDef.bullet);
+            bulletDef.speed = bulletDef.speed || fireDef.speed;
+            bulletDef.direction = bulletDef.direction || fireDef.direction;
             var bullet = updateContext.addBullet(bulletDef, {
                 parent: task,
                 x: task.getX(),

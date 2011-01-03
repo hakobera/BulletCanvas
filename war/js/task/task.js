@@ -79,7 +79,7 @@ define(['lib/uuid', 'lib/debug'], function(uuid, debug) {
          */
         that.kill = function() {
             active = false;
-            debug('Killed ' + this.type() + ':' + this.id());
+            //debug('Killed ' + this.type() + ':' + this.id());
         };
 
         /**

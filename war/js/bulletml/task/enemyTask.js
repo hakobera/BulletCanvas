@@ -6,10 +6,25 @@ function(displayObjectTask, TaskType, debug) {
     var enemyTask = function(spec) {
         var that = displayObjectTask(spec);
 
+        var PI2 = Math.PI * 2;
+
         /**
+         * Current action related this task.
          * @private
          */
         var currentAction;
+
+        /**
+         * Current speed.
+         * @private
+         */
+        var currentSpeed = 1;
+
+        /**
+         * Current direction.
+         * @private
+         */
+        var currentDirection = 0;
 
         /**
          * Return type of this task.
@@ -26,7 +41,7 @@ function(displayObjectTask, TaskType, debug) {
          */
         that.update = function(updateContext) {
             if (currentAction) {
-                currentAction.execute(that, updateContext);
+                currentAction.execute(that, currentAction, updateContext);
             }
         };
 
@@ -40,13 +55,70 @@ function(displayObjectTask, TaskType, debug) {
         };
 
         /**
+         * Return if action is finished.
+         * @return {boolean} true if action is finished.
+         */
+        that.isIdle = function() {
+            return currentAction.isFinished();
+        };
+
+        /**
+         * Reset status.
+         */
+        that.reset = function() {
+            currentAction.reset();
+        };
+
+        /**
          * Set action.
          */
         that.setAction = function(action) {
             currentAction = action;
         };
 
-        debug('Create ' + that.type() + ':' + that.id());
+        /**
+         * Set speed.
+         * @public
+         * @param {Number} speed Speed to set.
+         */
+        that.setSpeed = function(speed) {
+            currentSpeed = speed;
+        };
+
+        /**
+         * Return speed.
+         * @public
+         * @return {Number} Current speed of this task.
+         */
+        that.getSpeed = function() {
+            return currentSpeed;
+        };
+
+        /**
+         * Set direction
+         * @public
+         * @param {Number} direction Direction to set. 
+         */
+        that.setDirection = function(direction) {
+            while (direction > PI2) {
+                direction -= PI2;
+            }
+            while (direction < -PI2) {
+                direction += PI2;
+            }
+            currentDirection = direction;
+        };
+
+        /**
+         * Return direction.
+         * @public
+         * @return {Number} Current direction of this task.
+         */
+        that.getDirection = function() {
+            return currentDirection;
+        };
+
+        //debug('Create ' + that.type() + ':' + that.id());
         
         return that;
     };

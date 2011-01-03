@@ -3,6 +3,7 @@
  */
 define({
     ACTION: 'action',
+    CHANGE_DIRECTION: 'changeDirection',
     FIRE: 'fire',
     REPEAT: 'repeat',
     VANISH: 'vanish',

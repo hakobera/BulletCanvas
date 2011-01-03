@@ -15,14 +15,13 @@ define(
 ],
 function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory, CommandType, DrawContext, FpsTimer) {
     var SCREEN_WIDTH = 300;
-    var SCREEN_HEIGHT = 360;
-    var FPS = 30;
+    var SCREEN_HEIGHT = 300;
+    var FPS = 60;
 
     /**
      * @constructor
-     * @param bulletML {XMLDocument} BulletML document.
      */
-    var taskSystem = function(args) {
+    var taskSystem = function() {
         var that = {};
 
         /**
@@ -32,10 +31,22 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         var taskManager;
 
         /**
+         * BulletML parsed document object.
+         * @private
+         */
+        var bulletMLDocument;
+
+        /**
          * Player task.
          * @private
          */
         var player;
+
+        /**
+         * Enemy task.
+         * @private
+         */
+        var enemy;
 
         /**
          * Expression evaluator.
@@ -78,18 +89,9 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         };
 
         /**
-         * Add action.
+         * Update context contains utility method for task in update phase.
          * @private
-         * @param actionDef {Object} Action definition
-         * @param repeatTime {integer} Repeat count
          */
-        var addAction = function(actionDef, spec) {
-            spec = spec || {};
-            spec.updateContext = updateContext;
-            var action = CommandFactory.createCommand(actionDef, spec);
-            return action;
-        };
-
         var updateContext = {
             /**
              * Return controller.
@@ -103,9 +105,9 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             /**
              * Get aim degree to player task.
              * @public
-             * @param {integer} x
-             * @param {integer} y
-             * @return {float} Degree to player task.
+             * @param {Number} x
+             * @param {Number} y
+             * @return {Number} Degree to player task.
              */
             getAimAngle: function(x, y) {
                 var dx = player.getX() - x;
@@ -114,19 +116,29 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             },
 
             /**
-             * Add action.
-             * @param actionDef {Object} Action definition
-             * @param repeatTime {integer} Repeat count
+             * Create action command.
+             * @public
+             * @param {Object} actionDef Action definition
+             * @param {Object} spec Optional arguments
+             * @return Added action command.
              */
-            addAction: addAction,
+            createAction: function(actionDef, spec) {
+                spec = spec || {};
+                spec.updateContext = updateContext;
+                var action = CommandFactory.createCommand(actionDef, spec);
+                return action;
+            },
 
             /**
              * Add bullet.
-             * @param bulletDef {Object} Bullet definition
+             * @public
+             * @param {Object} bulletDef Bullet definition
+             * @param {Object} spec Optional arguments.
+             * @return {Object} Added bullet task.
              */
             addBullet: function(bulletDef, spec) {
                 spec = spec || {};
-                spec.bullet = bulletDef;
+                spec.bulletDef = bulletDef;
                 spec.updateContext = updateContext
                 var bullet = TaskFactory.createTask(TaskType.BULLET, spec);
                 addEvent(function() {
@@ -136,8 +148,24 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             },
 
             /**
+             * Find bullet.
+             * If bullet is 'bulletRef', create new bulletDef and return it.
+             * @param {Object} bullet bulletDef or bulletRef
+             * @return {Object} bulletDef instance
+             */
+            findBulletDef: function(bullet) {
+                if (bullet.bulletType() === 'bulletDef') {
+                    return bullet;
+                } else {
+                    var label = bullet.label;
+                    var bulletDef = bulletMLDocument.getBullet(label);
+                    return bulletDef;
+                }
+            },
+
+            /**
              * Kill specified task.
-             * @param task task to kill
+             * @param {Object} task task to kill
              */
             killTask: function(task) {
                 addEvent(function() {
@@ -146,9 +174,10 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             },
 
             /**
-             * Evaluate expression.
-             * @param expr {String} Expression string.
-             * @return {flaoat} Calculated value.
+             * Evaluate expression and return as number.
+             * @param {String} expr Expression string to evaluate.
+             * @param {Array} params Replacement parameters.
+             * @return {Number} Evaluated value.
              */
             evalExpression: function(expr, params) {
                 return expression.eval(expr, params);
@@ -158,8 +187,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         /**
          * Create TaskManager instance.
          * @private
-         * @param actionDef {Object} Action definition
-         * @param repeatTime {integer} Repeat count
+         * @param {Object} bulletML XML Document
          */
         var initTaskManager = function(bulletML) {
             if (taskManager) {
@@ -172,13 +200,13 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             taskManager.addTask(player);
 
             var parser = Parser();
-            var bulletMLDocument = parser.parse(bulletML);
+            bulletMLDocument = parser.parse(bulletML);
 
-            var enemy = TaskFactory.createTask(TaskType.ENEMY, { x: SCREEN_WIDTH/2, y: 50 });
+            enemy = TaskFactory.createTask(TaskType.ENEMY, { x: SCREEN_WIDTH/2, y: 50 });
             taskManager.addTask(enemy);
 
             var topActionDef = bulletMLDocument.getAction('top');
-            var topAction = addAction(topActionDef, { repeatTimes: 1 });
+            var topAction = updateContext.createAction(topActionDef, { repeatTimes: 1 });
             enemy.setAction(topAction);
         };
 
@@ -197,12 +225,11 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         var processEvents = function() {
             var i, size;
             size = eventQueue.length;
-            for (var i = 0; i < size; ++i) {
+            for (i = 0; i < size; ++i) {
                 eventQueue[i].apply(that);
             }
             eventQueue = [];
         };
-        
 
         /**
          * Remove outscreen bullets.
@@ -223,6 +250,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             }
         };       
 
+        var idleCount = 0;
         /**
          * Main loop of this system.
          * @private
@@ -230,6 +258,13 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         var mainLoop = function() {
             processEvents();
             removeOutScreenBullets();
+
+            if (enemy.isIdle()) {
+                if (++idleCount > 2*FPS) {
+                    enemy.reset();
+                    idleCount = 0;
+                }
+            }          
 
             taskManager.update(updateContext);
 
@@ -243,8 +278,9 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         /**
          * Initialize task system.
          * @public
+         * @param {Object} args Init parameters.
          */
-        that.init = function() {
+        that.init = function(args) {
             expression = Expression(args.rank);
             eventQueue = [];
             status = 'stop';
@@ -264,9 +300,26 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         };
 
         /**
+         * Reset this system.
+         * @public
+         * @param {Object} args Init parameters.
+         */
+        that.reInit = function(args) {
+            that.pause();
+
+            eventQueue = [];
+            status = 'stop';
+
+            fpsTimer.reset();
+
+            expression = Expression(args.rank);
+            initTaskManager(args.bulletML, that);
+        };
+
+        /**
          * Return FPS timer of this system.
          * @public
-         * @return FPS timer instance.
+         * @return {Number} FPS timer instance.
          */
         that.getFpsTimer = function() {
             return fpsTimer;
@@ -275,31 +328,23 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         /**
          * Return bullet count.
          * @public
-         * @return bullet count.
+         * @return {int} Bullet count.
          */
         that.getBulletCount = function() {
             if (!taskManager) {
                 return 0;
             }
-            return taskManager.getTasks(TaskType.BULLET).length;
+            var bulletList = taskManager.getTasks(TaskType.BULLET);
+            return bulletList ? bulletList.length : 0;
         };
 
         /**
          * Return status of system.
          * @public
-         * @return 'stop' | 'playing' | 'pause'
+         * @return {String} 'stop' | 'playing' | 'pause'
          */
         that.status = function() {
             return status;
-        };
-
-        /**
-         * Reset this system.
-         * @public
-         */
-        that.reset = function() {
-            fpsTimer.reset();
-            status = 'stop';
         };
         
         /**
@@ -307,8 +352,10 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          * @public
          */
         that.play = function() {
-            fpsTimer.start();
-            status = 'playing';
+            if (status !== 'playing') {
+                fpsTimer.start();
+                status = 'playing';
+            }
         };
 
         /**
@@ -316,33 +363,16 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          * @public
          */
         that.pause = function() {
-            fpsTimer.pause();
-            status = 'pause';
-        };
-
-        /**
-         * Start this system.
-         * @public
-         */
-        that.start = function() {
-            that.init();
-            that.reset();
-            that.play();
-        };
-
-        /**
-         * Stop this system.
-         * @public
-         */
-        that.stop = function() {
-            that.pause();
-            that.reset();
+            if (status !== 'pause') {
+                fpsTimer.pause();
+                status = 'pause';
+            }
         };
 
         /**
          * Set controller.
          * @public
-         * @param {Object} ctrl
+         * @param {Object} ctrl Controller instance.
          */
         that.setController = function(ctrl) {
             controller = ctrl;

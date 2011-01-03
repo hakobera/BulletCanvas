@@ -73,6 +73,7 @@ define(function() {
          * @public
          */
         that.start = function() {
+            that.pause();
             prevTick = new Date().getTime();
             timerId = setInterval(update, UPDATE_INTERVAL);
         };

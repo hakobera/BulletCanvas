@@ -5,9 +5,15 @@ define(['bulletml/task/enemyTask', 'bulletml/task/taskType', 'lib/debug'],
 function(enemyTask, TaskType, debug) {
     var bulletTask = function(spec) {
         var that = enemyTask(spec);
-
+        
 // init
         var updateContext = spec.updateContext;
+        var bulletDef = spec.bulletDef;
+        var actions = bulletDef.actions;
+        if (actions[0]) {
+            var action = updateContext.createAction(actions[0]);
+            that.setAction(action);
+        }
 
         /**
          * previous frame X coordinate.
@@ -20,16 +26,6 @@ function(enemyTask, TaskType, debug) {
          * @private
          */
         var prevY = that.getY();
-
-        /**
-         * Current speed.
-         */
-        var currentSpeed = 1;
-
-        /**
-         * Current direction.
-         */
-        var currentDirection = 0;
 
         /**
          * Return type of this task.
@@ -50,8 +46,10 @@ function(enemyTask, TaskType, debug) {
             
             prevX = that.getX();
             prevY = that.getY();
-            var nx = prevX + Math.sin(currentDirection) * currentSpeed;
-            var ny = prevY + Math.cos(currentDirection) * currentSpeed;
+            var direction = that.getDirection();
+            var speed = that.getSpeed();
+            var nx = prevX + Math.sin(direction) * speed;
+            var ny = prevY + Math.cos(direction) * speed;
             that.setX(nx);
             that.setY(ny);
         };
@@ -66,23 +64,7 @@ function(enemyTask, TaskType, debug) {
             drawContext.drawCircle(that.getX(), that.getY(), 2, '#aaffaa');
         };
 
-        /**
-         * Set speed.
-         * @public
-         */
-        that.setSpeed = function(speed) {
-            currentSpeed = speed;
-        }
-
-        /**
-         * Set direction
-         * @public
-         */
-        that.setDirection = function(direction) {
-            currentDirection = direction;
-        }
-
-        debug('Create ' + that.type() + ':' + that.id());
+        //debug('Create ' + that.type() + ':' + that.id());
         
         return that;
     };

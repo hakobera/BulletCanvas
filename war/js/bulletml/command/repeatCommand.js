@@ -15,7 +15,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             var repeatTimes = updateContext.evalExpression(repeat.times.value) | 0;
-            var action = updateContext.addAction(repeat.action, {
+            var action = updateContext.createAction(repeat.action, {
                 repeatTimes: repeatTimes
             });
             task.setAction(action);
