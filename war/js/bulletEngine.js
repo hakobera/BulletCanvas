@@ -1,4 +1,4 @@
-require(['bullet/taskSystem'], function(TaskSystem) {
+require(['taskSystem'], function(TaskSystem) {
     require.ready(function() {
         var pad = $('#analogpad').analogpad();
 		$.ajax({
@@ -18,6 +18,7 @@ require(['bullet/taskSystem'], function(TaskSystem) {
                 setInterval(function() {
                     var v = Math.floor(fpsTimer.getAverageFps() * 10) / 10;
                     $('#fps').text(v);
+                    $('#bulletCount').text(taskSystem.getBulletCount());
                 }, 1000);
 			}
 		});

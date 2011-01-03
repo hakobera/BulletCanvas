@@ -14,8 +14,9 @@ define(
     'util/fpsTimer'
 ],
 function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory, CommandType, DrawContext, FpsTimer) {
-    var SCREEN_WIDTH = 320;
-    var SCREEN_HEIGHT = 320;
+    var SCREEN_WIDTH = 300;
+    var SCREEN_HEIGHT = 360;
+    var FPS = 30;
 
     /**
      * @constructor
@@ -255,7 +256,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             });
 
             fpsTimer = FpsTimer({
-                fps: 30,
+                fps: FPS,
                 callback: mainLoop 
             });
 
@@ -269,6 +270,18 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          */
         that.getFpsTimer = function() {
             return fpsTimer;
+        };
+
+        /**
+         * Return bullet count.
+         * @public
+         * @return bullet count.
+         */
+        that.getBulletCount = function() {
+            if (!taskManager) {
+                return 0;
+            }
+            return taskManager.getTasks(TaskType.BULLET).length;
         };
 
         /**

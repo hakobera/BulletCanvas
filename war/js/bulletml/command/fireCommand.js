@@ -6,19 +6,29 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
     var fireCommand = function(fireDef) {
         var that = command();
 
-        var calcDirection = function(task, direction, updateContext) {
-            var d = 0;
+        var calcDirection = function(task, direction, actionCommand, updateContext) {
+            var d = updateContext.evalExpression(direction.value);
+            var angle = d * Math.PI / 180;
+            
             switch (direction.type) {
             case 'aim':
-                d = updateContext.getAimAngle();
+                angle += updateContext.getAimAngle();
                 break;
 
             case 'absolute':
+                // Do nothing.
                 break;
 
             case 'sequence':
+                angle += actionCommand.getPrevFireDirection();
+                break;
+
+            case 'relative':
+                angle += actionCommand.getCurrentDirection();
                 break;
             }
+            actionCommand.setPrevFireDirection(angle);
+            return angle;
         };
 
         /**
@@ -30,9 +40,15 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             var bulletDef = fireDef.bullet;
-            //calcDirection(task, bulletDef.direction, updateContext);
-            var bullet = updateContext.addBullet(bulletDef);
-            
+            var bullet = updateContext.addBullet(bulletDef, {
+                parent: task,
+                x: task.getX(),
+                y: task.getY()
+            });
+
+            var direction = calcDirection(task, bulletDef.direction, actionCommand, updateContext);
+            bullet.setDirection(direction);
+
             return true;
         };
 

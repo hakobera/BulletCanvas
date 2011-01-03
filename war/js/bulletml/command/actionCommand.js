@@ -27,6 +27,18 @@ function(command, debug) {
          * Last fire direction.
          * @private {float}
          */
+        var direction = 0;
+
+        /**
+         * Last fire direction.
+         * @private {float}
+         */
+        var speed = 1;
+
+        /**
+         * Last fire direction.
+         * @private {float}
+         */
         var prevFireDirection = spec.prevFireInfo ? spec.prevFireInfo.direction : 0;
 
         /**
@@ -71,22 +83,50 @@ function(command, debug) {
         };
 
         /**
+         * Return current direction.
+         * @public
+         */
+        that.getCurrentDirection = function() {
+            return direction;
+        };
+
+        /**
+         * Return current speed.
+         * @public
+         */
+        that.getCurrentSpeed = function() {
+            return speed;
+        };
+
+        /**
          * Return last fire direction.
          * @public
          */
-        that.getPrevFireInfo = function() {
-            return {
-                direction: prevFireDirection,
-                speed: prevFireSpeed
-            }
+        that.getPrevFireDirection = function() {
+            return prevFireDirection;
+        };
+
+        /**
+         * Return last fire speed.
+         * @public
+         */
+        that.getPrevFireSpeed = function() {
+            return prevFireSpeed;
         };
 
         /**
          * Set last fire direction.
          * @public
          */
-        that.setPrevFireInfo = function(direction, speed) {
+        that.setPrevFireDirection = function(direction) {
             prevFireDirection = direction;
+        };
+
+        /**
+         * Set last fire speed.
+         * @public
+         */
+        that.setPrevFireSpeed = function(speed) {
             prevFireSpeed = speed;
         };
 

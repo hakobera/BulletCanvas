@@ -7,9 +7,6 @@ function(enemyTask, TaskType, debug) {
         var that = enemyTask(spec);
 
 // init
-        var bulletDef = spec.bullet;
-        var speed = bulletDef.speed;
-        var direction = bulletDef.direction;
         var updateContext = spec.updateContext;
 
         /**
@@ -25,43 +22,14 @@ function(enemyTask, TaskType, debug) {
         var prevY = that.getY();
 
         /**
-         * Calculate speed
-         * @private
+         * Current speed.
          */
-        var calcSpeed = function(speed) {
-            var s = updateContext.evalExpression(speed.value);
-            return s;
-        }
+        var currentSpeed = 1;
 
         /**
-         * Calculate direction
-         * @private
+         * Current direction.
          */
-        var calcDirection = function(direction) {
-            var d = updateContext.evalExpression(direction.value) * Math.PI / 180;
-            var angle = 0;
-            switch (direction.type) {
-                case 'aim':
-                    angle = d + taskSystem.getAimAngle(that.getX(), that.getY());
-                    break;
-                    
-                case 'absolute':
-                    angle = d;
-                    break;
-
-                case 'relative':
-                    angle = currentDirection + d;
-                    break;
-
-                case 'sequence':
-                    // TODO: 最後に fire した方向を覚えておく必要あり
-                    break;
-            }
-            return angle;           
-        }
-
-        var currentSpeed = calcSpeed(speed);
-        var currentDirection = calcDirection(direction);
+        var currentDirection = 0;
 
         /**
          * Return type of this task.
@@ -97,6 +65,22 @@ function(enemyTask, TaskType, debug) {
             //drawContext.drawLine(that.getX(), that.getY(), prevX, prevY, 2, '#0xaaffaa');
             drawContext.drawCircle(that.getX(), that.getY(), 2, '#aaffaa');
         };
+
+        /**
+         * Set speed.
+         * @public
+         */
+        that.setSpeed = function(speed) {
+            currentSpeed = speed;
+        }
+
+        /**
+         * Set direction
+         * @public
+         */
+        that.setDirection = function(direction) {
+            currentDirection = direction;
+        }
 
         debug('Create ' + that.type() + ':' + that.id());
         
