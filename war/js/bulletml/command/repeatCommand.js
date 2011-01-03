@@ -8,13 +8,18 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
 
         /**
          * Execute command.
-         * @param {Object} task Call action task
+         * @param {Object} task Call task
+         * @param {Object} actionCommand Call action command
          * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(task, updateContext) {
+        that.execute = function(task, actionCommand, updateContext) {
             var repeatTimes = updateContext.evalExpression(repeat.times.value) | 0;
-            updateContext.addAction(repeat.action, repeatTimes);
+            var action = updateContext.addAction(repeat.action, {
+                repeatTimes: repeatTimes,
+                prevFireInfo: actionCommand.getPrevFireInfo()
+            });
+            task.setAction(action);
             return true;
         };
 

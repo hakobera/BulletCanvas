@@ -92,7 +92,7 @@ define(['lib/uuid', 'lib/debug'], function(uuid, debug) {
 
         /**
          * Draw an object related this task.
-         * Default implimentation do nothing.
+         * Default implementation do nothing.
          * @public
          * @param drawContext {Object} Context for drawing object.
          */

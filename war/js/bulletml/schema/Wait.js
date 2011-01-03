@@ -2,7 +2,7 @@
  * Waits.
  * Specifies the number of times.
  */
-define(['util/format'], function(format) {
+define(['bulletml/command/commandType', 'util/format'], function(CommandType, format) {
 	var wait = function(spec) {
         var that = {};
         that.value = spec.value;
@@ -12,18 +12,7 @@ define(['util/format'], function(format) {
          * @public
          */
         that.commandType = function() {
-            return 'wait';
-        };
-
-        /**
-         * Wait frame.
-         * @param {Object} commandContext
-         * @return true if you want to execute next commands, false if you do not want to execute next commands.
-         */
-        that.execute = function(commandContext) {
-                            
-            task.kill();
-            return false;
+            return CommandType.WAIT;
         };
 
         that.toString = function() {

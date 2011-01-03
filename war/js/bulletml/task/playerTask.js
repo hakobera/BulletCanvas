@@ -1,7 +1,8 @@
 /**
  * playerTask.js - Task for player.
  */
-define(['bulletml/task/displayObjectTask', 'lib/debug'], function(displayObjectTask, debug) {
+define(['bulletml/task/displayObjectTask', 'bulletml/task/taskType', 'lib/debug'],
+function(displayObjectTask, TaskType, debug) {
     var playerTask = function(spec) {
         var that = displayObjectTask(spec);
 
@@ -10,12 +11,11 @@ define(['bulletml/task/displayObjectTask', 'lib/debug'], function(displayObjectT
          * @return {String} 'player'
          */
         that.type = function() {
-            return 'player';
+            return TaskType.PLAYER;
         };
 
        /**
          * Update task properties, status, etc.
-         * Default implementation do nothing.
          * @public
          * @param updateContext {Object} Context for update object.
          */
@@ -30,7 +30,6 @@ define(['bulletml/task/displayObjectTask', 'lib/debug'], function(displayObjectT
 
         /**
          * Draw an object related this task.
-         * Default implimentation do nothing.
          * @public
          * @param drawContext Context for drawing object.
          */

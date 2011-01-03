@@ -2,7 +2,7 @@
  * Fires a bullet.
  * 弾を<direction>度方向に速度<speed>で撃ちます。 ラベル付けされたfire要素は、fireRef要素によって参照されます。
  */
-define(['util/format'], function(format) {
+define(['bulletml/command/commandType', 'util/format'], function(CommandType, format) {
 	var fireDef = function(spec) {
         var that = {};
         that.label = spec.label;
@@ -15,7 +15,7 @@ define(['util/format'], function(format) {
          * @public
          */
         that.commandType = function() {
-            return 'fireDef';
+            return CommandType.FIRE;
         };
 
         that.toString = function() {

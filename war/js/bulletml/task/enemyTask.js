@@ -1,35 +1,49 @@
 /**
  * playerTask.js - Task for player.
  */
-define(['bulletml/task/displayObjectTask', 'lib/debug'], function(displayObjectTask, debug) {
+define(['bulletml/task/displayObjectTask', 'bulletml/task/taskType', 'lib/debug'],
+function(displayObjectTask, TaskType, debug) {
     var enemyTask = function(spec) {
         var that = displayObjectTask(spec);
 
         /**
-         * Return commandType of this task.
-         * @return {String} 'player'
+         * @private
          */
-        that.commandType = function() {
-            return 'enemy';
-        };
+        var currentAction;
 
         /**
-         * Update task properties, status, etc.
-         * Default implimentation do nothing.
-         *
-         * @public
+         * Return type of this task.
+         * @return {String} 'action'
          */
-        that.update = function() {
+        that.type = function() {
+            return TaskType.ENEMY;
+        };
+
+       /**
+         * Update task properties, status, etc.
+         * @public
+         * @param updateContext {Object} Context for update object.
+         */
+        that.update = function(updateContext) {
+            if (currentAction) {
+                currentAction.execute(that, updateContext);
+            }
         };
 
         /**
          * Draw an object related this task.
-         * Default implimentation do nothing.
          * @public
          * @param drawContext Context for drawing object.
          */
         that.draw = function(drawContext) {
-            drawContext.drawCircle(that.getX(), that.getY(), 10, '#f00');
+            drawContext.drawCircle(that.getX(), that.getY(), 5, '#f00');
+        };
+
+        /**
+         * Set action.
+         */
+        that.setAction = function(action) {
+            currentAction = action;
         };
 
         debug('Create ' + that.type() + ':' + that.id());

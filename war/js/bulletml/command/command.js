@@ -8,11 +8,12 @@ define(function() {
         /**
          * Execute command.
          * Default implementation do nothing.
-         * @param {Object} task Call action task
+         * @param {Object} task Call task
+         * @param {Object} actionCommand Call action command
          * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(task, updateContext) {
+        that.execute = function(task, actionCommand, updateContext) {
             return true;
         };
 

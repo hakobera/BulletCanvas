@@ -1,16 +1,12 @@
 /**
  * bulletTask.js - Task for bullet.
  */
-define(
-[
-    'bulletml/task/displayObjectTask',
-    'bulletml/expression',
-    'lib/debug'
-],
-function(displayObjectTask, expression, debug) {
+define(['bulletml/task/enemyTask', 'bulletml/task/taskType', 'lib/debug'],
+function(enemyTask, TaskType, debug) {
     var bulletTask = function(spec) {
-        var that = displayObjectTask(spec);
+        var that = enemyTask(spec);
 
+// init
         var bulletDef = spec.bullet;
         var speed = bulletDef.speed;
         var direction = bulletDef.direction;
@@ -72,16 +68,18 @@ function(displayObjectTask, expression, debug) {
          * @return {String} 'player'
          */
         that.type = function() {
-            return 'bullet';
+            return TaskType.BULLET;
         };
 
+        var superUpdate = that.update;
        /**
          * Update task properties, status, etc.
-         * Default implementation do nothing.
          * @public
          * @param updateContext {Object} Context for update object.
          */
         that.update = function(updateContext) {
+            superUpdate(updateContext);
+            
             prevX = that.getX();
             prevY = that.getY();
             var nx = prevX + Math.sin(currentDirection) * currentSpeed;
@@ -92,7 +90,6 @@ function(displayObjectTask, expression, debug) {
 
         /**
          * Draw an object related this task.
-         * Default implimentation do nothing.
          * @public
          * @param drawContext Context for drawing object.
          */

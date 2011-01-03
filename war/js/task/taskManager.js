@@ -85,6 +85,23 @@ function(debug) {
         };
 
         /**
+         * Kill all managed tasks.
+         *
+         * @public
+         */
+        that.kill = function() {
+            var k, list, i, size;
+            for (k in managedTasks) {
+                list = managedTasks[k];
+                size = list.length;
+                for (i = 0; i < size; ++i) {
+                    list[i] = null;
+                }
+                delete managedTasks[k];
+            }
+        };
+
+        /**
          * Return specified typed task list.
          * @public
          * @param taskType {String} Type name of a task

@@ -7,22 +7,21 @@ define(
     'bulletml/parser',
     'bulletml/expression',
     'bulletml/task/taskFactory',
+    'bulletml/task/taskType',
+    'bulletml/command/commandFactory',
+    'bulletml/command/commandType',
     'graphics/drawContext',
     'util/fpsTimer'
 ],
-function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
+function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory, CommandType, DrawContext, FpsTimer) {
     var SCREEN_WIDTH = 320;
     var SCREEN_HEIGHT = 320;
-
-    var TASK_PLAYER = 'player';
-    var TASK_ACTION = 'action';
-    var TASK_BULLET = 'bullet';
 
     /**
      * @constructor
      * @param bulletML {XMLDocument} BulletML document.
      */
-    var taskSystem = function(bulletML, elementId) {
+    var taskSystem = function(args) {
         var that = {};
 
         /**
@@ -83,15 +82,11 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @param actionDef {Object} Action definition
          * @param repeatTime {integer} Repeat count
          */
-        var addAction = function(actionDef, repeatTimes) {
-            var action = TaskFactory.createTask(TASK_ACTION, {
-                                                    updateContext: updateContext,
-                                                    actionDef: actionDef,
-                                                    repeatTimes: repeatTimes
-                                                });
-            addEvent(function() {
-                taskManager.addTask(action);
-            });
+        var addAction = function(actionDef, spec) {
+            spec = spec || {};
+            spec.updateContext = updateContext;
+            var action = CommandFactory.createCommand(actionDef, spec);
+            return action;
         };
 
         var updateContext = {
@@ -128,11 +123,15 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
              * Add bullet.
              * @param bulletDef {Object} Bullet definition
              */
-            addBullet: function(bulletDef) {
-                var bullet = TaskFactory.createTask(TASK_BULLET, { bullet: bulletDef, updateContext: updateContext });
+            addBullet: function(bulletDef, spec) {
+                spec = spec || {};
+                spec.bullet = bulletDef;
+                spec.updateContext = updateContext
+                var bullet = TaskFactory.createTask(TaskType.BULLET, spec);
                 addEvent(function() {
                     taskManager.addTask(bullet);
                 });
+                return bullet;
             },
 
             /**
@@ -161,16 +160,25 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @param actionDef {Object} Action definition
          * @param repeatTime {integer} Repeat count
          */
-        var createTaskManager = function(bulletML) {
-            var taskManager = TaskManager();
+        var initTaskManager = function(bulletML) {
+            if (taskManager) {
+                taskManager.kill();
+            }
+            
+            taskManager = TaskManager();
+
+            player = TaskFactory.createTask(TaskType.PLAYER, { x: SCREEN_WIDTH/2, y: SCREEN_HEIGHT - 50 });
+            taskManager.addTask(player);
+
             var parser = Parser();
             var bulletMLDocument = parser.parse(bulletML);
-            var actionDefinitions = bulletMLDocument.getActions();
-            var size = actionDefinitions.length;
-            for (var i = 0; i < size; ++i) {
-                addAction(actionDefinitions[i], 1);
-            }
-            return taskManager;
+
+            var enemy = TaskFactory.createTask(TaskType.ENEMY, { x: SCREEN_WIDTH/2, y: 50 });
+            taskManager.addTask(enemy);
+
+            var topActionDef = bulletMLDocument.getAction('top');
+            var topAction = addAction(topActionDef, { repeatTimes: 1 });
+            enemy.setAction(topAction);
         };
 
         /**
@@ -200,7 +208,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @private
          */
         var removeOutScreenBullets = function() {
-            var bulletTasks = taskManager.getTasks(TASK_BULLET);
+            var bulletTasks = taskManager.getTasks(TaskType.BULLET);
             if (bulletTasks) {
                 var size = bulletTasks.length;
                 for (var i = 0; i < size; ++i) {
@@ -236,14 +244,14 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
          * @public
          */
         that.init = function() {
-            expression = Expression();
+            expression = Expression(args.rank);
             eventQueue = [];
             status = 'stop';
 
             drawContext = DrawContext({
                 width: SCREEN_WIDTH,
                 height: SCREEN_HEIGHT,
-                node: document.getElementById(elementId)
+                node: document.getElementById(args.targetId)
             });
 
             fpsTimer = FpsTimer({
@@ -251,9 +259,7 @@ function(TaskManager, Parser, Expression, TaskFactory, DrawContext, FpsTimer) {
                 callback: mainLoop 
             });
 
-            taskManager = createTaskManager(bulletML, that);
-            player = TaskFactory.createTask(TASK_PLAYER, { x: SCREEN_WIDTH/2, y: SCREEN_HEIGHT - 50 });
-            taskManager.addTask(player);
+            initTaskManager(args.bulletML, that);
         };
 
         /**

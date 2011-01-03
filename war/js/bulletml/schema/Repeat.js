@@ -2,7 +2,7 @@
  * Repeats an action.
  * アクションを<times>回繰り返します。
  */
-define(['util/format'], function(format) {
+define(['bulletml/command/commandType', 'util/format'], function(CommandType, format) {
 	var repeat = function(spec) {
         var that = {};
 		that.times = spec.times;
@@ -13,7 +13,7 @@ define(['util/format'], function(format) {
          * @public
          */
         that.commandType = function() {
-            return 'repeat';
+            return CommandType.REPEAT;
         };
 
         that.toString = function() {

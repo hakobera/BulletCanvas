@@ -1,15 +1,15 @@
 define(
 [
+    'bulletml/task/taskType',
     'bulletml/task/playerTask',
-    'bulletml/task/actionTask',
+    'bulletml/task/enemyTask',
     'bulletml/task/bulletTask'
 ],
-function(playerTask, actionTask, bulletTask) {
-    var constructors = {
-        'player': playerTask,
-        'action': actionTask,
-        'bullet': bulletTask
-    };
+function(TaskType, playerTask, enemyTask, bulletTask) {
+    var constructors = {};
+    constructors[TaskType.PLAYER] =  playerTask;
+    constructors[TaskType.ENEMY] =  enemyTask;
+    constructors[TaskType.BULLET] =  bulletTask;
 
     return {
         createTask: function(type, spec) {

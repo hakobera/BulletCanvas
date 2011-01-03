@@ -27,14 +27,14 @@ define(function() {
     /**
      * @constructor
      */
-    var expression = function() {
+    var expression = function(rank) {
         var that = {};
 
         /**
          * Bullet difficulty rank.
          * @private {integer}
          */
-        var rank = 1;
+        rank = rank || 1;
 
         /**
          * Set rank.

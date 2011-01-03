@@ -5,7 +5,11 @@ require(['bullet/taskSystem'], function(TaskSystem) {
 			url: '/bulletml/sample.xml',
             cache: false,
 			success: function(data) {
-                var taskSystem = TaskSystem(data, 'canvasBox');
+                var taskSystem = TaskSystem({
+                    bulletML: data,
+                    targetId: 'canvasBox',
+                    rank: 1
+                });
                 taskSystem.setController(pad);
                 taskSystem.start();
 

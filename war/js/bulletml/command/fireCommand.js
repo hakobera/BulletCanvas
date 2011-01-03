@@ -5,12 +5,12 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
      */
     var fireCommand = function(fireDef) {
         var that = command();
-        var direction = fireDef.direction;
-        var speed = fireDef.speed;
 
-        var calcDirection = function() {
+        var calcDirection = function(task, direction, updateContext) {
+            var d = 0;
             switch (direction.type) {
             case 'aim':
+                d = updateContext.getAimAngle();
                 break;
 
             case 'absolute':
@@ -23,13 +23,16 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
 
         /**
          * Execute command.
-         * @param {Object} task Call action task
+         * @param {Object} task Call task
+         * @param {Object} actionCommand Call action command
          * @param {Object} updateContext
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
-        that.execute = function(task, updateContext) {
+        that.execute = function(task, actionCommand, updateContext) {
             var bulletDef = fireDef.bullet;
+            //calcDirection(task, bulletDef.direction, updateContext);
             var bullet = updateContext.addBullet(bulletDef);
+            
             return true;
         };
 

@@ -2,7 +2,7 @@
  * Vanishes a bullet.
  * 弾を消します。
  */
-define(['util/format'], function(format) {
+define(['bulletml/command/commandType', 'util/format'], function(CommandType, format) {
 	var vanish = function(spec) {
         var that = {};
 
@@ -11,7 +11,7 @@ define(['util/format'], function(format) {
          * @public
          */
         that.commandType = function() {
-            return 'vanish';
+            return CommandType.VANISH;
         };
 
         that.toString = function() {
