@@ -27,8 +27,8 @@ function(command, debug) {
                 var d = updateContext.evalExpression(direction.value);
                 var changeAngle = d * Math.PI / 180;
 
-                if (direction.type === 'sequnce') {
-                    deltaAngel = changeAngle;
+                if (direction.type === 'sequence') {
+                    deltaAngle = changeAngle;
                 } else {
                     switch (direction.type) {
                     case 'aim':

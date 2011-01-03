@@ -4,6 +4,7 @@
 define({
     ACTION: 'action',
     CHANGE_DIRECTION: 'changeDirection',
+    CHANGE_SPEED: 'changeSpeed',
     FIRE: 'fire',
     REPEAT: 'repeat',
     VANISH: 'vanish',

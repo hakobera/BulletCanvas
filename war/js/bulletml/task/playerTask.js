@@ -5,6 +5,10 @@ define(['bulletml/task/displayObjectTask', 'bulletml/task/taskType', 'lib/debug'
 function(displayObjectTask, TaskType, debug) {
     var playerTask = function(spec) {
         var that = displayObjectTask(spec);
+        var minX = spec.minX;
+        var minY = spec.minY;
+        var maxX = spec.maxX;
+        var maxY = spec.maxY;
 
         /**
          * Return type of this task.
@@ -35,6 +39,22 @@ function(displayObjectTask, TaskType, debug) {
          */
         that.draw = function(drawContext) {
             drawContext.drawCircle(that.getX(), that.getY(), 5, '#fff');
+        };
+
+        var superSetX = that.setX;
+        /**
+         * @public
+         */
+        that.setX = function(v) {
+            superSetX(Math.min(maxX, Math.max(minX, v)));
+        };
+
+        var superSetY = that.setY;
+        /**
+         * @public
+         */
+        that.setY = function(v) {
+            superSetY(Math.min(maxY, Math.max(minY, v)));
         };
 
         debug('Create ' + that.type() + ':' + that.id());

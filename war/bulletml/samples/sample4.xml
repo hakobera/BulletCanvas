@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml type="vertical">
+	<action label="top">
+        <repeat>
+            <times>100</times>
+            <action>
+                <fire>
+                    <direction type="aim">23</direction>
+                    <bullet/>
+                </fire>
+                <wait>1</wait>
+            </action>
+        </repeat>
+	</action>
+</bulletml>

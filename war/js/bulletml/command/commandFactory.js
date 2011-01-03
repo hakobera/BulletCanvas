@@ -6,6 +6,7 @@ define(
     'bulletml/command/commandType',
     'bulletml/command/actionCommand',
     'bulletml/command/changeDirectionCommand',
+    'bulletml/command/changeSpeedCommand',
     'bulletml/command/fireCommand',
     'bulletml/command/repeatCommand',
     'bulletml/command/vanishCommand',
@@ -15,6 +16,7 @@ function(
     CommandType,
     actionCommand,
     changeDirectionCommand,
+    changeSpeedCommand,
     fireCommand,
     repeatCommand,
     vanishCommand,
@@ -23,6 +25,7 @@ function(
     var constructors = {}
     constructors[CommandType.ACTION] = actionCommand;
     constructors[CommandType.CHANGE_DIRECTION] = changeDirectionCommand;
+    constructors[CommandType.CHANGE_SPEED] = changeSpeedCommand;
     constructors[CommandType.FIRE] = fireCommand;
     constructors[CommandType.REPEAT] = repeatCommand;
     constructors[CommandType.VANISH] = vanishCommand;

@@ -196,7 +196,14 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             
             taskManager = TaskManager();
 
-            player = TaskFactory.createTask(TaskType.PLAYER, { x: SCREEN_WIDTH/2, y: SCREEN_HEIGHT - 50 });
+            player = TaskFactory.createTask(TaskType.PLAYER, {
+                x: SCREEN_WIDTH/2,
+                y: SCREEN_HEIGHT - 50,
+                minX: 0,
+                minY: 0,
+                maxX: SCREEN_WIDTH,
+                maxY: SCREEN_HEIGHT
+            });
             taskManager.addTask(player);
 
             var parser = Parser();

@@ -12,7 +12,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
             
             switch (direction.type) {
             case 'aim':
-                angle = updateContext.getAimAngle(task.getX(), task.getY());
+                angle += updateContext.getAimAngle(task.getX(), task.getY());
                 break;
 
             case 'absolute':
