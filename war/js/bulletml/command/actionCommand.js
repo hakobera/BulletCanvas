@@ -1,8 +1,8 @@
 /**
  * actionCommand.js - 
  */
-define(['bulletml/command/command', 'lib/debug'],
-function(command, debug) {
+define(['bulletml/command/command', 'bulletml/command/commandType', 'lib/debug'],
+function(command, CommandType, debug) {
 
     /**
      * @constructor
@@ -10,6 +10,7 @@ function(command, debug) {
      */
     var actionCommand = function(actionDef, spec) {
         var that = command();
+        spec = spec || {};
 
         /**
          * Current command index.
@@ -55,10 +56,18 @@ function(command, debug) {
         var commands = [];
 
 // init
+        var updateContext = spec.updateContext;
         var CommandFactory = require('bulletml/command/commandFactory');
         var commandLength = actionDef.commands.length;
         for (var i = 0; i < commandLength; ++i) {
-            commands.push(CommandFactory.createCommand(actionDef.commands[i]));
+            var c = actionDef.commands[i];
+            var commandType = c.commandType();
+            if (commandType === CommandType.FIRE_REF) {
+                c = updateContext.findFireDef(c);
+            } else if (commandType === CommandType.ACTION_REF) {
+                c = updateContext.findActionDef(c);
+            }
+            commands.push(CommandFactory.createCommand(c));
         }
 
         /**

@@ -10,8 +10,9 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
         that.commands = (spec && spec.commands) ? spec.commands : [];
 
         /**
-         * Return tag type.
+         * Return command type.
          * @public
+         * @return {String} CommandType.ACTION
          */
         that.commandType = function() {
             return CommandType.ACTION;

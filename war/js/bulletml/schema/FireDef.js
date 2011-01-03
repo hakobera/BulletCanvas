@@ -13,6 +13,7 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
         /**
          * Return tag type.
          * @public
+         * @return {String} CommandType.FIRE
          */
         that.commandType = function() {
             return CommandType.FIRE;

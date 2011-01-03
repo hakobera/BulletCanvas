@@ -52,6 +52,8 @@ function(enemyTask, TaskType, debug) {
             var ny = prevY + Math.cos(direction) * speed;
             that.setX(nx);
             that.setY(ny);
+
+            //console.log(speed);
         };
 
         /**
@@ -64,7 +66,7 @@ function(enemyTask, TaskType, debug) {
             drawContext.drawCircle(that.getX(), that.getY(), 2, '#aaffaa');
         };
 
-        //debug('Create ' + that.type() + ':' + that.id());
+        debug('Create ' + that.type() + ':' + that.id());
         
         return that;
     };

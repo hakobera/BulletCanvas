@@ -39,6 +39,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
+            fireDef = updateContext.findFireDef(fireDef);
             var bulletDef = updateContext.findBulletDef(fireDef.bullet);
             bulletDef.speed = bulletDef.speed || fireDef.speed;
             bulletDef.direction = bulletDef.direction || fireDef.direction;
@@ -50,6 +51,9 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
 
             var direction = calcDirection(task, bulletDef.direction, actionCommand, updateContext);
             bullet.setDirection(direction);
+
+            var speed = updateContext.evalExpression(bulletDef.speed.value);
+            bullet.setSpeed(speed);
 
             return true;
         };

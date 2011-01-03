@@ -20,7 +20,7 @@ require(['taskSystem'], function(TaskSystem) {
                 taskSystem.init({
                     bulletML: data,
                     targetId: 'canvasBox',
-                    rank: 1
+                    rank: 5
                 });
                 taskSystem.play();
 
@@ -45,8 +45,8 @@ require(['taskSystem'], function(TaskSystem) {
                     $.ajax({
                         url: url,
                         dataType: 'text',
+                        cache: false,
                         success: function(data) {
-                            console.log(data);
                             $('#xml').val(data);
                         }
                     });

@@ -125,8 +125,25 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             createAction: function(actionDef, spec) {
                 spec = spec || {};
                 spec.updateContext = updateContext;
+                actionDef = this.findActionDef(actionDef);
                 var action = CommandFactory.createCommand(actionDef, spec);
                 return action;
+            },
+
+            /**
+             * Find actionDef.
+             * If action is 'actionRef', create new actionDef and return it.
+             * @param {Object} action actionDef or actionRef
+             * @return {Object} actionDef instance
+             */
+            findActionDef: function(action) {
+                if (action.commandType() === CommandType.ACTION) {
+                    return action;
+                } else {
+                    var label = action.label;
+                    var actionDef = bulletMLDocument.getAction(label);
+                    return actionDef;
+                }
             },
 
             /**
@@ -148,7 +165,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             },
 
             /**
-             * Find bullet.
+             * Find bulletDef.
              * If bullet is 'bulletRef', create new bulletDef and return it.
              * @param {Object} bullet bulletDef or bulletRef
              * @return {Object} bulletDef instance
@@ -160,6 +177,24 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                     var label = bullet.label;
                     var bulletDef = bulletMLDocument.getBullet(label);
                     return bulletDef;
+                }
+            },
+
+            /**
+             * Find fireDef.
+             * If fire is 'fireRef', create new fireDef and return it.
+             * @param {Object} fire fireDef or fireRef
+             * @return {Object} fireDef instance
+             */
+            findFireDef: function(fire) {
+                if (fire.commandType() === CommandType.FIRE) {
+                    return fire;
+                } else {
+                    var label = fire.label;
+                    var fireDef = bulletMLDocument.getFire(label);
+                    console.log(fire.params);
+                    fireDef.params = fire.params;
+                    return fireDef;
                 }
             },
 

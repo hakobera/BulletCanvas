@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml type="vertical">
+    <fire label="circle">
+        <direction type="sequence">20</direction>
+        <speed>6</speed>
+        <bullet>
+            <action>
+                <wait>3</wait>
+                <fire>
+                    <direction type="absolute">180-45+90</direction>
+                    <speed>1.5+$rank</speed>
+                    <bullet/>
+                </fire>
+                <vanish/>
+            </action>
+        </bullet>
+    </fire>
+
+    <action label="fireCircle">
+        <repeat>
+            <times>18</times>
+            <action>
+                <fireRef label="circle">
+                </fireRef>
+            </action>
+        </repeat>
+    </action>
+
+    <action label="top">
+        <actionRef label="fireCircle">
+        </actionRef>
+    </action>
+</bulletml>

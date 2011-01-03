@@ -66,11 +66,12 @@ define(['lib/uuid', 'lib/debug'], function(uuid, debug) {
          * @return {boolean} true if task if active.
          */
         that.isActive = function() {
-            if (parent) {
-                return parent.isActive() && active;
-            } else {
-                return active;
-            }
+//            if (parent) {
+//                return parent.isActive() && active;
+//            } else {
+//                return active;
+//            }
+            return active;
         };
 
         /**
