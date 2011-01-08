@@ -7,7 +7,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
         var that = command();
 
         var calcDirection = function(task, direction, actionCommand, updateContext) {
-            var d = updateContext.evalExpression(direction.value);
+            var d = updateContext.evalExpression(direction.value, [90]);
             var angle = d * Math.PI / 180;
             
             switch (direction.type) {
@@ -16,7 +16,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
                 break;
 
             case 'absolute':
-                angle += Math.PI; // Because up direction is zero.
+                angle = -angle - Math.PI; // Because up direction is zero.
                 break;
 
             case 'sequence':
@@ -24,7 +24,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
                 break;
 
             case 'relative':
-                angle += actionCommand.getCurrentDirection();
+                angle = -angle  - Math.PI/2 + actionCommand.getCurrentDirection();
                 break;
             }
             actionCommand.setPrevFireDirection(angle);
@@ -39,7 +39,12 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
+            var parameters = [];
             fireDef = updateContext.findFireDef(fireDef);
+            //var fireParameters = 
+
+
+
             var bulletDef = updateContext.findBulletDef(fireDef.bullet);
             bulletDef.speed = bulletDef.speed || fireDef.speed;
             bulletDef.direction = bulletDef.direction || fireDef.direction;

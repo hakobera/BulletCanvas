@@ -119,6 +119,10 @@ function(parseHelper, taskFactory, debug) {
             parse(root);
 
             return {
+                getType: function() {
+                    return root.attributes.type ? root.attributes.type.value : 'vertical';    
+                },
+
                 getActions: function() {
                     return actions;   
                 },

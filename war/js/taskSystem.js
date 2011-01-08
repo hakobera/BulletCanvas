@@ -142,6 +142,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                 } else {
                     var label = action.label;
                     var actionDef = bulletMLDocument.getAction(label);
+                    actionDef.parameters = action.params;
                     return actionDef;
                 }
             },
@@ -192,7 +193,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                 } else {
                     var label = fire.label;
                     var fireDef = bulletMLDocument.getFire(label);
-                    console.log(fire.params);
                     fireDef.params = fire.params;
                     return fireDef;
                 }
@@ -229,11 +229,17 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                 taskManager.kill();
             }
             
-            taskManager = TaskManager();
+            var parser = Parser();
+            bulletMLDocument = parser.parse(bulletML);
+            var type = bulletMLDocument.getType();
+            var cx = SCREEN_WIDTH/2 | 0;
+            var cy = SCREEN_HEIGHT/2 | 0;
 
+            taskManager = TaskManager();
+            
             player = TaskFactory.createTask(TaskType.PLAYER, {
-                x: SCREEN_WIDTH/2,
-                y: SCREEN_HEIGHT - 50,
+                x: (type === 'vertical' ? cx : 50),
+                y: (type === 'vertical' ? SCREEN_HEIGHT - 50 : cy),
                 minX: 0,
                 minY: 0,
                 maxX: SCREEN_WIDTH,
@@ -241,10 +247,10 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             });
             taskManager.addTask(player);
 
-            var parser = Parser();
-            bulletMLDocument = parser.parse(bulletML);
-
-            enemy = TaskFactory.createTask(TaskType.ENEMY, { x: SCREEN_WIDTH/2, y: 50 });
+            enemy = TaskFactory.createTask(TaskType.ENEMY, {
+                x: (type === 'vertical' ? cx : SCREEN_WIDTH - 50),
+                y: (type === 'vertical' ? 50 : cy)
+            });
             taskManager.addTask(enemy);
 
             var topActionDef = bulletMLDocument.getAction('top');

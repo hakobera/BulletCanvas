@@ -66,7 +66,7 @@ function(enemyTask, TaskType, debug) {
             drawContext.drawCircle(that.getX(), that.getY(), 2, '#aaffaa');
         };
 
-        debug('Create ' + that.type() + ':' + that.id());
+        //debug('Create ' + that.type() + ':' + that.id());
         
         return that;
     };

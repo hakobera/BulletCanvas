@@ -17,7 +17,7 @@ define(['bulletml/command/command'], function(command) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             if (waitFrames === null) {
-                waitFrames = updateContext.evalExpression(wait.value) | 0;
+                waitFrames = updateContext.evalExpression(wait.value, actionCommand.getReplacementParameters()) | 0;
             }
             return --waitFrames < 0;
         };

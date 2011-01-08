@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "bulletml.dtd">
+<bulletml type="horizontal">
+    <action label="top">
+        <repeat>
+            <times>10</times>
+            <action>
+                <fire>
+                    <direction type="absolute">270</direction>
+                    <bulletRef label="rocket"/>
+                </fire>
+                <wait>30</wait>
+            </action>
+        </repeat>
+    </action>
+
+    <bullet label="rocket">
+        <action>
+            <repeat>
+                <times>20</times>
+                <action>
+                    <fireRef label="udBlt">
+                        <param>90</param>
+                    </fireRef>
+                    <wait>20-$rank*8</wait>
+                    <fireRef label="udBlt">
+                        <param>-90</param>
+                    </fireRef>
+                    <wait>60-$rank*8</wait>
+                </action>
+            </repeat>
+        </action>
+    </bullet>
+
+    <fire label="udBlt">
+        <direction type="relative">$1-25+$rand*50</direction>
+        <bullet/>
+    </fire>
+</bulletml>

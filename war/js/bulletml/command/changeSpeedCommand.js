@@ -22,7 +22,7 @@ function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             if (termFrames === null) {
-                termFrames = updateContext.evalExpression(changeSpeedDef.term.value) | 0;
+                termFrames = updateContext.evalExpression(changeSpeedDef.term.value, actionCommand.getReplacementParameters()) | 0;
                 var speedDef = changeSpeedDef.speed;
                 var changeSpeed = updateContext.evalExpression(speedDef.value);
 

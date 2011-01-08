@@ -22,7 +22,7 @@ function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             if (termFrames === null) {
-                termFrames = updateContext.evalExpression(changeDirectionDef.term.value) | 0;
+                termFrames = updateContext.evalExpression(changeDirectionDef.term.value, actionCommand.getReplacementParameters()) | 0;
                 var direction = changeDirectionDef.direction;
                 var d = updateContext.evalExpression(direction.value);
                 var changeAngle = d * Math.PI / 180;
@@ -40,6 +40,7 @@ function(command, debug) {
                         break;
 
                     case 'relative':
+                        changeAngle = -changeAngle;
                         break;
                     }
                     

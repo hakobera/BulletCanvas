@@ -14,40 +14,46 @@ function(command, CommandType, debug) {
 
         /**
          * Current command index.
-         * @private {integer}
+         * @private {int}
          */
         var commandIndex = 0;
 
         /**
          * Repeat count.
-         * @private {integer}
+         * @private {int}
          */
         var repeatTimes = spec.repeatTimes || 1;
         var repeatCount = repeatTimes;
 
         /**
          * Last fire direction.
-         * @private {float}
+         * @private {Number}
          */
         var direction = 0;
 
         /**
          * Last fire direction.
-         * @private {float}
+         * @private {Number}
          */
         var speed = 1;
 
         /**
          * Last fire direction.
-         * @private {float}
+         * @private {Number}
          */
         var prevFireDirection = spec.prevFireInfo ? spec.prevFireInfo.direction : 0;
 
         /**
          * Last fire direction.
-         * @private {float}
+         * @private {Number}
          */
         var prevFireSpeed = spec.prevFireInfo ? spec.prevFireInfo.speed : 1;
+
+        /**
+         * Replacement parameters.
+         * @private
+         */
+        var replaceParameters = [];
 
         /**
          * Action command list.
@@ -56,12 +62,13 @@ function(command, CommandType, debug) {
         var commands = [];
 
 // init
+        var i, c, commandType;
         var updateContext = spec.updateContext;
         var CommandFactory = require('bulletml/command/commandFactory');
         var commandLength = actionDef.commands.length;
-        for (var i = 0; i < commandLength; ++i) {
-            var c = actionDef.commands[i];
-            var commandType = c.commandType();
+        for (i = 0; i < commandLength; ++i) {
+            c = actionDef.commands[i];
+            commandType = c.commandType();
             if (commandType === CommandType.FIRE_REF) {
                 c = updateContext.findFireDef(c);
             } else if (commandType === CommandType.ACTION_REF) {
@@ -75,7 +82,7 @@ function(command, CommandType, debug) {
          * @param {Object} task Call task
          * @param {Object} actionCommand Call action command
          * @param {Object} updateContext
-         * @return true if you want to execute next commands, false if you do not want to execute next commands.
+         * @return {boolean} true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
             while(!that.isFinished()) {
@@ -89,8 +96,13 @@ function(command, CommandType, debug) {
                 --repeatCount;
                 if (repeatCount > 0) {
                     commandIndex = 0;
+                    for (var i = 0; i < commandLength; ++i) {
+                        commands[i].reset();
+                    }
                 }
             }
+            
+            return that.isFinished() && repeatCount <= 0;
         };
 
         /**
@@ -158,6 +170,14 @@ function(command, CommandType, debug) {
          */
         that.setPrevFireSpeed = function(speed) {
             prevFireSpeed = speed;
+        };
+
+        /**
+         * Return replacement parameters.
+         * @public
+         */
+        that.getReplacementParameters = function() {
+            return replaceParameters;
         };
 
         return that;
