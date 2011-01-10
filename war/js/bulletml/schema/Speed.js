@@ -10,6 +10,19 @@ define(['util/format'], function(format) {
         that.type = spec.type ? spec.type : 'absolute';
         that.value = spec.value ? spec.value : 1.0;
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.type = that.type;
+            other.value = that.value;
+            return other;
+        };
+
         that.toString = function() {
             return format('<Speed type=%1, value=%2>', that.type, that.value);
         };

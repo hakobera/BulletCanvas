@@ -1,4 +1,4 @@
-define(function() {
+define(['lib/debug'], function(debug) {
     /**
      * Replace variables.
      * @private
@@ -7,7 +7,7 @@ define(function() {
     var replaceVariables = function(expr, rank, params) {
         var e = new String(expr);
 
-        if (params) {
+        if (params && params.length > 0) {
             var len = params.length;
             for (var i = 0; i < len; ++i) {
                 var p = new RegExp('\\$' + (i+1), 'g');
@@ -53,8 +53,9 @@ define(function() {
             var expr = replaceVariables(expressionString, rank, params);
             // TODO: 不正構文チェックの強化
             if (expr.match(/[^-()+*\/0-9\. \n\t]/)) {
-                throw new Error('[expression] Invalid expression: eval = ' + expr +  ', src = ' + expr);
+                throw new Error('[expression] Invalid expression: eval = ' + expr +  ', src = ' + expressionString);
             }
+            debug('eval = ' + expr +  ', src = ' + expressionString);
             return eval(expr);
         }
 

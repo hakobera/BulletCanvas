@@ -1,5 +1,7 @@
 require(['taskSystem'], function(TaskSystem) {
     require.ready(function() {
+        var FPS = 30;
+
         var pad = $('#analogpad').analogpad();
         var taskSystem = TaskSystem();
         taskSystem.setController(pad);
@@ -20,7 +22,8 @@ require(['taskSystem'], function(TaskSystem) {
                 taskSystem.init({
                     bulletML: data,
                     targetId: 'canvasBox',
-                    rank: 5
+                    rank: 5,
+                    fps: FPS
                 });
                 taskSystem.play();
 

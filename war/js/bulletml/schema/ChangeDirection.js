@@ -17,6 +17,19 @@ define(['util/format'], function(format) {
             return 'changeDirection';
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.direction = that.direction.clone();
+            other.term = that.term.clone();
+            return other;
+        };
+
         that.toString = function() {
             return format(
                     '<ChangeDirection direction=%1, term=%2>',

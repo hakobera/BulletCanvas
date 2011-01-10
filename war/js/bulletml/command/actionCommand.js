@@ -64,17 +64,9 @@ function(command, CommandType, debug) {
 // init
         var i, c, commandType;
         var updateContext = spec.updateContext;
-        var CommandFactory = require('bulletml/command/commandFactory');
         var commandLength = actionDef.commands.length;
         for (i = 0; i < commandLength; ++i) {
-            c = actionDef.commands[i];
-            commandType = c.commandType();
-            if (commandType === CommandType.FIRE_REF) {
-                c = updateContext.findFireDef(c);
-            } else if (commandType === CommandType.ACTION_REF) {
-                c = updateContext.findActionDef(c);
-            }
-            commands.push(CommandFactory.createCommand(c));
+            commands.push(updateContext.createCommand(actionDef.commands[i]));
         }
 
         /**

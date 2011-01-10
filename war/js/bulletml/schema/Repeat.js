@@ -16,6 +16,19 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
             return CommandType.REPEAT;
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.times = that.times;
+            other.action = that.action.clone();
+            return other;
+        };
+
         that.toString = function() {
             return format('<[Repeat times=%1, action=%2>', that.times, that.action);
         };

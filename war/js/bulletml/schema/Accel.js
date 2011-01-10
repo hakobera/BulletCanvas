@@ -17,6 +17,20 @@ define(['util/format'], function(format) {
             return 'accel';    
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.horizontail = that.horizontail.clone();
+            other.vertical = that.vertical.clone();
+            other.term = that.term.clone();
+            return other;
+        };
+
         that.toString = function() {
             return format(
                     '<Accel horizontal=(%1), vertical=(%2), term=(%3)>',

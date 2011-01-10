@@ -18,6 +18,22 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
             return CommandType.ACTION;
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.label = that.label;
+            other.commands = [];
+            for (var i = 0; i < that.commands.length; ++i) {
+                other.commands[i] = that.commands[i].clone();
+            }
+            return other;
+        };
+        
         that.toString = function() {
             return format(
                     '<ActionDef label=%1, commands=%2>',

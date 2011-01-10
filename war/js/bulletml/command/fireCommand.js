@@ -6,8 +6,8 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
     var fireCommand = function(fireDef) {
         var that = command();
 
-        var calcDirection = function(task, direction, actionCommand, updateContext) {
-            var d = updateContext.evalExpression(direction.value, [90]);
+        var calcDirection = function(task, direction, actionCommand, params, updateContext) {
+            var d = updateContext.evalExpression(direction.value, params);
             var angle = d * Math.PI / 180;
             
             switch (direction.type) {
@@ -39,11 +39,9 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
-            var parameters = [];
             fireDef = updateContext.findFireDef(fireDef);
-            //var fireParameters = 
-
-
+            var params = fireDef.params;
+            
 
             var bulletDef = updateContext.findBulletDef(fireDef.bullet);
             bulletDef.speed = bulletDef.speed || fireDef.speed;
@@ -54,10 +52,10 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
                 y: task.getY()
             });
 
-            var direction = calcDirection(task, bulletDef.direction, actionCommand, updateContext);
+            var direction = calcDirection(task, bulletDef.direction, actionCommand, params, updateContext);
             bullet.setDirection(direction);
 
-            var speed = updateContext.evalExpression(bulletDef.speed.value);
+            var speed = updateContext.evalExpression(bulletDef.speed.value, params);
             bullet.setSpeed(speed);
 
             return true;

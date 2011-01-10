@@ -16,6 +16,19 @@ define(['util/format'], function(format) {
             return 'changeSpeed';
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.speed = that.speed.clone();
+            other.term = that.term.clone();
+            return other;
+        };
+
         that.toString = function() {
             return format(
                     '<ChangeSpeed speed=%1, term=%2>',

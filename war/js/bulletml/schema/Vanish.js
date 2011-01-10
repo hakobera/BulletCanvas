@@ -14,6 +14,17 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
             return CommandType.VANISH;
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            return other;
+        };
+
         that.toString = function() {
             return format('<Vanish>');
         };

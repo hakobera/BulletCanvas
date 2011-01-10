@@ -19,6 +19,21 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
             return CommandType.FIRE;
         };
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.label = that.label;
+            other.direction = that.direction ? that.direction.clone() : undefined;
+            other.speed = that.speed ? that.speed.clone() : undefined;
+            other.bullet = that.bullet.clone();
+            return other;
+        };
+
         that.toString = function() {
             return format(
                     '<FireDef label=%1, direction=%2, speed=%3, bullet=%4>',

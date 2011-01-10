@@ -12,6 +12,19 @@ define(['util/format'], function(format) {
         that.type = (spec && spec.type) ? spec.type : 'aim';
         that.value = (spec && spec.value) ? spec.value : 0;
 
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.type = that.type;
+            other.value = that.value;
+            return other;
+        };
+
         that.toString = function() {
             return format('<Direction type=%1, value=%2>', that.type, that.value);
         };

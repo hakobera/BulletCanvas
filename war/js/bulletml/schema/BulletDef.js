@@ -14,7 +14,27 @@ define(['util/format'], function(format) {
 
         that.bulletType = function() {
             return 'bulletDef';
-        }
+        };
+
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.label = that.label;
+            other.direction = that.direction ? that.direction.clone() : undefined;
+            other.speed = that.speed ? that.speed.clone() : undefined;
+            other.actions = [];
+            if (that.actions) {
+                for (var i = 0; i < that.actions.length; ++i) {
+                    other.actions[i] = that.actions[i].clone();
+                }
+            }
+            return other;
+        };
 
         that.toString = function() {
             return format(

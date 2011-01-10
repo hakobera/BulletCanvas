@@ -33,6 +33,7 @@ function(
 
     return {
         createCommand: function(commandDef, spec) {
+            console.log(commandDef);
             var type = commandDef.commandType();
             var constructor = constructors[type];
             if (!constructor) {

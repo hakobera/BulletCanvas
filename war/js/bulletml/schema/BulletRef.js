@@ -14,7 +14,23 @@ define(['util/format', 'bulletml/schema/BulletDef'], function(format, BulletDef)
 
         that.bulletType = function() {
             return 'bulletRef';
-        }
+        };
+
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.label = that.label;
+            other.params = [];
+            for (var i = 0; i < that.params.length; ++i) {
+                other.params[i] = that.params[i].clone();
+            }
+            return other;
+        };
 
         that.toString = function() {
             return format('<BulletRef label=%1, params=%2>', that.label, that.params);

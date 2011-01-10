@@ -8,7 +8,7 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
 	var fireRef = function(spec) {
         var that = {};
         that.label = spec.label;
-        that.params = spec.params;
+        that.params = spec.params || [];
 
         /**
          * Return tag type.
@@ -17,6 +17,22 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
          */
         that.commandType = function() {
             return CommandType.FIRE_REF;
+        };
+
+        /**
+         * Clone this object.
+         * @return {Object} Deep copy of this object.
+         */
+        that.clone = function() {
+            function f() {};
+            f.prototype = that;
+            var other = new f();
+            other.label = that.label;
+            other.params = [];
+            for (var i = 0; i < that.params.length; ++i) {
+                other.params[i] = that.params[i].clone();
+            }
+            return other;
         };
 
         that.toString = function() {
