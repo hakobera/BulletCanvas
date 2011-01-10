@@ -13,6 +13,13 @@ function(command, CommandType, debug) {
         spec = spec || {};
 
         /**
+         * Parameter for expression vairables.
+         * @private {Array}
+         */
+        var parameters = spec.parameters || [];
+
+
+        /**
          * Current command index.
          * @private {int}
          */
@@ -66,7 +73,7 @@ function(command, CommandType, debug) {
         var updateContext = spec.updateContext;
         var commandLength = actionDef.commands.length;
         for (i = 0; i < commandLength; ++i) {
-            commands.push(updateContext.createCommand(actionDef.commands[i]));
+            commands.push(updateContext.createCommand(actionDef.commands[i], parameters));
         }
 
         /**

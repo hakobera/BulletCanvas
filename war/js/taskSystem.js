@@ -99,6 +99,16 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          */
         var updateContext = {
             /**
+             * Evaluate expression and return as number.
+             * @param {String} expr Expression string to evaluate.
+             * @param {Array} params Replacement parameters.
+             * @return {Number} Evaluated value.
+             */
+            evalExpression: function(expr, params) {
+                return expression.eval(expr, params);
+            },
+
+            /**
              * Return controller.
              * @public
              * @return controller
@@ -139,15 +149,20 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * Find actionDef.
              * If action is 'actionRef', create new actionDef and return it.
              * @param {Object} action actionDef or actionRef
+             * @param {Array} parameters Parameters for replacement variables.
              * @return {Object} actionDef instance
              */
-            findActionDef: function(action) {
+            findActionDef: function(action, parameters) {
                 if (action.commandType() === CommandType.ACTION) {
+                    action.params = parameters;
                     return action;
                 } else {
                     var label = action.label;
                     var actionDef = bulletMLDocument.getAction(label);
-                    actionDef.parameters = action.params;
+                    actionDef.params = [];
+                    for (var i = 0; i < action.params.length; ++i) {
+                        actionDef.params[i] = this.evalExpression(action.params[i].value, parameters);
+                    }
                     return actionDef;
                 }
             },
@@ -174,14 +189,20 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * Find bulletDef.
              * If bullet is 'bulletRef', create new bulletDef and return it.
              * @param {Object} bullet bulletDef or bulletRef
+             * @param {Array} parameters Parameters for replacement variables.
              * @return {Object} bulletDef instance
              */
-            findBulletDef: function(bullet) {
+            findBulletDef: function(bullet, parameters) {
                 if (bullet.bulletType() === 'bulletDef') {
+                    bullet.params = parameters;
                     return bullet;
                 } else {
                     var label = bullet.label;
                     var bulletDef = bulletMLDocument.getBullet(label);
+                    bulletDef.params = [];
+                    for (var i = 0; i < bullet.params.length; ++i) {
+                        bulletDef.params[i] = this.evalExpression(bullet.params[i].value, parameters);
+                    }
                     return bulletDef;
                 }
             },
@@ -190,17 +211,19 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * Find fireDef.
              * If fire is 'fireRef', create new fireDef and return it.
              * @param {Object} fire fireDef or fireRef
+             * @param {Array} parameters Parameters for replacement variables.
              * @return {Object} fireDef instance
              */
-            findFireDef: function(fire) {
+            findFireDef: function(fire, parameters) {
                 if (fire.commandType() === CommandType.FIRE) {
+                    fire.params = parameters;
                     return fire;
                 } else {
                     var label = fire.label;
                     var fireDef = bulletMLDocument.getFire(label);
                     fireDef.params = [];
                     for (var i = 0; i < fire.params.length; ++i) {
-                        fireDef.params[i] = fire.params[i].value;
+                        fireDef.params[i] = this.evalExpression(fire.params[i].value, parameters);
                     }
                     return fireDef;
                 }
@@ -211,15 +234,16 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * @param {Object} commandDef command definition.
              * @return {Object} Command instance.
              */
-            createCommand: function(commandDef) {
+            createCommand: function(commandDef, parameters) {
+                console.log(parameters);
                 var c = commandDef;
                 var commandType = c.commandType();
                 if (commandType === CommandType.FIRE_REF) {
-                    c = updateContext.findFireDef(c);
+                    c = updateContext.findFireDef(c, parameters);
                 } else if (commandType === CommandType.ACTION_REF) {
-                    c = updateContext.findActionDef(c);
+                    c = updateContext.findActionDef(c, parameters);
                 }
-                return CommandFactory.createCommand(c, { updateContext: this });
+                return CommandFactory.createCommand(c, { updateContext: this, parameters: parameters });
             },
 
             /**
@@ -230,16 +254,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                 addEvent(function() {
                     task.kill();
                 });
-            },
-
-            /**
-             * Evaluate expression and return as number.
-             * @param {String} expr Expression string to evaluate.
-             * @param {Array} params Replacement parameters.
-             * @return {Number} Evaluated value.
-             */
-            evalExpression: function(expr, params) {
-                return expression.eval(expr, params);
             }
         };
 
