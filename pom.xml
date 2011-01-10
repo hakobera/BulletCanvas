@@ -13,8 +13,8 @@
   </properties>
   <repositories>
     <repository>
-      <id>local</id>
-      <name>local</name>
+      <id>projectLocal</id>
+      <name>projectLocal</name>
       <url>file:${basedir}/repo</url>
     </repository>
     <repository>
@@ -28,12 +28,20 @@
         <updatePolicy>never</updatePolicy>
       </releases>
     </repository>
-    <repository>
-      <id>dyuproject-repo</id>
-      <name>dyuproject-repo</name>      
-      <url>http://dyuproject.googlecode.com/svn/repos/maven2</url>
-    </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>dav:https://www.seasar.org/maven/maven2</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>org.slim3</groupId>
@@ -117,7 +125,7 @@
      -->
   </dependencies>
   <build>
-    <finalName>slim3-maven</finalName>
+    <finalName>bulletCanvas</finalName>
     <outputDirectory>${generated.war}/WEB-INF/classes</outputDirectory>
     <testOutputDirectory>${generated.war}/WEB-INF/classes</testOutputDirectory>
     <pluginManagement>
@@ -277,7 +285,7 @@
               <content>
                 <![CDATA[
 <factorypath>
-  <factorypathentry kind="WKSPJAR" id="/${artifactId}/${eclipse.lib}/slim3-gen-${slim3.version}.jar" enabled="true" runInBatchMode="false"/>
+  <factorypathentry kind="WKSPJAR" id="/${project.artifactId}/${eclipse.lib}/slim3-gen-${slim3.version}.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
                ]]>
               </content>

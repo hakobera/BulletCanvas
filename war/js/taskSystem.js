@@ -16,7 +16,6 @@ define(
 function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory, CommandType, DrawContext, FpsTimer) {
     var SCREEN_WIDTH = 300;
     var SCREEN_HEIGHT = 300;
-    var FPS = 60;
 
     /**
      * @constructor
@@ -59,6 +58,12 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          * @private
          */
         var drawContext;
+
+        /**
+         * Frames per Scound.
+         * @private {int}
+         */
+        var fps = 30;
 
         /**
          * FPS timer.
@@ -193,9 +198,28 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                 } else {
                     var label = fire.label;
                     var fireDef = bulletMLDocument.getFire(label);
-                    fireDef.params = fire.params;
+                    fireDef.params = [];
+                    for (var i = 0; i < fire.params.length; ++i) {
+                        fireDef.params[i] = fire.params[i].value;
+                    }
                     return fireDef;
                 }
+            },
+
+            /**
+             * Create command from definition.
+             * @param {Object} commandDef command definition.
+             * @return {Object} Command instance.
+             */
+            createCommand: function(commandDef) {
+                var c = commandDef;
+                var commandType = c.commandType();
+                if (commandType === CommandType.FIRE_REF) {
+                    c = updateContext.findFireDef(c);
+                } else if (commandType === CommandType.ACTION_REF) {
+                    c = updateContext.findActionDef(c);
+                }
+                return CommandFactory.createCommand(c, { updateContext: this });
             },
 
             /**
@@ -253,7 +277,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             });
             taskManager.addTask(enemy);
 
-            var topActionDef = bulletMLDocument.getAction('top');
+            var topActionDef = bulletMLDocument.getTopAction();
             var topAction = updateContext.createAction(topActionDef, { repeatTimes: 1 });
             enemy.setAction(topAction);
         };
@@ -308,7 +332,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             removeOutScreenBullets();
 
             if (enemy.isIdle()) {
-                if (++idleCount > 2*FPS) {
+                if (++idleCount > 2*fps) {
                     enemy.reset();
                     idleCount = 0;
                 }
@@ -329,6 +353,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
          * @param {Object} args Init parameters.
          */
         that.init = function(args) {
+            fps = args.fps ? args.fps : 30;
             expression = Expression(args.rank);
             eventQueue = [];
             status = 'stop';
@@ -340,7 +365,7 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
             });
 
             fpsTimer = FpsTimer({
-                fps: FPS,
+                fps: fps,
                 callback: mainLoop 
             });
 
