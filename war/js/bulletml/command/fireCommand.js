@@ -3,8 +3,8 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
      * @constructor
      * @param fireDef {Object} Fire command definition.
      */
-    var fireCommand = function(fireDef) {
-        var that = command();
+    var fireCommand = function(fireDef, spec) {
+        var that = command(spec);
 
         var calcDirection = function(task, direction, actionCommand, params, updateContext) {
             var d = updateContext.evalExpression(direction.value, params);
@@ -39,15 +39,19 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          * @return true if you want to execute next commands, false if you do not want to execute next commands.
          */
         that.execute = function(task, actionCommand, updateContext) {
-            fireDef = updateContext.findFireDef(fireDef, fireDef.params);
+            var parameters = that.getParameters().length === 0 ? actionCommand.getParameters() : that.getParameters();
+            console.log(actionCommand.getParameters());
+            var fireDefImpl = updateContext.findFireDef(fireDef, parameters);
+            console.log('Fire command execute' + fireDefImpl.params);
 
-            var bulletDef = updateContext.findBulletDef(fireDef.bullet, fireDef.params);
+            var bulletDef = updateContext.findBulletDef(fireDefImpl.bullet, fireDefImpl.params);
             bulletDef.speed = bulletDef.speed || fireDef.speed;
-            bulletDef.direction = bulletDef.direction || fireDef.direction;
+            bulletDef.direction = bulletDef.direction || fireDefImpl.direction;
             var bullet = updateContext.addBullet(bulletDef, {
                 parent: task,
                 x: task.getX(),
-                y: task.getY()
+                y: task.getY(),
+                parameters: bulletDef.params
             });
 
             var direction = calcDirection(task, bulletDef.direction, actionCommand, bulletDef.params, updateContext);

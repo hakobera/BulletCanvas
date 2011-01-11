@@ -9,15 +9,9 @@ function(command, CommandType, debug) {
      * @param actionDef
      */
     var actionCommand = function(actionDef, spec) {
-        var that = command();
         spec = spec || {};
 
-        /**
-         * Parameter for expression vairables.
-         * @private {Array}
-         */
-        var parameters = spec.parameters || [];
-
+        var that = command(spec);
 
         /**
          * Current command index.
@@ -57,12 +51,6 @@ function(command, CommandType, debug) {
         var prevFireSpeed = spec.prevFireInfo ? spec.prevFireInfo.speed : 1;
 
         /**
-         * Replacement parameters.
-         * @private
-         */
-        var replaceParameters = [];
-
-        /**
          * Action command list.
          * @private {Array}
          */
@@ -72,8 +60,10 @@ function(command, CommandType, debug) {
         var i, c, commandType;
         var updateContext = spec.updateContext;
         var commandLength = actionDef.commands.length;
+        var actionParameters = that.getParameters();
+        console.log('action constructor ' + actionParameters);
         for (i = 0; i < commandLength; ++i) {
-            commands.push(updateContext.createCommand(actionDef.commands[i], parameters));
+            commands.push(updateContext.createCommand(actionDef.commands[i], actionParameters));
         }
 
         /**
@@ -169,14 +159,6 @@ function(command, CommandType, debug) {
          */
         that.setPrevFireSpeed = function(speed) {
             prevFireSpeed = speed;
-        };
-
-        /**
-         * Return replacement parameters.
-         * @public
-         */
-        that.getReplacementParameters = function() {
-            return replaceParameters;
         };
 
         return that;

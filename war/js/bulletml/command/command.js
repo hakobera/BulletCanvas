@@ -2,8 +2,15 @@
  * command.js - Interface of command.
  */
 define(function() {
-    var command = function() {
+    var command = function(spec) {
         var that = {};
+
+        /**
+         * Parameter for expression vairables.
+         * @private
+         * @type Array
+         */
+        var parameters = spec.parameters || [];
 
         /**
          * Execute command.
@@ -21,6 +28,23 @@ define(function() {
          * Reset command.
          */
         that.reset = function() {
+        };
+
+
+        /**
+         * Return replacement parameters.
+         * @public
+         */
+        that.getParameters = function() {
+            return parameters;
+        };
+
+        /**
+         * Set replacement parameters.
+         * @public
+         */
+        that.setParameters = function(p) {
+            parameters = p;
         };
 
         return that;

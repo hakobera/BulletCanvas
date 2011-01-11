@@ -9,7 +9,7 @@ function(command, debug) {
      * @param {Object} changeSpeedDef
      */
     var changeDirectionCommand = function(changeSpeedDef, spec) {
-        var that = command();
+        var that = command(spec);
         var termFrames = null;
         var deltaSpeed = 0;
 
@@ -22,7 +22,7 @@ function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             if (termFrames === null) {
-                termFrames = updateContext.evalExpression(changeSpeedDef.term.value, actionCommand.getReplacementParameters()) | 0;
+                termFrames = updateContext.evalExpression(changeSpeedDef.term.value, actionCommand.getParameters()) | 0;
                 var speedDef = changeSpeedDef.speed;
                 var changeSpeed = updateContext.evalExpression(speedDef.value);
 

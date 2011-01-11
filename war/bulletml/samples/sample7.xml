@@ -8,7 +8,7 @@
             <action>
                 <wait>3</wait>
                 <fire>
-                    <direction type="absolute">$2</direction>
+                    <direction>$2</direction>
                     <speed>1.5+$rank</speed>
                     <bullet/>
                 </fire>

@@ -34,6 +34,9 @@ define(['bulletml/command/commandType', 'util/format'], function(CommandType, fo
             return other;
         };
 
+        /**
+         * @return {String} String representation of this object.
+         */
         that.toString = function() {
             return format(
                     '<FireDef label=%1, direction=%2, speed=%3, bullet=%4>',

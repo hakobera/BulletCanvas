@@ -11,7 +11,7 @@ function(enemyTask, TaskType, debug) {
         var bulletDef = spec.bulletDef;
         var actions = bulletDef.actions;
         if (actions[0]) {
-            var action = updateContext.createAction(actions[0]);
+            var action = updateContext.createAction(actions[0], spec);
             that.setAction(action);
         }
 

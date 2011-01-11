@@ -3,8 +3,8 @@ define(['bulletml/command/command'], function(command) {
      * @constructor
      * @param vanish {Object} Vanish command definition.
      */
-    var vanishCommand = function(vanihs) {
-        var that = command();
+    var vanishCommand = function(vanish, spec) {
+        var that = command(spec);
 
         /**
          * Execute command.

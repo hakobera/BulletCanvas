@@ -9,7 +9,7 @@ function(command, debug) {
      * @param changeDirectionDef
      */
     var changeDirectionCommand = function(changeDirectionDef, spec) {
-        var that = command();
+        var that = command(spec);
         var termFrames = null;
         var deltaAngle = 0;
 
@@ -22,7 +22,7 @@ function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             if (termFrames === null) {
-                termFrames = updateContext.evalExpression(changeDirectionDef.term.value, actionCommand.getReplacementParameters()) | 0;
+                termFrames = updateContext.evalExpression(changeDirectionDef.term.value, actionCommand.getParameters()) | 0;
                 var direction = changeDirectionDef.direction;
                 var d = updateContext.evalExpression(direction.value);
                 var changeAngle = d * Math.PI / 180;

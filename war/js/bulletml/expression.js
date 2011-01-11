@@ -52,10 +52,10 @@ define(['lib/debug'], function(debug) {
         that.eval = function(expressionString, params) {
             var expr = replaceVariables(expressionString, rank, params);
             // TODO: 不正構文チェックの強化
+            debug('eval = ' + expr +  ', src = ' + expressionString + ', params = ' + params);
             if (expr.match(/[^-()+*\/0-9\. \n\t]/)) {
                 throw new Error('[expression] Invalid expression: eval = ' + expr +  ', src = ' + expressionString);
             }
-            debug('eval = ' + expr +  ', src = ' + expressionString);
             return eval(expr);
         }
 
