@@ -40,9 +40,7 @@ define(['bulletml/command/command', 'lib/debug'], function(command, debug) {
          */
         that.execute = function(task, actionCommand, updateContext) {
             var parameters = that.getParameters().length === 0 ? actionCommand.getParameters() : that.getParameters();
-            console.log(actionCommand.getParameters());
             var fireDefImpl = updateContext.findFireDef(fireDef, parameters);
-            console.log('Fire command execute' + fireDefImpl.params);
 
             var bulletDef = updateContext.findBulletDef(fireDefImpl.bullet, fireDefImpl.params);
             bulletDef.speed = bulletDef.speed || fireDef.speed;

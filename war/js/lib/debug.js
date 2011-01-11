@@ -73,7 +73,8 @@ define(function() {
   };
 
   if (global.console) {
-    return debug;
+    return noDebug;
+    //return debug;
   } else {
     return noDebug;
   }

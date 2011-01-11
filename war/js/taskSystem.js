@@ -138,7 +138,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * @return Added action command.
              */
             createAction: function(actionDef, spec) {
-                console.log('createAction ' + spec.parameters);
                 spec = spec || {};
                 spec.updateContext = updateContext;
                 var actionDefImpl = this.findActionDef(actionDef, spec.parameters);
@@ -164,7 +163,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
                     for (var i = 0; i < action.params.length; ++i) {
                         actionDef.params[i] = this.evalExpression(action.params[i].value, parameters);
                     }
-                    console.log(actionDef.params);
                     return actionDef;
                 }
             },
@@ -195,7 +193,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * @return {Object} bulletDef instance
              */
             findBulletDef: function(bullet, parameters) {
-                console.log('findBulletDef ' + parameters);
                 if (bullet.bulletType() === 'bulletDef') {
                     bullet.params = parameters;
                     return bullet;
@@ -218,7 +215,6 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
              * @return {Object} fireDef instance
              */
             findFireDef: function(fire, parameters) {
-                console.log('findFireDef ' + parameters);
                 if (fire.commandType() === CommandType.FIRE) {
                     fire.params = parameters;
                     return fire;

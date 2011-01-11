@@ -61,7 +61,7 @@ function(command, CommandType, debug) {
         var updateContext = spec.updateContext;
         var commandLength = actionDef.commands.length;
         var actionParameters = that.getParameters();
-        console.log('action constructor ' + actionParameters);
+        debug('action constructor ' + actionParameters);
         for (i = 0; i < commandLength; ++i) {
             commands.push(updateContext.createCommand(actionDef.commands[i], actionParameters));
         }
