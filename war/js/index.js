@@ -10,11 +10,11 @@ require([],
 					$('#newSpell').show();
 				},
 				error: function() {
-                    $('#login').click(function(e) {
-                        e.preventDefault();
+                    $('#login').click(function(event) {
+                        event.preventDefault();
                         $('#loginServiceBox').toggle();
                     });
-					$('#login').show();
+					$('#loginWrapper').show();
 				}
 			});
 		});
