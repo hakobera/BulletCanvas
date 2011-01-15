@@ -57,7 +57,7 @@
 	<section id="watchBox">
 		<div id="previewBox">
 			<div id="iframeWrapper">
-				<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="440" border="0" scrolling="no"></iframe>
+				<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>
 			</div>
 		</div>
 		<div id="editorBox">
@@ -67,5 +67,8 @@
 		</div>
 		<div style="clear:both"></div>
 	</section>
+    <footer>
+    	<span>&copy;2011 hakobera</span>
+    </footer>
 </body>
 </html>

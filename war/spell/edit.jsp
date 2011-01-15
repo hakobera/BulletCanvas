@@ -26,7 +26,7 @@
 <div style="clear:both"></div>
 <script type="text/javascript"> 
   function createIframe() {
-    var iframe = '<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="480" border="0" scrolling="no"></iframe>'
+    var iframe = '<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>'
     $('#iframeWrapper').html(iframe);
   }
   

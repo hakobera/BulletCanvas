@@ -18,7 +18,11 @@
 
 #watchBox {
 	width: 960px;
-	margin: 0 auto;
+	margin: 0 auto 20px auto;
+    padding: 15px;
+    border: 1px dotted #999;
+    background-color: #eee;
+    border-radius: 10px;
 }
 
 #editorBox {
@@ -36,7 +40,6 @@
 #previewBox {
 	float: left;
 	width: 320px;
-	background-color: #fff;
 }
 
 .CodeMirror-line-numbers {
