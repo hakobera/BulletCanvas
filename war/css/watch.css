@@ -17,16 +17,16 @@
 }
 
 #watchBox {
-	width: 960px;
+	width: 930px;
 	margin: 0 auto 20px auto;
     padding: 15px;
     border: 1px dotted #999;
-    background-color: #eee;
+    background-color: #ccc;
     border-radius: 10px;
 }
 
 #editorBox {
-	width: 640px;
+	width: 610px;
 	height: 440px;
 	float: left;
 }

@@ -25,6 +25,10 @@
 	background-color: #eee;
 }
 
+#controllerBox {
+	padding: 10px;
+}
+
 .CodeMirror-line-numbers {
 	width: 2.2em;
 	color: #aaa;

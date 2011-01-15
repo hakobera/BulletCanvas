@@ -3,21 +3,21 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Bullet Canvas</title>
-    <link href="/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/view.css" rel="stylesheet" type="text/css"/>
     <link href="/css/jquery.analogpad.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/js/lib/jquery/jquery-1.4.4.js"></script>
     <script type="text/javascript" src="/js/lib/jquery/jquery.analogpad.js"></script>
-    <script data-main="preview" src="/js/require.js"></script>
+    <script data-main="spell/view" src="/js/require.js"></script>
 </head>
-<body style="width: 320px;">
+<body>
     <div>
         <div style="float:left; text-align: left; margin-bottom: 5px;">
         	FPS: <span id="fps">0</span>
         	Bullet: <span id="bulletCount">0</span>
         </div>
         <div style="float: right;">
-            <button id="play">PLAY</button>
-            <button id="pause">PAUSE</button>
+            <button id="play" style="display: none;">PLAY</button>
+            <button id="pause" style="display: none;">PAUSE</button>
         </div>
 	</div>
     <div>

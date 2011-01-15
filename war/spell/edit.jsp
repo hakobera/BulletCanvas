@@ -7,9 +7,11 @@
 <head>
 	<meta charset="utf-8" />
 	<title>DANMAKU Edit</title>
+	<link href="/css/reset.css" rel="stylesheet" type="text/css" />
 	<link href="/css/editor.css" rel="stylesheet" type="text/css" />
 	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
 	<script src="/js/lib/codemirror/codemirror.js"></script>
+	<script data-main="spell/edit" src="/js/require.js"></script>
 </head>
 <body>
 <div id="editorBox">
@@ -18,43 +20,12 @@
 	</div>
 </div>
 <div id="previewBox">
-	<div>
-		<button id="reloadScript">Reload</button>
+	<div id="controllerBox">
+		<button id="reloadScript">Save &amp; Reload</button>
+		<a href="/watch/${spellCard.code}">Watch Page</a>
 	</div>
 	<div id="iframeWrapper"></div>
 </div>
 <div style="clear:both"></div>
-<script type="text/javascript"> 
-  function createIframe() {
-    var iframe = '<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>'
-    $('#iframeWrapper').html(iframe);
-  }
-  
-  createIframe();
-	
-  var editor = CodeMirror.fromTextArea('spellDefinition', {
-    height: "100%",
-    width: '95%',
-    parserfile: "parsexml.js",
-    stylesheet: "/css/xmlcolors.css",
-    path: "/js/lib/codemirror/",
-    continuousScanning: 500,
-    lineNumbers: true
-  });
-    
-  $('#reloadScript').click(function() {
-	  $.ajax({
-		  url: '/api/spellDefinition/${spellCard.code}',
-		  type: 'POST',
-		  data: { spellDefinition: editor.getCode() },
-		  success: function() {
-			  createIframe();
-		  },
-		  error: function() {
-			  alert('Reload failed');
-		  }
-	  });
-  });
-</script>
 </body>
 </html>

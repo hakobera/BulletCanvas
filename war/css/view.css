@@ -1,0 +1,17 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding: 10px;
+	background-color: #ccc;
+	font-family: 'ƒqƒ‰ƒMƒmŠpƒS Pro W3','Hiragino Kaku Gothic Pro','ƒƒCƒŠƒI',Meiryo,'‚l‚r ‚oƒSƒVƒbƒN',sans-serif;
+}
+
+button {
+    width: 60px;
+    padding: 3px 0;
+    font-size: 12px;
+    text-align: center;
+}

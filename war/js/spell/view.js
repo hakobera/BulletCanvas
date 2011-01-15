@@ -23,7 +23,6 @@ require(['taskSystem', 'util/url'], function(TaskSystem, Url) {
                     rank: 5,
                     fps: FPS
                 });
-                taskSystem.play();
 
                 var fpsTimer = taskSystem.getFpsTimer();
                 $('#fps').text(fpsTimer.getAverageFps());
@@ -33,13 +32,22 @@ require(['taskSystem', 'util/url'], function(TaskSystem, Url) {
                     $('#bulletCount').text(taskSystem.getBulletCount());
                 }, 1000);
 
-                $('#play').click(function() {
-                   taskSystem.play(); 
+                var play = $('#play');
+                var pause = $('#pause');
+
+                play.click(function() {
+                    taskSystem.play();
+                    play.hide();
+                    pause.show();
                 });
 
-                $('#pause').click(function() {
+                pause.click(function() {
                     taskSystem.pause();
+                    pause.hide();
+                    play.show();
                 });
+
+                play.triggerHandler('click');
             }
         });
     });

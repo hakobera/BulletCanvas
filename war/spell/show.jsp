@@ -1,11 +1,12 @@
 <%@page pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 	<meta name="format-detection" content="telephone=no"/>
-	<title>${spellCard.name} - DANMAKU.jp</title>
+	<title>${f:h(spellCard.name)} - DANMAKU.jp</title>
 	<link rel="apple-touch-icon" type="image/png" href="/images/home_icon.png">
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
 	<link href="/css/common.css" rel="stylesheet" type="text/css"/>
@@ -13,7 +14,7 @@
 	<link href="/css/watch.css" rel="stylesheet" type="text/css" />
 	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
 	<script src="/js/lib/codemirror/codemirror.js"></script>
-	<script data-main="watch" src="/js/require.js"></script>
+	<script data-main="spell/watch" src="/js/require.js"></script>
 </head>
 <body>
 	<header>
@@ -49,15 +50,15 @@
 		</ul>
 	</nav>
 	<section id="spellInfo">
-		<h1>${spellCard.name}</h1>
+		<h1>${f:h(spellCard.name)}</h1>
 		<div>
-			${spellCard.description}
+			${f:h(spellCard.description)}
 		</div>
 	</section>
 	<section id="watchBox">
 		<div id="previewBox">
 			<div id="iframeWrapper">
-				<iframe src="/preview.html?spellCode=${spellCard.code}" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>
+				<iframe src="/spell/view.html?spellCode=${spellCard.code}" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>
 			</div>
 		</div>
 		<div id="editorBox">
