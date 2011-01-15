@@ -18,7 +18,7 @@ public class NewControllerTest extends ControllerTestCase {
 		tester.sessionScope(ControllerBase.SESSION_ACCOUNT, account);
 
 		tester.start("/spell/new");
-		NewController controller = tester.getController();
+		CreateController controller = tester.getController();
 		assertThat(controller, is(notNullValue()));
 		assertThat(tester.isRedirect(), is(true));
 		assertThat(tester.getDestinationPath(), matches("/test/([a-zA-Z0-9]+)/edit"));

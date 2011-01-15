@@ -182,6 +182,9 @@ public class SpellCard implements Serializable {
 	}
 
 	public String getDefinitionAsString() {
+		if (definition == null) {
+			return null;
+		}
 		return definition.getValue();
 	}
 

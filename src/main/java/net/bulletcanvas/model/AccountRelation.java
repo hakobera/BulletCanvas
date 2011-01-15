@@ -16,7 +16,8 @@ public class AccountRelation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * アカウント ID。 原則として 認証サービス名:認証サービスごとのID　という形式です。 例) twitter:12345678
+	 * アカウント ID。 原則として 認証サービス名:認証サービスごとのID　という形式です。
+	 * 例) twitter:12345678
 	 */
 	@Attribute(primaryKey = true)
 	private Key key;

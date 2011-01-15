@@ -70,6 +70,18 @@ public abstract class ControllerBase extends Controller {
 	}
 	
 	/**
+	 * URL を作成します。
+	 * テンプレート中には {@link String#format(String, Object...)} で利用可能なパラメータを指定できます。
+	 * 
+	 * @param pathTemplate パスのテンプレート文字列
+	 * @param parameters 置換パラメータ
+	 * @return URL 文字列
+	 */
+	protected String path(String pathTemplate, Object... parameters) {
+		return String.format(pathTemplate, parameters);
+	}
+
+	/**
 	 * War 内のファイルを読み込みます。
 	 * 
 	 * @param path ファイルへのパス

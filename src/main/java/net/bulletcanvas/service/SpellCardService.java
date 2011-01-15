@@ -69,6 +69,20 @@ public abstract class SpellCardService {
 			.filter(SpellCardMeta.get().code.getAttributeName(), EQUAL, spellCode)
 			.asSingle();
 	}
+	
+	/**
+	 * スペルコードに対応するスペルカード情報を検索します。
+	 * 
+	 * @param spellCode
+	 *            スペルコード
+	 * @return 条件に一致するスペルカード
+	 */
+	public static SpellCard findBySpellCode(String spellCode) {
+		return Datastore
+			.query(SpellCard.class)
+			.filter(SpellCardMeta.get().code.getAttributeName(), EQUAL, spellCode)
+			.asSingle();
+	}
 
 	/**
 	 * スペルカード情報を検索します。 検索結果は作成日時順にソートされます。
@@ -78,6 +92,24 @@ public abstract class SpellCardService {
 	public static List<SpellCard> findAll() {
 		Sort sort = new Sort(SpellCardMeta.get().createdAt.getName());
 		return Datastore.query(SpellCard.class).sort(sort).asList();
+	}
+	
+	/**
+	 * スペル定義情報のみを更新します。
+	 * 
+	 * @param spellCode Spell Code
+	 * @param spellDefintion Spell definition.
+	 * @return スペルカード情報のインスタンス
+	 */
+	public static SpellCard updateDefinition(String spellCode, String spellDefintion) {
+		SpellCard spellCard = findBySpellCode(spellCode);
+		if (spellCard == null) {
+			return null;
+		}
+
+		spellCard.setDefinition(spellDefintion);
+		Datastore.put(spellCard);
+		return spellCard;
 	}
 
 }
