@@ -1,0 +1,52 @@
+@CHARSET "UTF-8";
+
+#spellInfo {
+	padding: 10px 10px 20px 10px;
+}
+
+#spellInfo h1 {
+	font-size: 20px;
+}
+
+#spellInfo div {
+	margin-top: 5px;
+	padding: 5px;
+	border: 1px dotted #999;
+	background-color: #eee;
+	font-size: 12px;
+}
+
+#watchBox {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#editorBox {
+	width: 640px;
+	height: 440px;
+	float: left;
+}
+
+#codeBox {
+	position: relative;
+	min-width: 200px;
+	border-left: 1px solid #000;
+}
+
+#previewBox {
+	float: left;
+	width: 320px;
+	background-color: #fff;
+}
+
+.CodeMirror-line-numbers {
+	width: 2.2em;
+	color: #fff;
+	background-color: #333;
+	text-align: right;
+	padding-right: .3em;
+	font-size: 10pt;
+	font-family: monospace;
+	padding-top: .4em;
+	line-height: normal;
+}

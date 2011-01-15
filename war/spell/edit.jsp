@@ -18,10 +18,10 @@
 	</div>
 </div>
 <div id="previewBox">
-	<div id="iframeWrapper"></div>
 	<div>
 		<button id="reloadScript">Reload</button>
 	</div>
+	<div id="iframeWrapper"></div>
 </div>
 <div style="clear:both"></div>
 <script type="text/javascript"> 

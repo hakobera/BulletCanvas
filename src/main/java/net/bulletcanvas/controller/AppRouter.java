@@ -11,6 +11,7 @@ public class AppRouter extends RouterImpl {
 		
 		// URL hack for controller
 		addRouting("/spell/edit/{spellCode}", "/spell/edit?spellCode={spellCode}");
+		addRouting("/watch/{spellCode}", "/spell/show?spellCode={spellCode}");
 	}
 
 }
