@@ -20,7 +20,7 @@
     <repository>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>dav:https://www.seasar.org/maven/maven2</url>
+      <url>https://www.seasar.org/maven/maven2</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -33,7 +33,7 @@
     <pluginRepository>
       <id>maven.seasar.org</id>
       <name>The Seasar Foundation Maven2 Repository</name>
-      <url>dav:https://www.seasar.org/maven/maven2</url>
+      <url>https://www.seasar.org/maven/maven2</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -116,13 +116,11 @@
       <artifactId>twitter4j-core</artifactId>
       <version>2.1.8</version>
     </dependency>
-    <!-- 
     <dependency>
       <groupId>net.arnx.jsonic</groupId>
       <artifactId>jsonic</artifactId>
       <version>1.2.5</version>
     </dependency>
-     -->
   </dependencies>
   <build>
     <finalName>bulletCanvas</finalName>
