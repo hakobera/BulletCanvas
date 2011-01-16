@@ -3,6 +3,8 @@ package net.bulletcanvas.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import net.arnx.jsonic.JSONHint;
+
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
@@ -17,16 +19,13 @@ public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@JSONHint(ignore = true)
 	@Attribute(primaryKey = true, json = @Json(ignore = true))
 	private Key key;
 
+	@JSONHint(ignore = true)
 	@Attribute(version = true, json = @Json(ignore = true))
 	private Long version;
-
-	/**
-	 * アカウント番号
-	 */
-	private Long accountNumber;
 
 	/**
 	 * 画面に表示する名前。
@@ -157,12 +156,8 @@ public class Account implements Serializable {
 		return updatedAt;
 	}
 
-	public void setAccountNumber(Long accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 	public Long getAccountNumber() {
-		return accountNumber;
+		return key.getId();
 	}
 
 }

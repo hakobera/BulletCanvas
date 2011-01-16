@@ -11,6 +11,11 @@ public class SpellCardInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 開発したアカウントのアカウント番号
+	 */
+	private Long accountNumber;
+	
+	/**
 	 * スペルコード
 	 */
 	private String code;
@@ -49,6 +54,14 @@ public class SpellCardInfo implements Serializable {
 	 * 更新日時
 	 */
 	private Date updatedAt;
+	
+	public Long getAccountNumber() {
+		return accountNumber;
+	}
+	
+	public void setAccountNumber(Long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
 	
 	public String getCode() {
 		return code;
@@ -112,6 +125,17 @@ public class SpellCardInfo implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	public static SpellCardInfo createFrom(SpellCard spellCard) {
+		SpellCardInfo info = new SpellCardInfo();
+		info.setAccountNumber(spellCard.getAccountNumber());
+		info.setCode(spellCard.getCode());
+		info.setName(spellCard.getName());
+		info.setDescription(spellCard.getDescription());
+		info.setCreatedAt(spellCard.getCreatedAt());
+		info.setUpdatedAt(spellCard.getUpdatedAt());
+		return info;
 	}
 	
 }

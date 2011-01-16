@@ -22,12 +22,7 @@ public class NewDeveloppedController extends ApiControllerBase {
 
 		List<SpellCardInfo> spellCardInfo = new ArrayList<SpellCardInfo>();
 		for (SpellCard spellCard : spellCards) {
-			SpellCardInfo info = new SpellCardInfo();
-			info.setCode(spellCard.getCode());
-			info.setName(spellCard.getName());
-			info.setDescription(spellCard.getDescription());
-			info.setCreatedAt(spellCard.getCreatedAt());
-			info.setUpdatedAt(spellCard.getUpdatedAt());
+			SpellCardInfo info = SpellCardInfo.createFrom(spellCard);
 			
 			// dummy info
 			info.setThumbnailUrl("http://www.danmaku.jp/images/noimage.jpg");

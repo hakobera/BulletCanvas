@@ -25,8 +25,6 @@ public class AccountService {
 	public static Account put(String accountId, Account account) {
 		Key accountKey = Datastore.put(account);
 		account.setKey(accountKey);
-		account.setAccountNumber(accountKey.getId());
-		Datastore.put(account);
 
 		Key relationKey = Datastore.createKey(AccountRelation.class, accountId);
 		AccountRelation relation = new AccountRelation();
@@ -72,11 +70,8 @@ public class AccountService {
 	 * @return アカウント情報
 	 */
 	public static Account findByAccountNumber(Long accountNumber) {
-		Account account =
-			Datastore
-				.query(Account.class)
-				.filter(AccountMeta.get().accountNumber.getAttributeName(), FilterOperator.EQUAL, accountNumber)
-				.asSingle();
+		Key key = Datastore.createKey(Account.class, accountNumber);
+		Account account = Datastore.get(AccountMeta.get(), key);
 		return account;
 	}
 

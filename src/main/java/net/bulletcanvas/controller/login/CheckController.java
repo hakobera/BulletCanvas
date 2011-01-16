@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.arnx.jsonic.JSON;
 import net.bulletcanvas.meta.AccountMeta;
 import net.bulletcanvas.model.Account;
 
@@ -28,7 +29,7 @@ public class CheckController extends LoginControllerBase {
 		PrintWriter writer = response.getWriter();
 
 		Account account = getLoginAccount();
-		String accountInfo = AccountMeta.get().modelToJson(account, 1);
+		String accountInfo = JSON.encode(account);
 		writer.write(accountInfo);
 		writer.flush();
 

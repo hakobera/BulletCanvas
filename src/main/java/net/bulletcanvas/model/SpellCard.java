@@ -6,6 +6,8 @@ import java.util.Date;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
 
+import net.arnx.jsonic.JSONHint;
+
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.Model;
@@ -19,13 +21,16 @@ public class SpellCard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@JSONHint(ignore = true)
 	@Attribute(primaryKey = true)
 	private Key key;
 
+	@JSONHint(ignore = true)
 	@Attribute(version = true)
 	private Long version;
 
 	/** スペル所有アカウント */
+	@JSONHint(ignore = true)
 	@Attribute(primaryKey = false)
 	private Key accountKey;
 
@@ -188,6 +193,10 @@ public class SpellCard implements Serializable {
 			return null;
 		}
 		return definition.getValue();
+	}
+	
+	public Long getAccountNumber() {
+		return accountKey.getId();
 	}
 
 }
