@@ -46,3 +46,15 @@ section {
 	padding-left: 10px;
 	text-align: left;
 }
+
+.spellBox {
+	display: inline-block;
+	width: 205px;
+	margin-right: 20px;
+}
+
+.controller {
+	display: inline-block;
+	width: 205px;
+	text-align: center;
+}

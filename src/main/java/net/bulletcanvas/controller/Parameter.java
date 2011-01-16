@@ -6,5 +6,7 @@ public interface Parameter {
 
 	String SPELL_CODE = "spellCode";
 	String SPELL_DEFINITION = "spellDefinition";
+	String SPELL_NAME = "spellName";
+	String SPELL_DESCRIPTION = "spellDescription";
 	
 }

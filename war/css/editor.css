@@ -1,5 +1,10 @@
 @CHARSET "UTF-8";
 
+body {
+    font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;    
+    font-size: 12px;
+}
+
 #spellInfo {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #000;
@@ -27,6 +32,23 @@
 
 #controllerBox {
 	padding: 10px;
+}
+
+#spellInfoBox {
+    margin: 10px;
+}
+
+#spellInfoBox dd {
+    margin-bottom: 10px;
+}
+
+#spellInfoBox input {
+    width: 290px;
+}
+
+#spellInfoBox textarea {
+    width: 290px;
+    height: 120px;
 }
 
 .CodeMirror-line-numbers {

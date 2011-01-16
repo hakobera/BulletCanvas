@@ -32,6 +32,19 @@ require(['util/url'],
                     }
                 });
             });
+
+            $('#updateSpellInfo').click(function() {
+                $.ajax({
+                    url: '/api/spell/' + spellCode,
+                    type: 'POST',
+                    data: { spellName: $('#name').val(), spellDescription: $('#description').val() },
+                    success: function() {
+                    },
+                    error: function() {
+                        alert('Update failed');
+                    }
+                });
+            });
 		});
 	}
 );

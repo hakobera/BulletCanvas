@@ -27,9 +27,7 @@
 	<nav id="topnavi"></nav>
 	<section id="spellInfo">
 		<h1>${f:h(spellCard.name)}</h1>
-		<div>
-			${f:h(spellCard.description)}
-		</div>
+		<div>${f:br(f:nbsp(f:h(spellCard.description)))}</div>
 	</section>
 	<section id="watchBox">
 		<div id="previewBox">

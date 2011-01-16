@@ -1,0 +1,16 @@
+<div class="spellBox">
+	<article>
+	    <h3><a href="/watch/${code}">${name}</a></h3>
+	    <div class="thumbnail">
+	        <p class="spec">
+	            PV: ${pageViewPoint}<br/>
+	            FV: ${favoritePoint}
+	        </p>
+	    </div>
+	    <div class="description">${$item.trim(description)}</div>
+	</article>
+	<div class="controller">
+	    <a href="/spell/edit/${code}">改造</a>
+	    <a href="/spell/delete/${code}">削除</a>	
+	</div>
+</div>

@@ -25,6 +25,16 @@
 		<a href="/watch/${spellCard.code}">Watch Page</a>
 	</div>
 	<div id="iframeWrapper"></div>
+	<div id="spellInfoBox">
+        <dl>
+            <dt>スペル名</dt>
+            <dd><input type="text" name="name" id="name" value="${spellCard.name}" maxlength="200"/></dd>
+
+            <dt>コメント</dt>
+            <dd><textarea name="description" id="description">${spellCard.description}</textarea></dd>
+        </dl>
+	    <button id="updateSpellInfo">Update</button>
+	</div>
 </div>
 <div style="clear:both"></div>
 </body>

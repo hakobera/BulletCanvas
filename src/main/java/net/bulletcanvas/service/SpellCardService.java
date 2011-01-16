@@ -87,6 +87,17 @@ public abstract class SpellCardService {
 	}
 
 	/**
+	 * スペルカード情報を更新します。
+	 * 
+	 * @param spellCard スペルカード情報
+	 * @return スペルカード情報のインスタンス
+	 */
+	public static SpellCard update(SpellCard spellCard) {
+		Datastore.put(spellCard);
+		return spellCard;
+	}
+	
+	/**
 	 * スペル定義情報のみを更新します。
 	 * 
 	 * @param spellCode
