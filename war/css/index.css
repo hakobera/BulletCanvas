@@ -7,11 +7,12 @@ body {
 h2 {
 	padding: 5px 18px;
 	color: #fff;
-	background-color: #000;
-	opacity: 0.6;
+	background-color: #f00;
+	opacity: 0.8;
 	font-size: 16px;
 }
 
 section {
 	width: 100%;
+	padding-bottom: 20px;
 }

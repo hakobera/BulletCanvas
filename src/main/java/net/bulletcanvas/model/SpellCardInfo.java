@@ -1,0 +1,117 @@
+package net.bulletcanvas.model;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * SpellCard + 付加情報 - Spell 定義に対応する仮想 Model です。
+ */
+public class SpellCardInfo implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * スペルコード
+	 */
+	private String code;
+
+	/**
+	 * スペル名
+	 */
+	private String name;
+	
+	/**
+	 * スペルの説明
+	 */
+	private String description;
+	
+	/**
+	 * サムネイルの URL
+	 */
+	private String thumbnailUrl;
+	
+	/**
+	 * PV 数
+	 */
+	private Integer pageViewPoint;
+	
+	/**
+	 * お気に入り数
+	 */
+	private Integer favoritePoint;
+	
+	/**
+	 * 作成日時
+	 */
+	private Date createdAt;
+	
+	/**
+	 * 更新日時
+	 */
+	private Date updatedAt;
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	public Integer getPageViewPoint() {
+		return pageViewPoint;
+	}
+
+	public void setPageViewPoint(Integer pageViewPoint) {
+		this.pageViewPoint = pageViewPoint;
+	}
+
+	public Integer getFavoritePoint() {
+		return favoritePoint;
+	}
+
+	public void setFavoritePoint(Integer favoritePoint) {
+		this.favoritePoint = favoritePoint;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
+}

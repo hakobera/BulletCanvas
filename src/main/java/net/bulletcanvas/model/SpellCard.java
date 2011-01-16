@@ -33,12 +33,14 @@ public class SpellCard implements Serializable {
 	private String name;
 
 	/** 説明 */
+	@Attribute(unindexed = true)
 	private String description;
 
 	/** スペル・コード。各画面の URL に使用します。 */
 	private String code;
 	
 	/** スペル定義 */
+	@Attribute(unindexed = true)
 	private Text definition;
 
 	/** 作成日時 */

@@ -34,8 +34,10 @@ jQuery.fn.extend({
             y = cy;
         };
 
+        var wait = false;
         var onMove = function() {
-            if (clicked) {
+            if (clicked && !wait) {
+            	wait = true;
                 event.preventDefault();
                 var e = (event.touches ? event.touches[0] : event);
                 var px = e.pageX | 0;
@@ -53,6 +55,8 @@ jQuery.fn.extend({
                 y = Math.max(0, Math.min(2*cy, y));
 
                 pad.css({ 'left': x + 'px', 'top': y + 'px'});
+
+                setTimeout(function() { wait = false; }, 100);
             }
         };
 

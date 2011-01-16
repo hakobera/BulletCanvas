@@ -2,6 +2,7 @@ package net.bulletcanvas.service;
 
 import static com.google.appengine.api.datastore.Query.FilterOperator.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import net.bulletcanvas.meta.SpellCardMeta;
@@ -13,6 +14,7 @@ import org.slim3.datastore.Datastore;
 import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 /**
  * スペルカードに関連するサービスです。
@@ -69,7 +71,7 @@ public abstract class SpellCardService {
 			.filter(SpellCardMeta.get().code.getAttributeName(), EQUAL, spellCode)
 			.asSingle();
 	}
-	
+
 	/**
 	 * スペルコードに対応するスペルカード情報を検索します。
 	 * 
@@ -85,20 +87,12 @@ public abstract class SpellCardService {
 	}
 
 	/**
-	 * スペルカード情報を検索します。 検索結果は作成日時順にソートされます。
-	 * 
-	 * @return 作成日時順にソートされたスペルカード一覧
-	 */
-	public static List<SpellCard> findAll() {
-		Sort sort = new Sort(SpellCardMeta.get().createdAt.getName());
-		return Datastore.query(SpellCard.class).sort(sort).asList();
-	}
-	
-	/**
 	 * スペル定義情報のみを更新します。
 	 * 
-	 * @param spellCode Spell Code
-	 * @param spellDefintion Spell definition.
+	 * @param spellCode
+	 *            Spell Code
+	 * @param spellDefintion
+	 *            Spell definition.
 	 * @return スペルカード情報のインスタンス
 	 */
 	public static SpellCard updateDefinition(String spellCode, String spellDefintion) {
@@ -110,6 +104,43 @@ public abstract class SpellCardService {
 		spellCard.setDefinition(spellDefintion);
 		Datastore.put(spellCard);
 		return spellCard;
+	}
+
+	/**
+	 * スペルカード情報を検索します。 検索結果は作成日時降順にソートされます。
+	 * 
+	 * @param limit
+	 *            最大取得数
+	 * @return 作成日時降順にソートされたスペルカード一覧
+	 */
+	public static List<SpellCard> findAllNew(int limit) {
+		Sort sort = new Sort(SpellCardMeta.get().createdAt.getName(), SortDirection.DESCENDING);
+		return Datastore.query(SpellCard.class).sort(sort).limit(limit).asList();
+	}
+
+	/**
+	 * 指定したアカウントが保有するスペルカード情報を検索します。 検索結果は作成日時順にソートされます。
+	 * 
+	 * @param offset
+	 *            オフセット
+	 * @param limit
+	 *            最大取得数
+	 * @return 作成日時順にソートされたスペルカード一覧
+	 */
+	public static List<SpellCard> findAllByAccount(Long accountNumber, int offset, int limit) {
+		Account account = AccountService.findByAccountNumber(accountNumber);
+		if (account == null) {
+			return Collections.emptyList();
+		}
+		
+		Sort sort = new Sort(SpellCardMeta.get().createdAt.getName(), SortDirection.DESCENDING);
+		return Datastore
+			.query(SpellCard.class)
+			.filter(SpellCardMeta.get().accountKey.getAttributeName(), EQUAL, account.getKey())
+			.sort(sort)
+			.offset(offset)
+			.limit(limit)
+			.asList();
 	}
 
 }

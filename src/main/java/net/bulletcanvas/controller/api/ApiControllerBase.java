@@ -75,7 +75,7 @@ public abstract class ApiControllerBase extends Controller {
 	 */
 	protected void returnAsJson(String json, Date lastModified)
 			throws Exception {
-		write(json, "application/xml", lastModified);
+		write(json, "application/json", lastModified);
 	}
 
 	/**

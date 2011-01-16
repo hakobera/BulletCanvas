@@ -1,20 +1,20 @@
-define({
-	init: function() {
-		$.ajax({
-			url: '/login/check',
-			success: function(data) {
-				$('#account').show().html(data.screenName);
-				$('#login').remove();
-				$('#logout').show();
-				$('#newSpell').show();
-			},
-			error: function() {
-                $('#login').click(function(event) {
-                	event.preventDefault();
-                	$('#loginServiceBox').toggle();
-                });
-				$('#loginWrapper').show();
-			}
-		});
-	}
+define(['text!../../template/login.html', 'text!../../template/menu.html'],
+function(login, menu) {
+	return {
+		init: function() {
+			$.ajax({
+				url: '/login/check',
+				success: function(data) {
+					$.tmpl(menu, data).appendTo($('#topnavi'));
+				},
+				error: function() {
+					$.tmpl(login).appendTo($('#topnavi'));
+	                $('#login').click(function(event) {
+	                	event.preventDefault();
+	                	$('#loginServiceBox').toggle();
+	                });
+				}
+			});
+		}
+	};
 });

@@ -13,6 +13,7 @@
     <link href="/css/loginBox.css" rel="stylesheet" type="text/css"/>
 	<link href="/css/watch.css" rel="stylesheet" type="text/css" />
 	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
+    <script src="/js/lib/jquery/jquery.tmpl-1.0.0pre.js"></script>
 	<script src="/js/lib/codemirror/codemirror.js"></script>
 	<script data-main="spell/watch" src="/js/require.js"></script>
 </head>
@@ -23,32 +24,7 @@
 			<h1><span class="impact">DAN</span>MAKU<span class="version">BETA</span></h1>
 		</a>
 	</header>
-	<nav>
-		<ul>
-			<li id="account" style="display: none;"></li>
-			<li id="newSpell" style="display: none;">| <a href="/spell/create">スペカ作成</a></li>
-			<li id="logout" style="display: none;">| <a  href="/logout">ログアウト</a></li>
-            <li id="loginWrapper" style="display: none;">
-                <a id="login" href="#login">ログイン ▼</a>
-                <section id="loginServiceBox">
-                    <ul>
-                        <li>
-                            <a href="/login/twitter/auth">
-                                <img alt="Twitter" src="/images/login/twitter.png"/>
-                                <span>Twitter ID でログイン</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/login/google/auth">
-                                <img alt="Google" src="/images/login/google.png"/>
-                                <span>Google アカウントでログイン</span>
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-            </li>
-		</ul>
-	</nav>
+	<nav id="topnavi"></nav>
 	<section id="spellInfo">
 		<h1>${f:h(spellCard.name)}</h1>
 		<div>

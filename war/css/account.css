@@ -1,0 +1,48 @@
+@CHARSET "utf-8";
+
+body {
+	background: url("../images/Magic_formation.jpg");
+}
+
+h2 {
+	padding: 5px 18px;
+	margin-bottom: 10px;
+	color: #fff;
+	background-color: #000;
+	opacity: 0.8;
+	font-size: 16px;
+}
+
+section {
+	width: 100%;
+	padding-bottom: 20px;
+}
+
+#accountInfo {
+	width: 300px;
+	height: 80px;
+	margin: 10px auto;
+	padding: 20px;
+	background-color: #fff;
+	opacity: 0.8;
+}
+
+#accountInfo div {
+	float: left;
+	width: 100px;
+}
+
+#accountInfo table {
+	float: left;
+	border: 0;
+}
+
+#accountInfo table td.label {
+	text-align: right;
+	font-weight: bold;
+}
+
+#accountInfo table td.value {
+	padding-left: 10px;
+	text-align: left;
+}

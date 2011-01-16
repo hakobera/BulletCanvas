@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.bulletcanvas.model.Account;
@@ -115,6 +116,15 @@ public abstract class ControllerBase extends Controller {
 					// ignore
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Write debug log.
+	 */
+	protected void debug(String message, Object... params) {
+		if (logger.isLoggable(Level.FINE)) {
+			logger.fine(String.format(message, params));
 		}
 	}
 	

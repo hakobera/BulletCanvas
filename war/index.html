@@ -12,6 +12,7 @@
     <link href="/css/loginBox.css" rel="stylesheet" type="text/css"/>
     <link href="/css/spellcard.css" rel="stylesheet" type="text/css"/>
 	<script src="/js/lib/jquery/jquery-1.4.4.js"></script>
+    <script src="/js/lib/jquery/jquery.tmpl-1.0.0pre.js"></script>
 	<script data-main="index" src="/js/require.js"></script>
 </head>
 <body>
@@ -21,117 +22,11 @@
 			<h1><span class="impact">DAN</span>MAKU<span class="version">BETA</span></h1>
 		</a>
 	</header>
-	<nav>
-		<ul>
-			<li id="account" style="display: none;"></li>
-			<li id="newSpell" style="display: none;">| <a href="/spell/create">スペル開発</a></li>
-			<li id="logout" style="display: none;">| <a  href="/logout">ログアウト</a></li>
-            <li id="loginWrapper" style="display: none;">
-                <a id="login" href="#login">ログイン ▼</a>
-                <section id="loginServiceBox">
-                    <ul>
-                        <li>
-                            <a href="/login/twitter/auth">
-                                <img alt="Twitter" src="/images/login/twitter.png"/>
-                                <span>Twitter ID でログイン</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/login/google/auth">
-                                <img alt="Google" src="/images/login/google.png"/>
-                                <span>Google アカウントでログイン</span>
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-            </li>
-		</ul>
-	</nav>
-	<h2>New</h2>
-	<section>
-		<article>
-			<h3><a href="#">大結界「博麗弾幕結界」</a></h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<div class="description">
-				簡単な説明文をここにかけるよ
-			</div>
-		</article>
-		<article>
-			<h3>恋符「ノンディレクショナルレーザー」</h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<p class="description">
-				１２３４５６７８９０
-				一二三四五六七八九〇
-				1234567890
-			</p>
-		</article>
-		<article>
-			<h3>月眼「月兎遠隔催眠術」</h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<p class="description">
-                １２３４５６７８９０
-                一二三四五六七八九〇
-			</p>
-		</article>
-		<article>
-			<h3>難題「仏の御石の鉢　-砕けぬ意思-」</h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<p class="description">
-                １２３４５６７８９０
-                一二三四五六七八九〇
-                1234567890
-			</p>
-		</article>
-		<article>
-			<h3>野符「GHQクライシス」</h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<p class="description">
-                １２３４５６７８９０
-                一二三四五六七八九〇
-                1234567890
-			</p>
-		</article>
-	</section>
-	<h2>Hot</h2>
-	<section>
-		<article>
-			<h3><a href="#">大結界「博麗弾幕結界」</a></h3>
-			<div class="thumbnail">
-                <p class="spec">
-                    PV: 100000<br/>
-                    FV: 500000
-                </p>
-			</div>
-			<p class="description">
-				簡単な説明文をここにかけるよ
-			</p>
-		</article>
-	</section>
+	<nav id="topnavi"></nav>
+	<h2>新規開発スペル</h2>
+	<section id="newDevelopped"></section>
+	<h2>激アツスペル</h2>
+	<section id="hot"></section>
 	<footer>
 		<span>&copy;2011 hakobera</span>
 	</footer>

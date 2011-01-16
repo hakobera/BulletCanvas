@@ -1,5 +1,6 @@
 package net.bulletcanvas.service;
 
+import net.bulletcanvas.meta.AccountMeta;
 import net.bulletcanvas.model.Account;
 import net.bulletcanvas.model.AccountRelation;
 
@@ -7,6 +8,7 @@ import org.slim3.datastore.Datastore;
 import org.slim3.datastore.EntityNotFoundRuntimeException;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 
 public class AccountService {
 
@@ -23,6 +25,8 @@ public class AccountService {
 	public static Account put(String accountId, Account account) {
 		Key accountKey = Datastore.put(account);
 		account.setKey(accountKey);
+		account.setAccountNumber(accountKey.getId());
+		Datastore.put(account);
 
 		Key relationKey = Datastore.createKey(AccountRelation.class, accountId);
 		AccountRelation relation = new AccountRelation();
@@ -57,6 +61,22 @@ public class AccountService {
 		Key relationKey = Datastore.createKey(AccountRelation.class, accountId);
 		AccountRelation relation = Datastore.get(AccountRelation.class, relationKey);
 		Account account = Datastore.get(Account.class, relation.getAccountKey());
+		return account;
+	}
+
+	/**
+	 * アカウント情報をアカウント番号から取得します。
+	 * 
+	 * @param accountNumber
+	 *            アカウント番号
+	 * @return アカウント情報
+	 */
+	public static Account findByAccountNumber(Long accountNumber) {
+		Account account =
+			Datastore
+				.query(Account.class)
+				.filter(AccountMeta.get().accountNumber.getAttributeName(), FilterOperator.EQUAL, accountNumber)
+				.asSingle();
 		return account;
 	}
 

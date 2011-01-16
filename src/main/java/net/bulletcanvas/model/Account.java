@@ -24,6 +24,11 @@ public class Account implements Serializable {
 	private Long version;
 
 	/**
+	 * アカウント番号
+	 */
+	private Long accountNumber;
+
+	/**
 	 * 画面に表示する名前。
 	 */
 	private String screenName;
@@ -150,6 +155,14 @@ public class Account implements Serializable {
 
 	public Date getUpdatedAt() {
 		return updatedAt;
+	}
+
+	public void setAccountNumber(Long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public Long getAccountNumber() {
+		return accountNumber;
 	}
 
 }
