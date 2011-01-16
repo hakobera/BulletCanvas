@@ -8,7 +8,12 @@ require(['util/url'],
 	
 		require.ready(function() {
 			createIframe();
-			
+
+            $('#spellInfoEdit').click(function(event) {
+	            event.preventDefault();
+	            $('#spellInfoForm').toggle('fast');
+	        });
+
 			var editor = CodeMirror.fromTextArea('spellDefinition', {
 			    height: "100%",
 			    width: '95%',
@@ -19,7 +24,8 @@ require(['util/url'],
 			    lineNumbers: true
 			});
 				    
-			$('#reloadScript').click(function() {
+			$('#reloadScript').click(function(event) {
+                event.preventDefault();
                 $.ajax({
                     url: '/api/spellDefinition/' + spellCode,
                     type: 'POST',
@@ -34,11 +40,13 @@ require(['util/url'],
             });
 
             $('#updateSpellInfo').click(function() {
+                event.preventDefault();
                 $.ajax({
                     url: '/api/spell/' + spellCode,
                     type: 'POST',
                     data: { spellName: $('#name').val(), spellDescription: $('#description').val() },
                     success: function() {
+                        $('#spellName').html($('#name').val());
                     },
                     error: function() {
                         alert('Update failed');

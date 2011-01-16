@@ -21,6 +21,7 @@ define(function() {
         var path = s[0];
         var pathParams = path.split('/');
         var lastPath = pathParams[pathParams.length - 1];
+        lastPath = lastPath.replace('#', '');
         return lastPath;
     };
 	

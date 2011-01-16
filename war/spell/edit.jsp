@@ -21,20 +21,25 @@
 </div>
 <div id="previewBox">
 	<div id="controllerBox">
-		<button id="reloadScript">Save &amp; Reload</button>
-		<a href="/watch/${spellCard.code}">Watch Page</a>
+		<a href="#" id="reloadScript">Save &amp; Reload</a>
+		<a href="/watch/${spellCard.code}">Finish Edit</a>
 	</div>
-	<div id="iframeWrapper"></div>
-	<div id="spellInfoBox">
-        <dl>
-            <dt>スペル名</dt>
-            <dd><input type="text" name="name" id="name" value="${spellCard.name}" maxlength="200"/></dd>
+	<ul id="spellInfoBox">
+        <li>
+            <a id="spellInfoEdit" href="#spellInfoEdit"><span id="spellName">${spellCard.name}</span> ▼</a>
+            <section id="spellInfoForm">
+                <dl>
+                    <dt>弾幕名</dt>
+                    <dd><input type="text" name="name" id="name" value="${spellCard.name}" maxlength="200"/></dd>
 
-            <dt>コメント</dt>
-            <dd><textarea name="description" id="description">${spellCard.description}</textarea></dd>
-        </dl>
-	    <button id="updateSpellInfo">Update</button>
-	</div>
+                    <dt>コメント</dt>
+                    <dd><textarea name="description" id="description">${spellCard.description}</textarea></dd>
+                </dl>
+                <button id="updateSpellInfo">Update</button>
+            </section>
+        </li>
+    </ul>
+	<div id="iframeWrapper"></div>
 </div>
 <div style="clear:both"></div>
 </body>
