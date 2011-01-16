@@ -1,7 +1,12 @@
-require(['common/layout'],
-	function(layout) {
+require(['common/layout', 'util/url', 'text!../../template/like.html'],
+	function(layout, url, like) {
 		require.ready(function() {
 			layout.init();
+
+            var spellCode = url.pathParam(window.location.href);
+
+            $.tmpl(like, { url: 'watch%2f' + spellCode }).appendTo($('#likeBox'));
+
 			
 			CodeMirror.fromTextArea('spellDefinition', {
 			  height: "100%",

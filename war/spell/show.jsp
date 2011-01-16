@@ -8,6 +8,7 @@
 	<meta name="format-detection" content="telephone=no"/>
 	<title>${f:h(spellCard.name)} - DANMAKU.jp</title>
 	<link rel="apple-touch-icon" type="image/png" href="/images/home_icon.png">
+	<link rel="mixi-check-image" type="image/jpeg" href="http://www.danmaku.jp/images/noimage.jpg" />
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:regular,bold' rel='stylesheet' type='text/css'>
 	<link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/loginBox.css" rel="stylesheet" type="text/css"/>
@@ -29,6 +30,7 @@
 		<h1>${f:h(spellCard.name)}</h1>
 		<div>${f:br(f:nbsp(f:h(spellCard.description)))}</div>
 	</section>
+	<section id="likeBox"></section>
 	<section id="watchBox">
 		<div id="previewBox">
 			<div id="iframeWrapper">

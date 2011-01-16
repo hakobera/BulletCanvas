@@ -85,3 +85,8 @@ footer {
 	background: #000;
 	text-align: center;
 }
+
+#likeBox {
+    padding: 5px;
+    text-align: right;
+}
