@@ -26,8 +26,8 @@ function(login, menu) {
                     	trim: function(s) {
                     		if (s && typeof s === 'string') {
 	                    		s = s.replace(/\n|\r|\n\r/g, '');
-	                    		if (s.length >= 35) {
-	                    			s = s.substring(0, 35) + '...';
+	                    		if (s.length >= 30) {
+	                    			s = s.substring(0, 30) + '...';
 	                    		}
 	                    		return s;
                     		}

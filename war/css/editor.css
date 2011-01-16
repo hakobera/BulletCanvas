@@ -10,6 +10,12 @@ body {
 	border-bottom: 1px solid #000;
 }
 
+#spellDefinition {
+    width: 99%;
+    height: 700px;
+    margin: 0 auto;
+}
+
 #editorBox {
 	width: 100%;
 	height: 100%;
@@ -87,11 +93,11 @@ body {
 }
 
 #spellInfoBox input {
-    width: 330px;
+    width: 320px;
 }
 
 #spellInfoBox textarea {
-    width: 330px;
+    width: 325px;
     height: 80px;
 }
 

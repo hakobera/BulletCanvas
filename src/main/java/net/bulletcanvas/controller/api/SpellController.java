@@ -59,16 +59,19 @@ public class SpellController extends ApiControllerBase {
 	private boolean validate(String spellCode, String spellName, String spellDescription) {
 		if (StringUtil.isEmpty(spellCode)) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			debug("spellCode is empty");
 			return false;
 		}
 
 		if (StringUtil.isEmpty(spellName)) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			debug("spellName is empty");
 			return false;
 		}
 
 		if (spellName.length() >= 200) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			debug("spellName maxlength overflow");
 			return false;
 		}
 		

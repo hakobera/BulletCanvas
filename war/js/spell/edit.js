@@ -14,16 +14,27 @@ require(['util/url'],
 	            $('#spellInfoForm').toggle('fast');
 	        });
 
-			var editor = CodeMirror.fromTextArea('spellDefinition', {
-			    height: "100%",
-			    width: '95%',
-			    parserfile: "parsexml.js",
-			    stylesheet: "/css/xmlcolors.css",
-			    path: "/js/lib/codemirror/",
-			    continuousScanning: 500,
-			    lineNumbers: true
-			});
-				    
+            var ua = window.navigator.userAgent;
+			var editor = null;
+
+            if (ua.indexOf('iPad') !== -1) {
+                editor = {
+                    getCode: function() {
+                        return $('#spellDefinition').val();
+                    }
+                };
+            } else {
+                editor = CodeMirror.fromTextArea('spellDefinition', {
+                    height: "100%",
+                    width: '95%',
+                    parserfile: "parsexml.js",
+                    stylesheet: "/css/xmlcolors.css",
+                    path: "/js/lib/codemirror/",
+                    continuousScanning: 500,
+                    lineNumbers: true
+                });
+            }
+
 			$('#reloadScript').click(function(event) {
                 event.preventDefault();
                 $.ajax({

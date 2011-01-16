@@ -1,6 +1,6 @@
 require(['taskSystem', 'util/url'], function(TaskSystem, Url) {
     require.ready(function() {
-        var FPS = 30;
+        var FPS = 60;
 
         var pad = $('#analogpad').analogpad();
         var taskSystem = TaskSystem();
