@@ -39,7 +39,7 @@
 		</div>
 		<div id="editorBox">
 			<div id="codeBox">
-				<textarea id="spellDefinition">${spellCard.definitionAsString}</textarea>
+				<textarea id="spellDefinition" style="display: none">${spellCard.definitionAsString}</textarea>
 			</div>
 		</div>
 		<div style="clear:both"></div>

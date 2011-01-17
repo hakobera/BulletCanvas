@@ -25,7 +25,6 @@ public class NewDeveloppedController extends ApiControllerBase {
 			SpellCardInfo info = SpellCardInfo.createFrom(spellCard);
 			
 			// dummy info
-			info.setThumbnailUrl("http://www.danmaku.jp/api/spellThumbnail/" + spellCard.getCode());
 			info.setPageViewPoint(Double.valueOf(Math.floor(Math.random() * 1000)).intValue());
 			info.setFavoritePoint(Double.valueOf(Math.floor(Math.random() * 1000)).intValue());
 			

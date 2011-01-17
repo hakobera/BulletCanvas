@@ -41,7 +41,6 @@ public class SpellCardsController extends ApiControllerBase {
 			SpellCardInfo info = SpellCardInfo.createFrom(spellCard);
 
 			// dummy info
-			info.setThumbnailUrl("http://www.danmaku.jp/images/noimage.jpg");
 			info.setPageViewPoint(Double.valueOf(Math.floor(Math.random() * 1000)).intValue());
 			info.setFavoritePoint(Double.valueOf(Math.floor(Math.random() * 1000)).intValue());
 

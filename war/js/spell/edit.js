@@ -18,6 +18,7 @@ require(['util/url'],
 			var editor = null;
 
             if (ua.indexOf('iPad') !== -1) {
+            	$('#spellDefinition').show();
                 editor = {
                     getCode: function() {
                         return $('#spellDefinition').val();
