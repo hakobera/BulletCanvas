@@ -132,7 +132,7 @@ public class SpellCardInfo implements Serializable {
 		info.setAccountNumber(spellCard.getAccountNumber());
 		info.setCode(spellCard.getCode());
 		info.setName(spellCard.getName());
-		info.setDescription(spellCard.getDescription());
+		info.setDescription(spellCard.getDescription().getValue());
 		info.setCreatedAt(spellCard.getCreatedAt());
 		info.setUpdatedAt(spellCard.getUpdatedAt());
 		return info;

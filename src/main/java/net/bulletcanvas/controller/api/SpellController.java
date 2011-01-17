@@ -2,6 +2,7 @@ package net.bulletcanvas.controller.api;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.repackaged.com.google.common.base.StringUtil;
 
 import net.arnx.jsonic.JSON;
@@ -51,7 +52,7 @@ public class SpellController extends ApiControllerBase {
 				return;
 			}
 			spellCard.setName(spellName);
-			spellCard.setDescription(spellDescription);
+			spellCard.setDescription(new Text(spellDescription));
 			SpellCardService.update(spellCard);			
 		}
 	}

@@ -9,4 +9,6 @@ public interface Parameter {
 	String SPELL_NAME = "spellName";
 	String SPELL_DESCRIPTION = "spellDescription";
 	
+	String THUMBNAIL_DATA_URL = "thumbnailDataUrl";
+	
 }

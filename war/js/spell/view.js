@@ -48,6 +48,26 @@ require(['taskSystem', 'util/url'], function(TaskSystem, Url) {
                 });
 
                 play.triggerHandler('click');
+                
+                if (params.edit) {
+	                $('#capture').show().click(function(event) {
+	                	event.preventDefault();
+	                	var imageData = taskSystem.captureScreen();
+	                	$.ajax({
+	                		url: '/api/spellThumbnail/' + params.spellCode,
+	                		type: 'POST',
+	                		data: { thumbnailDataUrl: imageData },
+	                		success: function() {
+	                			
+	                		},
+	                		error: function() {
+	                			alert('Error update thumbnail');
+	                		}
+	                	});
+	                });
+                } else {
+                	$('#capture').remove();
+                }
             }
         });
     });

@@ -50,6 +50,14 @@ define(['lib/uuid'], function(uuid) {
             node.appendChild(frontCanvas);
         };
         
+        /**
+         * Convert canvas pixel data to Data URL.
+         * @return {String} Data URL
+         */
+        that.toDataUrl = function() {
+        	return frontCanvas.toDataURL('images/png');
+        };
+        
         return that;
     };
     

@@ -23,18 +23,27 @@ function(login, menu) {
                 cache: false,
                 success: function(data) {
                     $.tmpl(template, data, {
-                    	trim: function(s) {
+                    	trim: function(s, len) {
                     		if (s && typeof s === 'string') {
 	                    		s = s.replace(/\n|\r|\n\r/g, '');
-	                    		if (s.length >= 30) {
-	                    			s = s.substring(0, 30) + '...';
+	                    		if (s.length >= len) {
+	                    			s = s.substring(0, len) + '...';
 	                    		}
 	                    		return s;
                     		}
                     		return '';
                     	}
                     }).appendTo(target);
-                    
+
+                    $('.thumbnail', target).each(function() {
+                        var self = $(this);
+                        var dataUrl = $(this).attr('data-url');
+                        $.get(dataUrl, function(data) {
+                            var img = $('<img>').attr({ src: data, width: 175, height: 175 });
+                            img.appendTo(self);
+                        });
+                    });
+
                     if (angle) {
 	                    $('article', target).each(function() {
 	                        var deg = Math.random() * 15;

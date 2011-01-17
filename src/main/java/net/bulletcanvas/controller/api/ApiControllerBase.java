@@ -95,6 +95,14 @@ public abstract class ApiControllerBase extends Controller {
 		}
 	}
 
+	/**
+	 * 画像形式でレスポンスを返します。
+	 */
+	protected void returnAsDataUrl(String dataUrl, Date lastModified)
+			throws Exception {
+		write(dataUrl, "text/plain", lastModified);
+	}
+	
 	private void write(String content, String contentType, Date lastModified) throws Exception {
 		response.setContentType(contentType);
 		response.setCharacterEncoding("utf-8");

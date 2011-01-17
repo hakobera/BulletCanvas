@@ -48,6 +48,14 @@ function(canvas) {
         that.flip = function() {
             screen.flip();
         };
+        
+        /**
+         * Convert screen data to Data URL.
+         * @return {String} Data URL
+         */
+        that.toDataUrl = function() {
+        	return screen.toDataUrl();
+        };
 
         /**
          * Return point(x,y) is in screen or not.

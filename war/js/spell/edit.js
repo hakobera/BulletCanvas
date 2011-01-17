@@ -2,7 +2,7 @@ require(['util/url'],
 	function(url) {
         var spellCode = url.pathParam(window.location.href);
 	 	var createIframe = function() {
-	 		var iframe = '<iframe src="/spell/view.html?spellCode=' + spellCode + '" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>'
+	 		var iframe = '<iframe src="/spell/view.html?edit=true&spellCode=' + spellCode + '&_=' + new Date().getTime() + '" width="320" height="440" border="0" frameborder="0" scrolling="no"></iframe>'
 	 		$('#iframeWrapper').html(iframe);
 		};
 	
@@ -63,6 +63,15 @@ require(['util/url'],
                         alert('Update failed');
                     }
                 });
+            });
+            
+            $.ajax({
+            	url: '/api/spellThumbnail/' + spellCode,
+            	type: 'GET',
+            	success: function(data) {
+            		var html = '<img src="' + data + '" width="175" height="175"/>';
+            		$('#thumbnail').html(html);
+            	}
             });
 		});
 	}

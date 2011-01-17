@@ -1,10 +1,10 @@
 <article>
-    <h3><a href="/watch/${code}">${name}</a></h3>
-    <div class="thumbnail">
+    <h3><a href="/watch/${code}">${$item.trim(name, 20)}</a></h3>
+    <div class="thumbnail" data-url="${thumbnailUrl}">
         <p class="spec">
             PV: ${pageViewPoint}<br/>
             FV: ${favoritePoint}
         </p>
     </div>
-    <div class="description">${$item.trim(description)}</div>
+    <div class="description">${$item.trim(description, 30)}</div>
 </article>

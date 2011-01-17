@@ -464,6 +464,14 @@ function(TaskManager, Parser, Expression, TaskFactory, TaskType, CommandFactory,
         that.setController = function(ctrl) {
             controller = ctrl;
         };
+        
+        /**
+         * Convert screen data to Data URL.
+         * @return {String} Data URL
+         */
+        that.captureScreen = function() {
+        	return drawContext.toDataUrl();
+        };
 
         return that;
     };

@@ -39,7 +39,7 @@ public class SpellCard implements Serializable {
 
 	/** 説明 */
 	@Attribute(unindexed = true)
-	private String description;
+	private Text description;
 
 	/** スペル・コード。各画面の URL に使用します。 */
 	private String code;
@@ -140,11 +140,11 @@ public class SpellCard implements Serializable {
 		return name;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(Text description) {
 		this.description = description;
 	}
 
-	public String getDescription() {
+	public Text getDescription() {
 		return description;
 	}
 

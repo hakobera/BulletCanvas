@@ -34,6 +34,9 @@
 
                     <dt>コメント</dt>
                     <dd><textarea name="description" id="description">${spellCard.description}</textarea></dd>
+                    
+                    <dt>サムネイル</dt>
+                    <dd id="thumbnail"></dd>
                 </dl>
                 <button id="updateSpellInfo">Update</button>
             </section>
