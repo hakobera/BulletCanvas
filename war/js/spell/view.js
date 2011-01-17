@@ -57,8 +57,10 @@ require(['taskSystem', 'util/url'], function(TaskSystem, Url) {
 	                		url: '/api/spellThumbnail/' + params.spellCode,
 	                		type: 'POST',
 	                		data: { thumbnailDataUrl: imageData },
-	                		success: function() {
-	                			
+	                		success: function(data) {
+	                			if (parent && parent.updateThumbnail) {
+                                    parent.updateThumbnail(data);
+                                }
 	                		},
 	                		error: function() {
 	                			alert('Error update thumbnail');

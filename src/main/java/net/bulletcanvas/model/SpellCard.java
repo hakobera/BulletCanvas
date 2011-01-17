@@ -147,6 +147,10 @@ public class SpellCard implements Serializable {
 	public Text getDescription() {
 		return description;
 	}
+	
+	public String getDescriptionAsString() {
+		return description == null ? null : description.getValue();
+	}
 
 	public void setCode(String code) {
 		this.code = code;

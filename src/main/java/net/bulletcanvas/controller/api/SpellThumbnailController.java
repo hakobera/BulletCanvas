@@ -3,6 +3,7 @@ package net.bulletcanvas.controller.api;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slim3.datastore.Datastore;
+import org.slim3.datastore.EntityNotFoundRuntimeException;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Text;
@@ -29,9 +30,12 @@ public class SpellThumbnailController extends ApiControllerBase {
 		}
 		
 		Key key = Datastore.createKey(SpellThumbnail.class, spellCode);
-		SpellThumbnail thumbnail = Datastore.get(SpellThumbnailMeta.get(), key);
-		
-		returnAsDataUrl(thumbnail.getDataUrl().getValue(), thumbnail.getUpdatedAt());
+		try {
+			SpellThumbnail thumbnail = Datastore.get(SpellThumbnailMeta.get(), key);
+			returnAsDataUrl(thumbnail.getDataUrl().getValue(), thumbnail.getUpdatedAt());
+		} catch (EntityNotFoundRuntimeException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+		}
 	}
 
 	/**

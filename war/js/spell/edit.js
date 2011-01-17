@@ -64,15 +64,19 @@ require(['util/url'],
                     }
                 });
             });
-            
-            $.ajax({
-            	url: '/api/spellThumbnail/' + spellCode,
-            	type: 'GET',
-            	success: function(data) {
-            		var html = '<img src="' + data + '" width="175" height="175"/>';
-            		$('#thumbnail').html(html);
-            	}
-            });
+
+            // iframe から呼び出せるように意図的にグローバル空間にエクスポート
+            updateThumbnail = function() {
+                $.ajax({
+                    url: '/api/spellThumbnail/' + spellCode,
+                    type: 'GET',
+                    success: function(data) {
+                        var html = '<img src="' + data + '" width="175" height="175"/>';
+                        $('#thumbnail').html(html);
+                    }
+                });
+            };
+            updateThumbnail();
 		});
 	}
 );
